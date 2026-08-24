@@ -1,0 +1,354 @@
+/* =========================================
+   AP CLASSES PAGE
+========================================= */
+
+.guide-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-bottom: 120px;
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.page-header {
+  position: relative;
+  min-height: 48vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(45, 125, 210, 0.18),
+    transparent 42%
+  );
+}
+
+.page-header-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(45, 130, 220, 0.09);
+  filter: blur(100px);
+  animation: pageGlow 6s ease-in-out infinite;
+}
+
+@keyframes pageGlow {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+.page-header-content {
+  position: relative;
+  z-index: 5;
+  width: min(900px, 90%);
+  padding-top: 60px;
+  animation: pageAppear 0.9s ease forwards;
+}
+
+@keyframes pageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-header-number {
+  margin: 0 0 20px;
+  color: #63aef5;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.page-header-subtitle {
+  max-width: 650px;
+  margin: 25px auto 0;
+  color: #91a4b8;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* =========================================
+   GENERAL
+========================================= */
+
+.section-label {
+  margin: 0 0 12px;
+  color: #63aef5;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.guide-intro {
+  padding: 100px 6vw 70px;
+}
+
+.guide-intro h2 {
+  margin: 0;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.guide-intro h2 span {
+  color: #60758c;
+}
+
+.guide-intro > p:last-child {
+  max-width: 700px;
+  margin: 28px 0 0;
+  color: #91a4b8;
+  line-height: 1.8;
+}
+
+/* =========================================
+   AP INFO CARDS
+========================================= */
+
+.ap-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 0 6vw 100px;
+}
+
+.ap-info-card {
+  position: relative;
+  min-height: 240px;
+  padding: 30px;
+  border: 1px solid rgba(120, 180, 230, 0.1);
+  background: linear-gradient(
+    145deg,
+    rgba(27, 52, 79, 0.8),
+    rgba(13, 28, 44, 0.92)
+  );
+  transition: 0.3s ease;
+}
+
+.ap-info-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(90, 170, 245, 0.35);
+  box-shadow: 0 15px 45px rgba(20, 100, 180, 0.15);
+}
+
+.ap-card-number {
+  display: block;
+  margin-bottom: 55px;
+  color: #63aef5;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.ap-info-card h3 {
+  margin: 0 0 14px;
+  color: #e6edf5;
+  font-size: 1.35rem;
+}
+
+.ap-info-card p {
+  margin: 0;
+  color: #91a3b5;
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+
+/* =========================================
+   TIMELINE
+========================================= */
+
+.ap-timeline {
+  padding: 90px 6vw;
+}
+
+.ap-timeline > h2,
+.all-ap > h2 {
+  margin: 0 0 40px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.timeline-column {
+  min-width: 0;
+  border-top: 1px solid rgba(120, 180, 230, 0.18);
+}
+
+.timeline-column h3 {
+  margin: 20px 0 22px;
+  color: #dce7f2;
+  font-size: 1.15rem;
+}
+
+.timeline-courses {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.timeline-courses div {
+  padding: 13px 14px;
+  border: 1px solid rgba(120, 180, 230, 0.08);
+  background: rgba(20, 39, 59, 0.55);
+  color: #aebdcb;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  transition: 0.25s ease;
+}
+
+.timeline-courses div:hover {
+  transform: translateX(4px);
+  border-color: rgba(90, 170, 245, 0.25);
+  color: #dce7f2;
+}
+
+/* =========================================
+   ALL AP COURSES
+========================================= */
+
+.all-ap {
+  padding: 90px 6vw 40px;
+}
+
+.ap-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ap-category {
+  padding: 30px;
+  border: 1px solid rgba(120, 180, 230, 0.09);
+  background: linear-gradient(
+    145deg,
+    rgba(27, 52, 79, 0.7),
+    rgba(13, 28, 44, 0.85)
+  );
+  transition: 0.3s ease;
+}
+
+.ap-category:hover {
+  transform: translateY(-5px);
+  border-color: rgba(90, 170, 245, 0.25);
+}
+
+.ap-category h3 {
+  margin: 0 0 22px;
+  color: #e3ebf3;
+  font-size: 1.3rem;
+}
+
+.ap-category ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ap-category li {
+  position: relative;
+  padding: 10px 0 10px 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: #91a3b5;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.ap-category li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #63aef5;
+}
+
+.ap-category li:first-child {
+  border-top: none;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 1000px) {
+  .ap-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ap-category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .page-header {
+    min-height: 42vh;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2.8rem, 14vw, 5rem);
+  }
+
+  .guide-intro {
+    padding-top: 65px;
+  }
+
+  .ap-info-grid {
+    padding-bottom: 60px;
+  }
+
+  .ap-timeline,
+  .all-ap {
+    padding-top: 60px;
+  }
+
+  .timeline-grid,
+  .ap-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ap-info-card {
+    min-height: auto;
+  }
+
+  .ap-card-number {
+    margin-bottom: 35px;
+  }
+}

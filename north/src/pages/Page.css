@@ -1,0 +1,108 @@
+/* =========================================
+   PAGE
+========================================= */
+
+.page {
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.page-header {
+  position: relative;
+  min-height: 48vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-align: center;
+  background: radial-gradient(
+    circle at 50% 55%,
+    rgba(45, 125, 210, 0.18),
+    transparent 42%
+  );
+}
+
+.page-header-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(45, 130, 220, 0.09);
+  filter: blur(100px);
+  animation: pageGlow 6s ease-in-out infinite;
+}
+
+@keyframes pageGlow {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+.page-header-content {
+  position: relative;
+  z-index: 5;
+  width: min(900px, 90%);
+  padding-top: 60px;
+  animation: pageAppear 0.9s ease forwards;
+}
+
+@keyframes pageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-header-number {
+  margin: 0 0 20px;
+  color: #63aef5;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.page-header-subtitle {
+  max-width: 650px;
+  margin: 25px auto 0;
+  color: #91a4b8;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* =========================================
+   GENERAL
+========================================= */
+
+.section-label {
+  margin: 0 0 10px;
+  color: #63aef5;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
