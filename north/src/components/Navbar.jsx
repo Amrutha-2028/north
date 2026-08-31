@@ -13,6 +13,7 @@ function Navbar() {
         <Link to="/courses">Courses</Link>
         <Link to="/schedule">Planning a Schedule</Link>
         <Link to="/ap-classes">AP Classes</Link>
+        <Link to="/gpa">GPA Calculator</Link>
       </div>
 
       <Link to="/courses" className="nav-button">

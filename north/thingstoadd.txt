@@ -1,0 +1,34 @@
+School Help Website
+
+The main focus of the website don’t try to collect data as we don’t know how to code that yet, but mainly implement HTMLCSS and JavaScript to create a helpful website of plane information not actual implementation of actual tracking, but just info
+
+Start from here
+
+Section of each course typical in high school
+How to frame your schedule and plan for future years
+Expanation of each aps and when you would take them
+An abt us page how we r different as its all places in one
+add a submit info form
+
+
+Dig into specifics
+
+GPA Calculator
+What type of extracurriculars - internships, cold emails, clubs, comps, projects, leadership
+ - add things to do in summer LITERALLY SO FLIPPING IMPORTANT
+how to choose which college you want to go to
+Examples of good resume things like creating websites yadayada
+Leadership roles are important but prjects are even more
+How to study for APs
+How to study for ACt
+Volunteer hours tracker helper
+What type of volunteer hours?
+Resume updating page - add ur aftivities and it frames it for you
+Scholarships and financial aid
+
+
+Study page 
+
+Pomodoro timer
+Motivation page
+Links to chill music

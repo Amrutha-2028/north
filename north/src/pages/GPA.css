@@ -1,0 +1,494 @@
+/* =========================================
+   GPA PAGE
+========================================= */
+
+.gpa-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   INTRO — SMALLER
+========================================= */
+
+.gpa-intro {
+  padding: 55px 6vw 35px;
+  max-width: 900px;
+}
+
+.gpa-intro h2 {
+  margin: 0;
+  font-size: clamp(2.7rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.gpa-intro h2 span {
+  color: #637890;
+}
+
+.gpa-intro > p:not(.section-label) {
+  max-width: 760px;
+  margin: 18px 0 0;
+  color: #91a3b5;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   CALCULATOR
+========================================= */
+
+.calculator-section {
+  padding: 35px 6vw 90px;
+}
+
+.calculator-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.calculator-heading h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.calculator-heading h2 span {
+  color: #637890;
+}
+
+.course-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.course-total strong {
+  color: #63aef5;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.course-total span {
+  margin-top: 6px;
+  color: #71859b;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+
+/* =========================================
+   RESULTS — AT THE TOP
+========================================= */
+
+.gpa-results {
+  margin: 0 0 30px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.result-card {
+  padding: 25px 30px;
+  border: 1px solid rgba(120, 180, 230, 0.1);
+  background: linear-gradient(
+    145deg,
+    rgba(27, 52, 79, 0.75),
+    rgba(13, 28, 44, 0.9)
+  );
+}
+
+.result-card.featured {
+  border-color: rgba(90, 170, 245, 0.3);
+}
+
+.result-card span {
+  color: #8da2b5;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.result-card strong {
+  display: block;
+  margin: 10px 0 4px;
+  color: #eef6ff;
+  font-size: clamp(2.7rem, 5vw, 4.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+
+.result-card p {
+  margin: 0;
+  color: #71859b;
+  font-size: 0.65rem;
+}
+
+
+/* =========================================
+   YEARS — 2 × 2
+========================================= */
+
+.years-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.gpa-year {
+  padding: 22px;
+  border: 1px solid rgba(120, 180, 230, 0.1);
+  background: rgba(18, 37, 57, 0.55);
+}
+
+.year-heading {
+  margin-bottom: 15px;
+}
+
+.year-label {
+  margin: 0 0 3px;
+  color: #63aef5;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.year-heading h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+
+/* =========================================
+   GRADE GRID
+========================================= */
+
+.grade-grid {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.grade-header,
+.grade-row {
+  min-width: 560px;
+  display: grid;
+  grid-template-columns: 1.4fr repeat(5, 1fr);
+  align-items: center;
+}
+
+.grade-header {
+  padding: 0 5px 8px;
+  color: #71859b;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.grade-header span:first-child {
+  text-align: left;
+}
+
+.grade-row {
+  min-height: 47px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.grade-row > strong {
+  padding-left: 5px;
+  color: #dce7f2;
+  font-size: 0.68rem;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.counter button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(100, 170, 230, 0.15);
+  background: rgba(70, 130, 190, 0.05);
+  color: #8dbde9;
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1;
+  transition: 0.2s ease;
+}
+
+.counter button:hover {
+  border-color: rgba(100, 170, 230, 0.45);
+  background: rgba(70, 140, 210, 0.12);
+}
+
+.counter span {
+  width: 15px;
+  color: #c3d1dd;
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+
+/* =========================================
+   SCALE — BELOW CALCULATOR
+========================================= */
+
+.scale-card {
+  padding: 25px;
+  margin-bottom: 35px;
+  border: 1px solid rgba(120, 180, 230, 0.1);
+  background: rgba(18, 37, 57, 0.7);
+}
+
+.scale-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.scale-header h3 {
+  margin: 4px 0 0;
+  font-size: 1.3rem;
+}
+
+.customize-button,
+.reset-button {
+  padding: 9px 14px;
+  border: 1px solid rgba(100, 170, 230, 0.2);
+  background: transparent;
+  color: #9ec9f2;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: 0.25s ease;
+}
+
+.customize-button:hover,
+.reset-button:hover {
+  border-color: rgba(100, 170, 230, 0.5);
+  background: rgba(70, 140, 210, 0.08);
+}
+
+
+/* =========================================
+   SCALE TABLE
+========================================= */
+
+.scale-table,
+.custom-table {
+  width: 100%;
+}
+
+.scale-row,
+.custom-row {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 1fr);
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+}
+
+.scale-row span:first-child,
+.scale-row strong:first-child,
+.custom-row span:first-child,
+.custom-row strong:first-child {
+  text-align: left;
+}
+
+.scale-title,
+.custom-title {
+  color: #71859b;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.scale-row strong,
+.custom-row strong {
+  color: #dce7f2;
+  font-size: 0.75rem;
+}
+
+.scale-row span {
+  color: #9bb0c3;
+  font-size: 0.75rem;
+}
+
+.scale-note {
+  margin: 15px 0 0;
+  color: #71859b;
+  font-size: 0.65rem;
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   CUSTOM SCALE
+========================================= */
+
+.custom-scale {
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.custom-scale-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.custom-scale-heading h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.custom-scale > p {
+  max-width: 700px;
+  margin: 10px 0 20px;
+  color: #899daf;
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.custom-row input {
+  width: 65px;
+  margin: 0 auto;
+  padding: 6px;
+  border: 1px solid rgba(120, 180, 230, 0.15);
+  outline: none;
+  background: rgba(5, 15, 25, 0.6);
+  color: #dce7f2;
+  text-align: center;
+  font-family: inherit;
+}
+
+.custom-row input:focus {
+  border-color: rgba(90, 170, 245, 0.5);
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.gpa-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.gpa-info-card {
+  min-height: 170px;
+  padding: 24px;
+  border: 1px solid rgba(120, 180, 230, 0.1);
+  background: linear-gradient(
+    145deg,
+    rgba(27, 52, 79, 0.75),
+    rgba(13, 28, 44, 0.9)
+  );
+}
+
+.gpa-info-card > span {
+  color: #63aef5;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.gpa-info-card h3 {
+  margin: 20px 0 9px;
+  font-size: 1.1rem;
+}
+
+.gpa-info-card p {
+  margin: 0;
+  color: #899daf;
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .years-container {
+    grid-template-columns: 1fr;
+  }
+
+  .gpa-info {
+    grid-template-columns: 1fr;
+  }
+
+  .calculator-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .course-total {
+    align-items: flex-start;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .gpa-intro {
+    padding-top: 40px;
+  }
+
+  .calculator-section {
+    padding-top: 25px;
+  }
+
+  .scale-card,
+  .gpa-year {
+    padding: 18px;
+  }
+
+  .scale-header,
+  .custom-scale-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .custom-row input {
+    width: 50px;
+  }
+
+  .result-card {
+    padding: 22px;
+  }
+}
