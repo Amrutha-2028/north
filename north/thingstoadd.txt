@@ -25,6 +25,13 @@ Volunteer hours tracker helper
 What type of volunteer hours?
 Resume updating page - add ur aftivities and it frames it for you
 Scholarships and financial aid
+Goals where you add what you want to do
+Roadmaps - it makes you a perosnalized roadmap (each day or everyweek, sends an email)
+Project ideas (add to ecs maybe)
+Coming up this month - comps, internships, scholarships
+Progress - what you have accomplished - type in your hours, ecs, stuff you have done all in one place
+Connect to google or apple calendar - take a picture of your list adn it makes a to do or take a picture of your notes and it adds the idfferent times to calendar
+An Ai chatbot to help out with anything and everything.
 
 
 Study page 
