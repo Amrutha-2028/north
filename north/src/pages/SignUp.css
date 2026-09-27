@@ -1,0 +1,399 @@
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 110px 6vw 70px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(35, 91, 150, 0.3),
+      transparent 38%
+    ),
+    radial-gradient(
+      circle at 10% 70%,
+      rgba(25, 70, 125, 0.16),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 60%,
+      rgba(35, 80, 140, 0.12),
+      transparent 30%
+    ),
+    #0b1626;
+
+  color: #f5f7fa;
+}
+
+.signup-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 48px;
+
+  border: 1px solid rgba(120, 180, 230, 0.16);
+
+  background: linear-gradient(
+    145deg,
+    rgba(48, 82, 116, 0.94),
+    rgba(29, 56, 82, 0.98)
+  );
+
+  box-shadow:
+    0 30px 80px rgba(0, 20, 45, 0.3),
+    0 0 60px rgba(40, 100, 170, 0.06);
+
+  backdrop-filter: blur(16px);
+}
+
+/* Logo */
+
+.signup-logo {
+  display: inline-block;
+  margin-bottom: 55px;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+/* Header */
+
+.signup-card .section-label {
+  margin: 0 0 10px;
+
+  color: #8db9dc;
+
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.signup-card h1 {
+  margin: 0;
+
+  font-size: clamp(2.7rem, 6vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.signup-card h1 span {
+  color: #718ba5;
+}
+
+.signup-subtitle {
+  max-width: 410px;
+  margin: 22px 0 38px;
+
+  color: #9aafc2;
+
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* Form */
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signup-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  color: #dce7f2;
+
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.signup-form input {
+  width: 100%;
+  padding: 15px 16px;
+
+  border: 1px solid rgba(140, 195, 235, 0.16);
+  outline: none;
+
+  background: rgba(10, 27, 45, 0.68);
+  color: #eef6ff;
+
+  font-family: inherit;
+  font-size: 0.88rem;
+
+  transition: 0.2s ease;
+}
+
+.signup-form input::placeholder {
+  color: #647b91;
+}
+
+.signup-form input:focus {
+  border-color: rgba(100, 175, 235, 0.55);
+
+  background: rgba(12, 32, 52, 0.85);
+
+  box-shadow:
+    0 0 0 3px rgba(70, 145, 215, 0.08),
+    0 0 20px rgba(70, 145, 215, 0.05);
+}
+
+/* Error */
+
+.signup-error {
+  margin: -4px 0 0;
+
+  color: #ff9b9b;
+
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* Button */
+
+.signup-button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 15px 24px;
+
+  border: 1px solid rgba(150, 205, 245, 0.3);
+
+  background: rgba(100, 175, 235, 0.14);
+  color: #c8e5fa;
+
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.signup-button:hover:not(:disabled) {
+  border-color: rgba(150, 205, 245, 0.6);
+
+  background: rgba(100, 175, 235, 0.24);
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 8px 25px rgba(50, 120, 180, 0.12);
+}
+
+.signup-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Login link */
+
+.signup-login {
+  margin: 28px 0 0;
+
+  color: #8298ac;
+
+  text-align: center;
+  font-size: 0.78rem;
+}
+
+.signup-login a {
+  color: #b9dafa;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.signup-login a:hover {
+  color: white;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .signup-page {
+    padding: 100px 6vw 50px;
+  }
+
+  .signup-card {
+    padding: 34px 26px;
+  }
+
+  .signup-logo {
+    margin-bottom: 42px;
+  }
+
+  .signup-card h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .signup-card {
+    padding: 30px 20px;
+  }
+
+  .signup-card h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.signup-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 42px;
+}
+
+.back-home {
+  color: #8fa6bd;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-home:hover {
+  color: white;
+  transform: translateX(-2px);
+}
+
+.signup-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 120px 24px 60px;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(35, 91, 150, 0.22),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(25, 70, 125, 0.14),
+      transparent 30%
+    ),
+    #0b1626;
+}
+
+.signup-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 120px 24px 60px;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(35, 91, 150, 0.25),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 15% 70%,
+      rgba(25, 70, 125, 0.16),
+      transparent 30%
+    ),
+    #0b1626;
+}
+
+/* Sparkles sit behind the card */
+.signup-sparkles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Extra subtle blue glow */
+.signup-glow {
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+  background: rgba(35, 100, 180, 0.08);
+  filter: blur(100px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+.signup-card {
+  position: relative;
+  z-index: 10;
+}
+
+.signup-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 42px;
+}
+
+.back-home {
+  color: #8fa6bd;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-home:hover {
+  color: white;
+  transform: translateX(-2px);
+}
+
+.sparkle-layer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sparkle {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 8px rgba(150, 210, 255, 0.8);
+  opacity: 0.7;
+  animation: sparkle-twinkle ease-in-out infinite;
+}
+
+@keyframes sparkle-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}

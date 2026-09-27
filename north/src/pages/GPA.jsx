@@ -111,7 +111,7 @@ function GPA() {
       <Navbar />
 
       <PageHeader
-        number="04 — GPA PLANNING"
+        number="GPA PLANNING"
         title="GPA Calculator"
         subtitle="Understand your grades. See your progress. Plan ahead."
       />

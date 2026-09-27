@@ -6,6 +6,18 @@
   max-width: 1400px;
   margin: 0 auto;
   padding-bottom: 120px;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(35, 91, 150, 0.22),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 15% 55%,
+      rgba(25, 70, 125, 0.12),
+      transparent 35%
+    );
 }
 
 /* =========================================

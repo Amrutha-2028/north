@@ -104,8 +104,8 @@
   border: 1px solid rgba(120, 180, 230, 0.1);
   background: linear-gradient(
     145deg,
-    rgba(27, 52, 79, 0.75),
-    rgba(13, 28, 44, 0.9)
+    rgba(42, 75, 108, 0.92),
+    rgba(25, 50, 75, 0.95)
   );
 }
 
@@ -143,15 +143,21 @@
 
 .years-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .gpa-year {
+  min-width: 0;
+  overflow: hidden;
   padding: 22px;
   border: 1px solid rgba(120, 180, 230, 0.1);
-  background: rgba(18, 37, 57, 0.55);
+  background: linear-gradient(
+    145deg,
+    rgba(42, 75, 108, 0.92),
+    rgba(25, 50, 75, 0.95)
+  );
 }
 
 .year-heading {
@@ -255,7 +261,11 @@
   padding: 25px;
   margin-bottom: 35px;
   border: 1px solid rgba(120, 180, 230, 0.1);
-  background: rgba(18, 37, 57, 0.7);
+  background: linear-gradient(
+    145deg,
+    rgba(42, 75, 108, 0.92),
+    rgba(25, 50, 75, 0.95)
+  );
 }
 
 .scale-header {
@@ -381,7 +391,11 @@
   padding: 6px;
   border: 1px solid rgba(120, 180, 230, 0.15);
   outline: none;
-  background: rgba(5, 15, 25, 0.6);
+  background: linear-gradient(
+    145deg,
+    rgba(42, 75, 108, 0.92),
+    rgba(25, 50, 75, 0.95)
+  );
   color: #dce7f2;
   text-align: center;
   font-family: inherit;
@@ -408,8 +422,8 @@
   border: 1px solid rgba(120, 180, 230, 0.1);
   background: linear-gradient(
     145deg,
-    rgba(27, 52, 79, 0.75),
-    rgba(13, 28, 44, 0.9)
+    rgba(42, 75, 108, 0.92),
+    rgba(25, 50, 75, 0.95)
   );
 }
 

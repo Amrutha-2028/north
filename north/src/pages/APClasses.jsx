@@ -121,7 +121,7 @@ function APClasses() {
       <Navbar />
 
       <PageHeader
-        number="03 — AP PREPARATION"
+        number="AP PREPARATION"
         title="AP Classes Guide"
         subtitle="Explore advanced courses. Prepare with purpose."
       />

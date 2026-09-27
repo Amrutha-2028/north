@@ -38,4 +38,8 @@ Study page
 
 Pomodoro timer
 Motivation page
-Links to chill music
+Links to chill music\
+pwd: Ti98WcZD8AebPTGk
+api url: https://uykzglcovfvcjsmolehx.supabase.co/rest/v1/
+
+api key: sb_publishable_o_JuJQN3YB8PE3YsVMQhYw_jglJCEv7
