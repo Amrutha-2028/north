@@ -1,4 +1,5 @@
 import Sparkles from "./Sparkles";
+import "./PageHeader.css";
 
 function PageHeader({ number, title, subtitle }) {
   return (

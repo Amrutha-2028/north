@@ -1,3 +1,11 @@
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(35, 91, 150, 0.28), transparent 32%),
+    radial-gradient(circle at 15% 45%, rgba(25, 70, 125, 0.16), transparent 30%),
+    radial-gradient(circle at 85% 70%, rgba(35, 80, 140, 0.12), transparent 30%),
+    #0b1626;
+}
 /* =========================================
    COURSE PAGE MOBILE FIXES
 ========================================= */
@@ -234,12 +242,15 @@
   min-height: 370px;
   padding: 28px;
   scroll-snap-align: start;
-  border: 1px solid rgba(120, 180, 230, 0.1);
+
+  border: 1px solid rgba(120, 180, 230, 0.16);
+
   background: linear-gradient(
     145deg,
-    rgba(27, 52, 79, 0.85),
-    rgba(13, 28, 44, 0.92)
+    rgba(42, 75, 108, 0.92),
+    rgba(25, 50, 75, 0.95)
   );
+
   backdrop-filter: blur(10px);
   transition: 0.3s ease;
 }
@@ -464,11 +475,17 @@
   padding: 70px 40px;
   text-align: center;
   border: 1px solid rgba(100, 170, 230, 0.12);
-  background: radial-gradient(
-    circle at center,
-    rgba(50, 120, 200, 0.14),
-    transparent 65%
-  );
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(35, 91, 150, 0.22),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 15% 55%,
+      rgba(25, 70, 125, 0.12),
+      transparent 35%
+    );
 }
 
 .course-cta h2 {

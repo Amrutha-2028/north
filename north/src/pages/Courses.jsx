@@ -1,12 +1,14 @@
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import "./Courses.css";
 
 function Courses() {
   return (
     <div className="page">
-
+      <Navbar />
       <PageHeader
-        number="01 — COURSE PLANNING"
+        number="COURSE PLANNING"
         title="Choose With Purpose."
         subtitle="Explore your options. Build your foundation. Plan with intention."
       />
