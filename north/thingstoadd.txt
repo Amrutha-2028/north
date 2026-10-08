@@ -43,3 +43,23 @@ pwd: Ti98WcZD8AebPTGk
 api url: https://uykzglcovfvcjsmolehx.supabase.co/rest/v1/
 
 api key: sb_publishable_o_JuJQN3YB8PE3YsVMQhYw_jglJCEv7
+
+
+For example:
+
+Homework tracker + growing garden
+Study planner + train station
+Habit tracker + aquarium
+ACT prep + leveling RPG
+Volunteer hours + museum collection
+Coding practice + little computer city
+School schedule + airport departures board
+AP studying + research lab
+Reading tracker + bookstore you build
+
+
+* **Compass as a journey:** Users travel along a path as they explore opportunities, resources, competitions, projects, and experiences.
+* **Different environments:** Start in a **forest**, then progress through environments like **mountains, a city, and eventually space**, with each area representing a new stage of exploration.
+* **Progression:** Completing activities unlocks new locations, landmarks, characters, or items along the journey.
+* **Godot integration:** Use Godot for the interactive journey/world while keeping the main Compass functionality in the existing web app.
+* **Goal:** Make Compass feel less like a resource dashboard and more like an **actual journey where users can see their progress and explore what's ahead.**
