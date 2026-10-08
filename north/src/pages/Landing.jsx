@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sparkles from "../components/Sparkles";
+import { Link } from "react-router-dom";
 
 function Landing() {
   return (
@@ -113,13 +114,57 @@ function Landing() {
         </div>
 
       </section>
+      {/* COMPASS */}
+      <section className="landing-compass">
 
+        <div className="landing-compass-copy">
+
+          <p className="section-label">
+            02 — YOUR JOURNEY
+          </p>
+
+          <h2>
+            Don't just plan
+            <br />
+            <span>where you're going.</span>
+          </h2>
+
+          <p>
+            Your high school experience is a journey. NORTH gives you
+            a place to explore it. Choose a destination, discover
+            opportunities, and keep moving toward the future you want.
+          </p>
+
+          <Link to="/compass" className="compass-landing-button">
+            Explore Compass
+            <span>→</span>
+          </Link>
+
+        </div>
+
+        <div className="landing-planet-preview">
+
+          <div className="landing-stars"></div>
+
+          <div className="landing-orbit landing-orbit-one"></div>
+          <div className="landing-orbit landing-orbit-two"></div>
+
+          <div className="landing-planet">
+            🌍
+          </div>
+
+          <div className="landing-planet-label">
+            <span>YOUR NEXT DESTINATION</span>
+            <strong>Earth</strong>
+          </div>
+
+        </div>
+
+      </section>
       {/* FEATURES */}
       <section className="features" id="explore">
 
         <a href="/courses" className="feature-card">
-          <span className="feature-number">01</span>
-
           <h3>Courses</h3>
 
           <p>
@@ -131,8 +176,6 @@ function Landing() {
         </a>
 
         <a href="/schedule" className="feature-card">
-          <span className="feature-number">02</span>
-
           <h3>Schedule</h3>
 
           <p>
@@ -144,8 +187,6 @@ function Landing() {
         </a>
 
         <a href="/ap-classes" className="feature-card">
-          <span className="feature-number">03</span>
-
           <h3>AP Preparation</h3>
 
           <p>
@@ -157,8 +198,6 @@ function Landing() {
         </a>
 
         <div className="feature-card">
-          <span className="feature-number">04</span>
-
           <h3>Activities</h3>
 
           <p>
@@ -170,8 +209,6 @@ function Landing() {
         </div>
 
         <div className="feature-card">
-          <span className="feature-number">05</span>
-
           <h3>Scholarships</h3>
 
           <p>
@@ -183,8 +220,6 @@ function Landing() {
         </div>
 
         <div className="feature-card">
-          <span className="feature-number">06</span>
-
           <h3>Study</h3>
 
           <p>
@@ -201,7 +236,7 @@ function Landing() {
       <section className="why-section">
 
         <p className="section-label">
-          02 — MAKE IT YOURS
+          03 — MAKE IT YOURS
         </p>
 
         <div className="why-content">
@@ -255,7 +290,7 @@ function Landing() {
       <section className="home-cta">
 
         <p className="section-label">
-          03 — START HERE
+          04 — START HERE
         </p>
 
         <h2>

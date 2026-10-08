@@ -108,6 +108,10 @@ function Login() {
           <Link to="/signup">Create one</Link>
         </p>
 
+        <Link to="/" className="login-guest">
+          Continue as a guest
+        </Link>
+
       </div>
     </div>
   );
