@@ -1,0 +1,2319 @@
+/* =========================================================
+   NORTH COMPASS
+   VIDEO WORLD VERSION
+========================================================= */
+
+.compass-page {
+
+  --accent: #73b9ff;
+
+  min-height: 100vh;
+
+  background: #071326;
+
+  color: white;
+
+  font-family: "Raleway", sans-serif;
+
+  overflow-x: hidden;
+}
+
+.compass-page * {
+  box-sizing: border-box;
+}
+
+.compass-page button {
+  font-family: inherit;
+}
+
+
+/* =========================================================
+   SHARED
+========================================================= */
+
+.compass-eyebrow,
+.section-eyebrow {
+
+  display: block;
+
+  font-size: 0.67rem;
+
+  letter-spacing: 0.22em;
+
+  font-weight: 600;
+
+  color: rgba(255,255,255,.52);
+}
+
+
+/* =========================================================
+   GALAXY INTRO
+========================================================= */
+
+.galaxy-intro {
+
+  position: relative;
+
+  width: 100%;
+
+  height: 900px;
+
+  overflow: hidden;
+
+  background: #02050b;
+
+  transition:
+    opacity 0.8s ease,
+    transform 1s cubic-bezier(.65,0,.35,1);
+
+  z-index: 50;
+}
+
+
+/*
+   When user enters Compass, the galaxy
+   zooms away and disappears.
+*/
+
+.galaxy-hidden {
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transform: scale(1.8);
+}
+
+
+/* Galaxy video */
+
+.galaxy-video {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transform: scale(1.15);
+
+  filter:
+    brightness(.72)
+    saturate(1.18)
+    contrast(1.05);
+
+  animation:
+    galaxyBreathing 12s ease-in-out infinite;
+
+  z-index: 0;
+}
+
+
+@keyframes galaxyBreathing {
+
+  0%,
+  100% {
+    transform: scale(1.12);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+
+/* Dark overlay */
+
+.galaxy-dark {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3,9,20,.55),
+      rgba(3,9,20,.15) 40%,
+      rgba(3,9,20,.7)
+    );
+
+  z-index: 1;
+}
+
+
+/* Cinematic vignette */
+
+.galaxy-vignette {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 20%,
+      rgba(0,0,0,.58) 100%
+    );
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   GALAXY CONTENT
+========================================================= */
+
+.galaxy-content {
+
+  position: relative;
+
+  z-index: 5;
+
+  width: min(850px, 90%);
+
+  margin: auto;
+
+  padding-top: 240px;
+
+  text-align: center;
+}
+
+
+.galaxy-content h1 {
+
+  margin: 20px 0;
+
+  font-size:
+    clamp(4rem, 9vw, 8rem);
+
+  line-height: .86;
+
+  letter-spacing: -.06em;
+
+  font-weight: 400;
+}
+
+
+.galaxy-content h1 strong {
+
+  display: block;
+
+  color: var(--accent);
+
+  font-weight: 400;
+}
+
+
+.galaxy-content p {
+
+  max-width: 450px;
+
+  margin: 25px auto 0;
+
+  color: rgba(255,255,255,.68);
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   ENTER BUTTON
+========================================================= */
+
+.enter-compass-button {
+
+  margin-top: 35px;
+
+  padding: 15px 24px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: white;
+
+  color: #061020;
+
+  font-size: .78rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    box-shadow .3s ease;
+}
+
+
+.enter-compass-button span {
+
+  margin-left: 10px;
+
+  font-size: 1rem;
+}
+
+
+.enter-compass-button:hover {
+
+  transform: translateY(-4px);
+
+  background: var(--accent);
+
+  color: white;
+
+  box-shadow:
+    0 12px 35px
+    color-mix(
+      in srgb,
+      var(--accent) 25%,
+      transparent
+    );
+}
+
+
+/* =========================================================
+   GALAXY BOTTOM HINT
+========================================================= */
+
+.galaxy-scroll {
+
+  position: absolute;
+
+  z-index: 5;
+
+  bottom: 30px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color: rgba(255,255,255,.45);
+
+  font-size: .65rem;
+
+  letter-spacing: .12em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+
+.galaxy-scroll span {
+
+  display: inline-block;
+
+  width: 5px;
+
+  height: 5px;
+
+  margin-right: 9px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  box-shadow:
+    0 0 10px var(--accent);
+
+  animation:
+    scrollPulse 2s ease-in-out infinite;
+}
+
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: .3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   MAIN COMPASS
+========================================================= */
+
+.compass-main {
+
+  position: relative;
+
+  min-height: 900px;
+
+  padding:
+    130px 6%
+    80px;
+
+  overflow: hidden;
+
+  background: #071326;
+}
+
+
+.compass-main-background {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+
+    radial-gradient(
+      circle at 50% 58%,
+      color-mix(
+        in srgb,
+        var(--accent) 15%,
+        transparent
+      ),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 50% 70%,
+      rgba(40,80,130,.14),
+      transparent 50%
+    );
+
+  pointer-events: none;
+}
+
+
+.compass-title {
+
+  position: relative;
+
+  z-index: 5;
+
+  text-align: center;
+}
+
+
+.compass-title h2 {
+
+  margin: 16px 0 12px;
+
+  font-size:
+    clamp(3rem, 6vw, 5.5rem);
+
+  line-height: .9;
+
+  letter-spacing: -.055em;
+
+  font-weight: 400;
+}
+
+
+.compass-title h2 strong {
+
+  display: block;
+
+  color: var(--accent);
+
+  font-weight: 400;
+}
+
+
+.compass-title p {
+
+  margin: 0;
+
+  color: rgba(255,255,255,.5);
+}
+
+
+/* =========================================================
+   ORBIT SYSTEM
+========================================================= */
+
+.orbit-system {
+
+  position: relative;
+
+  width: min(1100px, 100%);
+
+  height: 760px;
+
+  margin:
+    15px auto
+    0;
+}
+
+
+/* Orbital paths */
+
+.orbit-line {
+
+  position: absolute;
+
+  left: 50%;
+
+  top: 51%;
+
+  border:
+    1px solid
+    rgba(115,185,255,.22);
+
+  border-radius: 50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  pointer-events: none;
+}
+
+
+.orbit-line-one {
+
+  width: 790px;
+
+  height: 400px;
+
+  transform:
+    translate(-50%,-50%)
+    rotate(-9deg);
+}
+
+
+.orbit-line-two {
+
+  width: 650px;
+
+  height: 315px;
+
+  opacity: .6;
+
+  transform:
+    translate(-50%,-50%)
+    rotate(10deg);
+}
+
+
+.orbit-line-three {
+
+  width: 490px;
+
+  height: 240px;
+
+  opacity: .35;
+
+  transform:
+    translate(-50%,-50%)
+    rotate(-15deg);
+}
+
+
+/* =========================================================
+   VIDEO PLANET
+========================================================= */
+
+.video-planet {
+
+  position: relative;
+
+  width: 300px;
+
+  height: 300px;
+
+  flex-shrink: 0;
+}
+
+
+.video-planet video {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  /*
+    This is important.
+
+    Your clips have dark/black space around
+    the planets, so the circular crop makes
+    the video behave visually like a planet.
+  */
+
+  box-shadow:
+
+    inset
+    -35px -15px 45px
+    rgba(0,0,0,.5),
+
+    0 0 35px
+    color-mix(
+      in srgb,
+      var(--accent) 28%,
+      transparent
+    );
+
+  animation:
+    planetFloat 6s ease-in-out infinite;
+}
+
+
+@keyframes planetFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+
+/* Planet glow */
+
+.video-planet-glow {
+
+  position: absolute;
+
+  width: 120%;
+
+  height: 120%;
+
+  left: -10%;
+
+  top: -10%;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  opacity: .12;
+
+  filter: blur(40px);
+
+  animation:
+    planetGlow 4s ease-in-out infinite;
+
+  z-index: -1;
+}
+
+
+@keyframes planetGlow {
+
+  0%,
+  100% {
+    transform: scale(.95);
+
+    opacity: .09;
+  }
+
+  50% {
+    transform: scale(1.08);
+
+    opacity: .18;
+  }
+}
+
+
+/* Soft lighting over video */
+
+.video-planet-shine {
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 28% 23%,
+      rgba(255,255,255,.2),
+      transparent 27%
+    ),
+
+    radial-gradient(
+      circle at 70% 75%,
+      rgba(0,0,0,.35),
+      transparent 55%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CENTER DESTINATION
+========================================================= */
+
+.center-destination {
+
+  position: absolute;
+
+  left: 50%;
+
+  top: 51%;
+
+  transform:
+    translate(-50%,-50%);
+
+  width: 390px;
+
+  height: 440px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  z-index: 10;
+}
+
+
+.center-destination
+.video-planet {
+
+  width: 325px;
+
+  height: 325px;
+}
+
+
+.center-glow {
+
+  position: absolute;
+
+  width: 390px;
+
+  height: 390px;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  opacity: .13;
+
+  filter: blur(55px);
+
+  animation:
+    centerGlow 5s ease-in-out infinite;
+}
+
+
+@keyframes centerGlow {
+
+  0%,
+  100% {
+    transform: scale(.93);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+
+/* =========================================================
+   CENTER LABEL
+========================================================= */
+
+.center-label {
+
+  position: absolute;
+
+  bottom: -8px;
+
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  text-align: center;
+
+  white-space: nowrap;
+}
+
+
+.center-label small {
+
+  display: block;
+
+  margin-bottom: 5px;
+
+  font-size: .57rem;
+
+  letter-spacing: .2em;
+
+  color: rgba(255,255,255,.38);
+}
+
+
+.center-label h3 {
+
+  margin: 0;
+
+  font-size: 1.25rem;
+
+  font-weight: 500;
+}
+
+
+.center-label span {
+
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--accent);
+
+  font-size: .62rem;
+
+  letter-spacing: .13em;
+}
+
+
+/* =========================================================
+   ORBITING DESTINATIONS
+========================================================= */
+
+.orbit-destination {
+
+  position: absolute;
+
+  width: 120px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: white;
+
+  cursor: pointer;
+
+  z-index: 15;
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+}
+
+
+.orbit-destination:hover {
+
+  filter: brightness(1.2);
+
+  transform:
+    scale(1.14)
+    translateY(-5px);
+}
+
+
+.orbit-destination
+.video-planet {
+
+  width: 105px;
+
+  height: 105px;
+
+  margin: auto;
+}
+
+
+.orbit-destination > span {
+
+  display: block;
+
+  margin-top: 6px;
+
+  color: rgba(255,255,255,.55);
+
+  font-size: .61rem;
+
+  letter-spacing: .1em;
+
+  text-transform: uppercase;
+}
+
+
+/* Positioning */
+
+.orbit-destination-0 {
+
+  left: 0;
+
+  top: 285px;
+
+  animation:
+    orbitFloatOne 6s ease-in-out infinite;
+}
+
+
+.orbit-destination-1 {
+
+  left: 160px;
+
+  top: 25px;
+
+  animation:
+    orbitFloatTwo 7s ease-in-out infinite;
+}
+
+
+.orbit-destination-2 {
+
+  left: 50%;
+
+  top: 0;
+
+  animation:
+    orbitFloatThree 6.5s ease-in-out infinite;
+}
+
+
+.orbit-destination-3 {
+
+  right: 160px;
+
+  top: 25px;
+
+  animation:
+    orbitFloatOne 7.5s ease-in-out infinite;
+}
+
+
+@keyframes orbitFloatOne {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+@keyframes orbitFloatTwo {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+
+@keyframes orbitFloatThree {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+
+/* =========================================================
+   DESTINATION CARDS
+========================================================= */
+
+.destination-section {
+
+  padding:
+    120px 7%
+    130px;
+
+  background: #f3f5f3;
+
+  color: #101923;
+}
+
+
+.section-heading {
+
+  max-width: 1120px;
+
+  margin:
+    0 auto
+    50px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: end;
+
+  gap: 50px;
+}
+
+
+.section-heading .section-eyebrow {
+
+  color: #78848c;
+}
+
+
+.section-heading h2 {
+
+  margin: 12px 0 0;
+
+  font-size:
+    clamp(2.6rem, 5vw, 4.4rem);
+
+  line-height: .95;
+
+  font-weight: 400;
+
+  letter-spacing: -.05em;
+}
+
+
+.section-heading > p {
+
+  max-width: 350px;
+
+  margin: 0;
+
+  color: #68747d;
+
+  line-height: 1.7;
+}
+
+
+/* Grid */
+
+.destination-grid {
+
+  max-width: 1120px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0,1fr));
+
+  gap: 17px;
+}
+
+
+/* Card */
+
+.destination-card {
+
+  position: relative;
+
+  min-height: 410px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  border:
+    1px solid #dce1df;
+
+  border-radius: 25px;
+
+  background: white;
+
+  color: #111923;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+
+.destination-card:hover {
+
+  transform:
+    translateY(-8px);
+
+  box-shadow:
+    0 22px 55px
+    rgba(20,30,40,.12);
+}
+
+
+.destination-card.selected {
+
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 22px 55px
+    rgba(20,30,40,.1);
+}
+
+
+/* Card video */
+
+.card-video {
+
+  position: relative;
+
+  height: 190px;
+
+  overflow: hidden;
+
+  background: #061020;
+}
+
+
+.card-video video {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: scale(1.25);
+
+  transition:
+    transform .7s ease,
+    filter .5s ease;
+}
+
+
+.destination-card:hover
+.card-video video {
+
+  transform:
+    scale(1.4);
+
+  filter:
+    brightness(1.08);
+}
+
+
+.card-video-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent 45%,
+      rgba(3,8,16,.45)
+    );
+}
+
+
+.card-planet-glow {
+
+  position: absolute;
+
+  width: 130px;
+
+  height: 130px;
+
+  left: 50%;
+
+  top: 50%;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  opacity: .08;
+
+  filter: blur(25px);
+
+  z-index: 1;
+}
+
+
+/* Card content */
+
+.card-content {
+
+  padding:
+    22px
+    23px
+    24px;
+}
+
+
+.card-category {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #7c878f;
+
+  font-size: .59rem;
+
+  letter-spacing: .13em;
+
+  text-transform: uppercase;
+}
+
+
+.card-content h3 {
+
+  margin: 0;
+
+  font-size: 1.4rem;
+
+  font-weight: 500;
+}
+
+
+.card-content p {
+
+  margin:
+    10px
+    0
+    20px;
+
+  color: #68747d;
+
+  font-size: .77rem;
+
+  line-height: 1.6;
+}
+
+
+.card-footer {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+
+.card-footer small {
+
+  color: #8b959c;
+
+  font-size: .55rem;
+
+  letter-spacing: .12em;
+}
+
+
+.card-footer span {
+
+  font-size: 1.15rem;
+
+  transition:
+    transform .25s ease,
+    color .25s ease;
+}
+
+
+.destination-card:hover
+.card-footer span {
+
+  transform:
+    translateX(5px);
+
+  color: var(--accent);
+}
+
+
+/* Selected mark */
+
+.selected-indicator {
+
+  position: absolute;
+
+  right: 15px;
+
+  top: 15px;
+
+  width: 27px;
+
+  height: 27px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  color: white;
+
+  font-size: .7rem;
+
+  z-index: 5;
+}
+
+
+/* =========================================================
+   WORLD SECTION
+========================================================= */
+
+.world-section {
+
+  position: relative;
+
+  min-height: 700px;
+
+  padding:
+    100px 7%;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(300px,.8fr)
+    minmax(500px,1.2fr);
+
+  gap: 80px;
+
+  align-items: center;
+
+  background:
+
+    radial-gradient(
+      circle at 75% 50%,
+      color-mix(
+        in srgb,
+        var(--accent) 18%,
+        transparent
+      ),
+      transparent 40%
+    ),
+
+    #071326;
+
+  overflow: hidden;
+}
+
+
+.world-information {
+
+  position: relative;
+
+  z-index: 5;
+
+  max-width: 480px;
+}
+
+
+.world-information .section-eyebrow {
+
+  color: var(--accent);
+}
+
+
+.world-information h2 {
+
+  margin:
+    18px
+    0
+    20px;
+
+  font-size:
+    clamp(2.8rem,5vw,5rem);
+
+  line-height: .93;
+
+  font-weight: 400;
+
+  letter-spacing: -.05em;
+}
+
+
+.world-information h2 strong {
+
+  display: block;
+
+  margin-top: 8px;
+
+  color: var(--accent);
+
+  font-weight: 400;
+}
+
+
+.world-information > p {
+
+  max-width: 430px;
+
+  color: rgba(255,255,255,.55);
+
+  line-height: 1.8;
+}
+
+
+.world-tags {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 25px;
+}
+
+
+.world-tags span {
+
+  padding:
+    8px
+    12px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.12);
+
+  border-radius: 999px;
+
+  color: rgba(255,255,255,.55);
+
+  font-size: .57rem;
+
+  letter-spacing: .09em;
+}
+
+
+/* Begin */
+
+.begin-journey {
+
+  margin-top: 30px;
+
+  padding:
+    14px
+    21px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: white;
+
+  color: #061020;
+
+  font-size: .74rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform .25s ease,
+    background .25s ease;
+}
+
+
+.begin-journey span {
+
+  margin-left: 9px;
+}
+
+
+.begin-journey:hover {
+
+  transform:
+    translateY(-3px);
+
+  background: var(--accent);
+
+  color: white;
+}
+
+
+/* =========================================================
+   LARGE WORLD VIDEO
+========================================================= */
+
+.world-video-container {
+
+  position: relative;
+
+  min-height: 500px;
+
+  border-radius: 35px;
+
+  overflow: hidden;
+
+  background: #020812;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  box-shadow:
+    inset 0 0 100px
+    rgba(0,0,0,.4);
+}
+
+
+.world-video {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: scale(1.25);
+
+  filter:
+    brightness(.88)
+    saturate(1.08);
+
+  transition:
+    opacity .5s ease;
+}
+
+
+.world-video-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.05),
+      rgba(0,0,0,.2) 60%,
+      rgba(0,0,0,.7)
+    );
+
+  z-index: 2;
+}
+
+
+.world-video-glow {
+
+  position: absolute;
+
+  width: 400px;
+
+  height: 400px;
+
+  left: 50%;
+
+  top: 42%;
+
+  transform:
+    translate(-50%,-50%);
+
+  border-radius: 50%;
+
+  background: var(--accent);
+
+  opacity: .1;
+
+  filter: blur(60px);
+
+  z-index: 1;
+}
+
+
+.world-caption {
+
+  position: absolute;
+
+  left: 28px;
+
+  bottom: 27px;
+
+  z-index: 5;
+}
+
+
+.world-caption small {
+
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: rgba(255,255,255,.38);
+
+  font-size: .55rem;
+
+  letter-spacing: .18em;
+}
+
+
+.world-caption strong {
+
+  color: var(--accent);
+
+  font-size: .75rem;
+
+  letter-spacing: .12em;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   JOURNEY
+========================================================= */
+
+.journey-section {
+
+  padding:
+    130px 7%;
+
+  background: #f3f5f3;
+
+  color: #101923;
+}
+
+
+.journey-heading {
+
+  max-width: 800px;
+
+  margin:
+    0 auto
+    65px;
+
+  text-align: center;
+}
+
+
+.journey-heading
+.section-eyebrow {
+
+  color: #78848c;
+}
+
+
+.journey-heading h2 {
+
+  margin:
+    15px 0;
+
+  font-size:
+    clamp(2.6rem,5vw,4.5rem);
+
+  line-height: .95;
+
+  font-weight: 400;
+
+  letter-spacing: -.05em;
+}
+
+
+.journey-heading p {
+
+  color: #6d7880;
+
+  line-height: 1.7;
+}
+
+
+/* Journey path */
+
+.journey-path {
+
+  position: relative;
+
+  max-width: 1120px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+}
+
+
+.journey-path::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 7%;
+
+  right: 7%;
+
+  top: 34px;
+
+  height: 1px;
+
+  background: #d3d9d6;
+}
+
+
+.journey-stage {
+
+  position: relative;
+
+  z-index: 2;
+
+  padding:
+    0
+    18px;
+
+  text-align: center;
+}
+
+
+.journey-number {
+
+  width: 68px;
+
+  height: 68px;
+
+  margin:
+    0 auto
+    25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border:
+    1px solid #ccd4d1;
+
+  background: #f3f5f3;
+
+  color: #89939a;
+
+  font-size: .65rem;
+
+  letter-spacing: .1em;
+}
+
+
+.journey-active
+.journey-number {
+
+  border-color: var(--accent);
+
+  background: var(--accent);
+
+  color: white;
+
+  box-shadow:
+    0 0 0 8px
+    color-mix(
+      in srgb,
+      var(--accent) 12%,
+      transparent
+    );
+}
+
+
+.journey-subtitle {
+
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #89949b;
+
+  font-size: .57rem;
+
+  letter-spacing: .16em;
+}
+
+
+.journey-stage h3 {
+
+  margin:
+    0
+    0
+    10px;
+
+  font-size: 1.3rem;
+
+  font-weight: 500;
+}
+
+
+.journey-stage p {
+
+  max-width: 190px;
+
+  margin: auto;
+
+  color: #748087;
+
+  font-size: .75rem;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   THE DIVE ANIMATION
+========================================================= */
+
+.is-diving .compass-main {
+
+  animation:
+    compassDive .9s ease;
+}
+
+
+.is-diving .orbit-system {
+
+  animation:
+    orbitDive .9s cubic-bezier(.7,0,.3,1);
+}
+
+
+.is-diving .orbit-line {
+
+  animation:
+    orbitSpeed .8s ease;
+}
+
+
+@keyframes compassDive {
+
+  0% {
+    transform:
+      scale(1);
+
+    filter:
+      blur(0);
+  }
+
+  55% {
+    transform:
+      scale(1.06);
+
+    filter:
+      blur(1px);
+  }
+
+  100% {
+    transform:
+      scale(1);
+
+    filter:
+      blur(0);
+  }
+}
+
+
+@keyframes orbitDive {
+
+  0% {
+    transform:
+      scale(1);
+  }
+
+  50% {
+    transform:
+      scale(1.15);
+  }
+
+  100% {
+    transform:
+      scale(1);
+  }
+}
+
+
+@keyframes orbitSpeed {
+
+  0% {
+    opacity: .25;
+  }
+
+  50% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: .25;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .destination-grid {
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+
+  .world-section {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 55px;
+  }
+
+
+  .world-information {
+
+    max-width: 700px;
+  }
+
+
+  .world-video-container {
+
+    min-height: 550px;
+  }
+
+
+  .orbit-system {
+
+    transform:
+      scale(.9);
+  }
+
+}
+
+
+@media (max-width: 760px) {
+
+  .galaxy-intro {
+
+    height: 760px;
+  }
+
+
+  .galaxy-content {
+
+    padding-top: 210px;
+  }
+
+
+  .galaxy-content h1 {
+
+    font-size:
+      4rem;
+  }
+
+
+  .compass-main {
+
+    min-height: 760px;
+
+    padding-top: 100px;
+  }
+
+
+  .orbit-system {
+
+    width: 650px;
+
+    height: 500px;
+
+    transform:
+      scale(.7);
+
+    transform-origin:
+      top center;
+
+    margin-left: 50%;
+
+    translate:
+      -50%
+      0;
+  }
+
+
+  .section-heading {
+
+    display: block;
+  }
+
+
+  .section-heading > p {
+
+    margin-top: 20px;
+  }
+
+
+  .destination-grid {
+
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .destination-card {
+
+    min-height: 420px;
+  }
+
+
+  .world-section {
+
+    padding:
+      90px 6%;
+  }
+
+
+  .world-video-container {
+
+    min-height: 430px;
+
+    border-radius: 25px;
+  }
+
+
+  .journey-path {
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap: 45px 0;
+  }
+
+
+  .journey-path::before {
+
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .galaxy-intro {
+
+    height: 680px;
+  }
+
+
+  .galaxy-content {
+
+    padding-top: 190px;
+  }
+
+
+  .galaxy-content h1 {
+
+    font-size:
+      3.2rem;
+  }
+
+
+  .compass-title h2 {
+
+    font-size:
+      3rem;
+  }
+
+
+  .orbit-system {
+
+    transform:
+      scale(.55);
+  }
+
+
+  .destination-section {
+
+    padding:
+      90px 5%;
+  }
+
+
+  .world-information h2 {
+
+    font-size:
+      2.8rem;
+  }
+
+
+  .world-video-container {
+
+    min-height: 350px;
+  }
+
+
+  .journey-path {
+
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+/* Dark, starry NORTH look shared with the landing page. */
+.compass-page .galaxy-content,
+.compass-page .compass-main,
+.compass-page .destination-section,
+.compass-page .world-section,
+.compass-page .journey-section {
+  font-family: "Raleway", sans-serif;
+}
+
+.compass-page .enter-compass-button,
+.compass-page .begin-journey {
+  border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  background: rgba(52, 127, 196, .88);
+  color: #f5f7fa;
+  box-shadow: 0 8px 30px rgba(40, 120, 210, .2);
+}
+
+.compass-page .enter-compass-button:hover,
+.compass-page .begin-journey:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.compass-page .compass-main,
+.compass-page .destination-section,
+.compass-page .journey-section {
+  background-color: #071326;
+  color: #f5f7fa;
+}
+
+.compass-page .compass-main-background {
+  background:
+    radial-gradient(circle at 50% 58%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 30%),
+    radial-gradient(circle at 50% 70%, rgba(40, 80, 130, .14), transparent 50%),
+    #071326;
+}
+
+.compass-page .destination-section,
+.compass-page .journey-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.compass-page .destination-section::before,
+.compass-page .journey-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .32;
+  background-image: radial-gradient(circle, rgba(183, 216, 255, .75) 1px, transparent 1.5px);
+  background-size: 83px 79px;
+  animation: compassStarDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes compassStarDrift {
+  from { opacity: .2; transform: translateY(0); }
+  to { opacity: .4; transform: translateY(-7px); }
+}
+
+.compass-page .destination-section > *:not(.sparkle-layer),
+.compass-page .journey-section > *:not(.sparkle-layer) {
+  position: relative;
+  z-index: 2;
+}
+
+.compass-page .section-heading .section-eyebrow,
+.compass-page .journey-heading .section-eyebrow {
+  color: var(--accent);
+}
+
+.compass-page .section-heading > p,
+.compass-page .journey-heading p {
+  color: rgba(229, 237, 247, .62);
+}
+
+.compass-page .destination-card {
+  border-color: rgba(149, 183, 220, .14);
+  background: rgba(12, 29, 49, .88);
+  color: #f5f7fa;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+}
+
+.compass-page .destination-card:hover {
+  box-shadow: 0 22px 55px rgba(0, 0, 0, .36);
+}
+
+.compass-page .card-category,
+.compass-page .card-content p {
+  color: rgba(219, 231, 244, .63);
+}
+
+.compass-page .card-footer small {
+  color: rgba(219, 231, 244, .45);
+}
+
+.compass-page .journey-path::before {
+  background: rgba(168, 196, 226, .25);
+}
+
+.compass-page .journey-number {
+  border-color: rgba(168, 196, 226, .3);
+  background: #0e2035;
+  color: rgba(226, 237, 248, .7);
+}
+
+.compass-page .journey-subtitle,
+.compass-page .journey-stage p {
+  color: rgba(219, 231, 244, .56);
+}
+
+.compass-page .sparkle-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.compass-page .sparkle {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: #d7e9ff;
+  box-shadow: 0 0 7px rgba(169, 211, 255, .8);
+  opacity: .15;
+  animation: compassTwinkle ease-in-out infinite alternate;
+}
+
+@keyframes compassTwinkle {
+  from { opacity: .12; transform: scale(.65); }
+  to { opacity: .8; transform: scale(1.35); }
+}
+
+.planet-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  box-shadow: inset -35px -15px 45px rgba(0, 0, 0, .52), 0 0 35px color-mix(in srgb, var(--accent) 28%, transparent);
+  animation: planetFloat 6s ease-in-out infinite;
+}
+
+.card-video .planet-art {
+  border-radius: 0;
+  animation: none;
+  box-shadow: none;
+}
+
+.planet-art-mercury {
+  background:
+    radial-gradient(circle at 28% 24%, rgba(255,255,255,.62) 0 2%, transparent 3%),
+    radial-gradient(circle at 65% 61%, #514a47 0 3%, transparent 4%),
+    radial-gradient(circle at 40% 72%, #81756e 0 5%, transparent 6%),
+    radial-gradient(circle at 35% 28%, #c7b9a9, #80766d 53%, #393a3f 100%);
+}
+
+.planet-art-venus {
+  background:
+    radial-gradient(ellipse at 30% 38%, rgba(255, 226, 178, .72), transparent 26%),
+    radial-gradient(ellipse at 65% 64%, rgba(174, 95, 50, .58), transparent 34%),
+    repeating-linear-gradient(165deg, transparent 0 15px, rgba(255, 225, 182, .17) 17px 24px, transparent 28px 39px),
+    radial-gradient(circle at 35% 25%, #ffd79d, #cb8054 58%, #643f42 100%);
+}
+
+.orbit-destination-2,
+.orbit-destination-6 {
+  left: calc(50% - 60px);
+}
+
+@media (max-width: 760px) {
+  .orbit-system {
+    width: 650px;
+    height: 760px;
+  }
+
+  .orbit-destination-2,
+  .orbit-destination-6 {
+    left: calc(50% - 60px);
+  }
+}
+
+.orbit-destination-4 {
+  right: 0;
+  top: 285px;
+  animation: orbitFloatOne 7.5s ease-in-out infinite;
+}
+
+.orbit-destination-5 {
+  right: 160px;
+  top: 535px;
+  animation: orbitFloatTwo 7s ease-in-out infinite;
+}
+
+.orbit-destination-6 {
+  left: 50%;
+  top: 645px;
+  animation: orbitFloatThree 6.5s ease-in-out infinite;
+}
+
+.orbit-destination-7 {
+  left: 160px;
+  top: 535px;
+  animation: orbitFloatOne 7s ease-in-out infinite;
+}
+
+/* Keep each planet anchored while its own video supplies the motion. */
+.compass-page .orbit-destination {
+  animation: none;
+}
+
+.compass-page .video-planet video {
+  animation: none;
+  transform: none;
+}
+
+.compass-page .planet-art {
+  animation: none;
+}

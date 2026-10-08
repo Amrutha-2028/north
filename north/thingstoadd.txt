@@ -41,21 +41,12 @@ Motivation page
 Links to chill music\
 pwd: Ti98WcZD8AebPTGk
 api url: https://uykzglcovfvcjsmolehx.supabase.co/rest/v1/
-
 api key: sb_publishable_o_JuJQN3YB8PE3YsVMQhYw_jglJCEv7
 
 
 For example:
 
-Homework tracker + growing garden
-Study planner + train station
-Habit tracker + aquarium
-ACT prep + leveling RPG
-Volunteer hours + museum collection
-Coding practice + little computer city
-School schedule + airport departures board
-AP studying + research lab
-Reading tracker + bookstore you build
+Increased sessions -> earn stars to unlock constellations
 
 
 * **Compass as a journey:** Users travel along a path as they explore opportunities, resources, competitions, projects, and experiences.

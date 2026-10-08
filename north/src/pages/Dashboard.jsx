@@ -128,76 +128,49 @@ function Dashboard() {
 
         </section>
 
-        {/* QUICK ACTIONS */}
-        <section className="dashboard-section">
+        {/* COMPASS */}
+        <section className="dashboard-compass">
 
-          <div className="dashboard-section-header">
+          <div className="dashboard-compass-content">
 
             <div>
               <p className="section-label">
-                QUICK ACTIONS
+                YOUR JOURNEY
               </p>
 
               <h2>
-                What are you working on?
+                Where are you
+                <br />
+                <span>headed next?</span>
               </h2>
+
+              <p>
+                Choose a destination and keep building your path through
+                high school.
+              </p>
+
+              <Link to="/compass" className="dashboard-compass-button">
+                Open Compass
+                <span>→</span>
+              </Link>
             </div>
 
-          </div>
+            <div className="dashboard-compass-visual">
 
-          <div className="quick-actions">
+              <div className="dashboard-mini-orbit orbit-a"></div>
+              <div className="dashboard-mini-orbit orbit-b"></div>
 
-            <Link to="/courses" className="quick-card">
-              <span className="quick-number">01</span>
-
-              <div>
-                <h3>Explore Courses</h3>
-                <p>
-                  Browse courses and plan what comes next.
-                </p>
+              <div className="dashboard-mini-planet">
+                🌍
               </div>
 
-              <span className="quick-arrow">↗</span>
-            </Link>
-
-            <Link to="/schedule" className="quick-card">
-              <span className="quick-number">02</span>
-
-              <div>
-                <h3>Plan Your Schedule</h3>
-                <p>
-                  Build a balanced schedule for your year.
-                </p>
+              <div className="dashboard-destination">
+                <small>NEXT DESTINATION</small>
+                <strong>Earth</strong>
+                <span>Everyday Study</span>
               </div>
 
-              <span className="quick-arrow">↗</span>
-            </Link>
-
-            <Link to="/ap-classes" className="quick-card">
-              <span className="quick-number">03</span>
-
-              <div>
-                <h3>Explore AP Classes</h3>
-                <p>
-                  Compare AP courses and prepare ahead.
-                </p>
-              </div>
-
-              <span className="quick-arrow">↗</span>
-            </Link>
-
-            <Link to="/gpa" className="quick-card">
-              <span className="quick-number">04</span>
-
-              <div>
-                <h3>Check Your GPA</h3>
-                <p>
-                  Calculate and track your academic progress.
-                </p>
-              </div>
-
-              <span className="quick-arrow">↗</span>
-            </Link>
+            </div>
 
           </div>
 
@@ -210,97 +183,71 @@ function Dashboard() {
 
             <div>
               <p className="section-label">
-                YOUR NORTH
+                EXPLORE NORTH
               </p>
 
               <h2>
-                Keep building your path.
+                Everything you need,
+                <br />
+                right here.
               </h2>
             </div>
 
           </div>
 
-          <div className="dashboard-grid">
+          <div className="quick-actions">
 
-            <div className="dashboard-card">
+            <Link to="/courses" className="quick-card">
+              <span className="quick-number">01</span>
 
-              <div className="dashboard-card-top">
-                <span className="dashboard-card-icon">
-                  ◇
-                </span>
-
-                <span className="dashboard-card-status">
-                  START HERE
-                </span>
-              </div>
-
-              <h3>
-                Courses
-              </h3>
-
-              <p>
-                Your courses and academic plans will live here.
-              </p>
-
-              <Link to="/courses">
-                Explore courses →
-              </Link>
-
-            </div>
-
-            <div className="dashboard-card">
-
-              <div className="dashboard-card-top">
-                <span className="dashboard-card-icon">
-                  +
-                </span>
-
-                <span className="dashboard-card-status">
-                  PLANNING
-                </span>
-              </div>
-
-              <h3>
-                Schedule
-              </h3>
-
-              <p>
-                Build your schedule and keep track of your plans.
-              </p>
-
-              <Link to="/schedule">
-                Plan your schedule →
-              </Link>
-
-            </div>
-
-            <div className="dashboard-card">
-
-              <div className="dashboard-card-top">
-                <span className="dashboard-card-icon">
-                  ◎
-                </span>
-
-                <span className="dashboard-card-status">
-                  GOALS
-                </span>
-              </div>
-
-              <h3>
-                Your Goals
-              </h3>
-
-              <p>
+              <div>
+                <h3>School</h3>
                 <p>
-                  Set priorities, track deadlines, and keep moving toward what matters.
+                  Courses, schedules, APs, and academic planning.
                 </p>
-              </p>
+              </div>
 
-              <Link to="/goals">
-                View your goals →
-              </Link>
+              <span className="quick-arrow">↗</span>
+            </Link>
 
-            </div>
+            <Link to="/goals" className="quick-card">
+              <span className="quick-number">02</span>
+
+              <div>
+                <h3>Goals</h3>
+                <p>
+                  Decide what you want to accomplish next.
+                </p>
+              </div>
+
+              <span className="quick-arrow">↗</span>
+            </Link>
+
+            <Link to="/progress" className="quick-card">
+              <span className="quick-number">03</span>
+
+              <div>
+                <h3>Progress</h3>
+                <p>
+                  See how your academic journey is developing.
+                </p>
+              </div>
+
+              <span className="quick-arrow">↗</span>
+            </Link>
+
+            <Link to="/profile" className="quick-card">
+              <span className="quick-number">04</span>
+
+              <div>
+                <h3>Your Profile</h3>
+                <p>
+                  Keep your North personalized to you.
+                </p>
+              </div>
+
+              <span className="quick-arrow">↗</span>
+            </Link>
 
           </div>
 

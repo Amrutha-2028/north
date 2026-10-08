@@ -7,12 +7,10 @@ function Navbar() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check whether someone is already signed in
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
     });
 
-    // Listen for sign in / sign out
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -23,9 +21,9 @@ function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-  await supabase.auth.signOut();
-  window.location.href = "/";
-};
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
 
   return (
     <nav className="navbar">
@@ -35,20 +33,19 @@ function Navbar() {
 
       <div className="nav-links">
         <Link to="/">Home</Link>
+
+        <Link to="/compass" className="compass-nav-link">Compass</Link>
         <Link to="/courses">Courses</Link>
-        <Link to="/schedule">Planning a Schedule</Link>
+        <Link to="/schedule">Planning</Link>
         <Link to="/ap-classes">AP Classes</Link>
-        <Link to="/gpa">GPA Calculator</Link>
+        <Link to="/gpa">GPA</Link>
 
         {user && <Link to="/profile">Profile</Link>}
       </div>
 
       <div className="nav-actions">
         {user ? (
-          <button
-            className="nav-logout"
-            onClick={handleLogout}
-          >
+          <button className="nav-logout" onClick={handleLogout}>
             Log Out
           </button>
         ) : (
