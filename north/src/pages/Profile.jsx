@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import Navbar from "../components/Navbar";
 import "./Profile.css";
+import ConstellationCollection from "../components/ConstellationCollection";
 
 const defaultProfile = {
   name: "",
@@ -217,6 +218,9 @@ function Profile() {
           >
             {saved ? "Profile Saved ✓" : "Save Profile"}
           </button>
+        </section>
+        <section className="profile-constellations">
+          <ConstellationCollection />
         </section>
       </main>
     </div>

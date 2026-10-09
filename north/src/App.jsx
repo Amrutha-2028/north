@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Goals from "./pages/Goals";
 import Compass from "./pages/Compass";
 import SubmitInfo from "./pages/SubmitInfo";
+import TestPrep from "./pages/TestPrep";
 
 import "./App.css";
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/goals" element={<Goals />} />
         <Route path="/compass" element={<Compass />} />
         <Route path="/submit-info" element={<SubmitInfo />} />
+        <Route path="/test-prep" element={<TestPrep />} />
       </Routes>
 
       {/* Floating utility available across North */}

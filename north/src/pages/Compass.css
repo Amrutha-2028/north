@@ -2317,3 +2317,50 @@
 .compass-page .planet-art {
   animation: none;
 }
+
+/* Focus timer overlay */
+
+.focus-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: rgba(3, 7, 18, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.center-planet-button {
+  display: block;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+}
+
+.center-planet-button:focus-visible,
+.planet-focus-button:focus-visible {
+  outline: 2px solid var(--accent, #c3e0ff);
+  outline-offset: 6px;
+}
+
+.planet-focus-button {
+  margin-top: 12px;
+  padding: 9px 15px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 999px;
+  background: rgba(8, 16, 32, 0.65);
+  color: #e7f1ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.planet-focus-button:hover {
+  background: rgba(100, 145, 205, 0.2);
+  transform: translateY(-1px);
+}
