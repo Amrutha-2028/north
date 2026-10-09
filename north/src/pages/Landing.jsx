@@ -150,7 +150,19 @@ function Landing() {
           <div className="landing-orbit landing-orbit-two"></div>
 
           <div className="landing-planet">
-            🌍
+            <video
+              className="landing-earth-video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label="Earth rotating in space"
+            >
+              <source
+                src="https://svs.gsfc.nasa.gov/vis/a000000/a002700/a002709/a002709.mp4"
+                type="video/mp4"
+              />
+            </video>
           </div>
 
           <div className="landing-planet-label">

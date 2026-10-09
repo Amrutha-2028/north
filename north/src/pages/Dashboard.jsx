@@ -161,7 +161,19 @@ function Dashboard() {
               <div className="dashboard-mini-orbit orbit-b"></div>
 
               <div className="dashboard-mini-planet">
-                🌍
+                <video
+                  className="dashboard-earth-video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-label="Earth rotating in space"
+                >
+                  <source
+                    src="https://svs.gsfc.nasa.gov/vis/a000000/a002700/a002709/a002709.mp4"
+                    type="video/mp4"
+                  />
+                </video>
               </div>
 
               <div className="dashboard-destination">

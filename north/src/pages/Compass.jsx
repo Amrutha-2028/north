@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sparkles from "../components/Sparkles";
+import FocusTimer from "../components/FocusTimer";
 import "./Compass.css";
 
 const destinations = [
@@ -88,7 +89,7 @@ function Compass() {
   const galaxyRef = useRef(null);
 
   const [selected, setSelected] = useState(destinations[0]);
-
+  const [activePlanet, setActivePlanet] = useState(null);
   const [isDiving, setIsDiving] = useState(false);
 
   const [showGalaxy, setShowGalaxy] = useState(true);
@@ -143,9 +144,8 @@ function Compass() {
 
   return (
     <div
-      className={`compass-page destination-${selected.id} ${
-        isDiving ? "is-diving" : ""
-      }`}
+      className={`compass-page destination-${selected.id} ${isDiving ? "is-diving" : ""
+        }`}
       style={{
         "--accent": selected.accent,
       }}
@@ -159,9 +159,8 @@ function Compass() {
         ===================================================== */}
 
         <section
-          className={`galaxy-intro ${
-            showGalaxy ? "galaxy-visible" : "galaxy-hidden"
-          }`}
+          className={`galaxy-intro ${showGalaxy ? "galaxy-visible" : "galaxy-hidden"
+            }`}
         >
 
           <video
@@ -266,6 +265,7 @@ function Compass() {
                   className={`orbit-destination orbit-destination-${index}`}
                   type="button"
                   onClick={() => chooseDestination(destination)}
+                  aria-label={`Select ${destination.name}`}
                 >
 
                   <VideoPlanet
@@ -284,30 +284,32 @@ function Compass() {
 
             {/* CENTER WORLD */}
 
-            <div className="center-destination">
 
+            <div className="center-destination">
               <div className="center-glow"></div>
 
-              <VideoPlanet
-                destination={selected}
-              />
+              <button
+                type="button"
+                className="center-planet-button"
+                onClick={() => setActivePlanet(selected)}
+                aria-label={`Start a focus session on ${selected.name}`}
+              >
+                <VideoPlanet destination={selected} />
+              </button>
 
               <div className="center-label">
+                <small>CURRENT DESTINATION</small>
+                <h3>{selected.name}</h3>
+                <span>{selected.environment}</span>
 
-                <small>
-                  CURRENT DESTINATION
-                </small>
-
-                <h3>
-                  {selected.name}
-                </h3>
-
-                <span>
-                  {selected.environment}
-                </span>
-
+                <button
+                  type="button"
+                  className="planet-focus-button"
+                  onClick={() => setActivePlanet(selected)}
+                >
+                  Focus here →
+                </button>
               </div>
-
             </div>
 
           </div>
@@ -352,11 +354,10 @@ function Compass() {
               <button
                 key={destination.id}
                 type="button"
-                className={`destination-card ${
-                  selected.id === destination.id
-                    ? "selected"
-                    : ""
-                }`}
+                className={`destination-card ${selected.id === destination.id
+                  ? "selected"
+                  : ""
+                  }`}
                 onClick={() => chooseDestination(destination)}
               >
 
@@ -576,7 +577,24 @@ function Compass() {
 
       </main>
 
+
       <Footer />
+
+      {activePlanet && (
+        <div
+          className="focus-overlay"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              setActivePlanet(null);
+            }
+          }}
+        >
+          <FocusTimer
+            planet={activePlanet.name}
+            onClose={() => setActivePlanet(null)}
+          />
+        </div>
+      )}
 
     </div>
   );
@@ -591,19 +609,18 @@ function VideoPlanet({ destination, small = false }) {
 
   return (
     <div
-      className={`video-planet ${
-        small ? "video-planet-small" : ""
-      }`}
+      className={`video-planet ${small ? "video-planet-small" : ""
+        }`}
     >
 
       <div className="video-planet-glow"></div>
 
       {destination.video ? (
         <video
-        src={destination.video}
-        autoPlay
-        preload="auto"
-        muted
+          src={destination.video}
+          autoPlay
+          preload="auto"
+          muted
           loop
           playsInline
         />
@@ -632,9 +649,8 @@ function JourneyStage({
 
   return (
     <div
-      className={`journey-stage ${
-        active ? "journey-active" : ""
-      }`}
+      className={`journey-stage ${active ? "journey-active" : ""
+        }`}
     >
 
       <div className="journey-number">
