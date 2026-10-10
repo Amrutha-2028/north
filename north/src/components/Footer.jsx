@@ -15,7 +15,6 @@ function Footer() {
           </p>
         </div>
 
-
         <div className="footer-column">
           <h4>Explore</h4>
 
@@ -25,7 +24,6 @@ function Footer() {
           <Link to="/gpa">GPA Calculator</Link>
         </div>
 
-
         <div className="footer-column">
           <h4>North</h4>
 
@@ -33,7 +31,6 @@ function Footer() {
           <Link to="/courses">Resources</Link>
           <Link to="/gpa">Tools</Link>
         </div>
-
 
         <div className="footer-column">
           <h4>Contact</h4>
@@ -43,7 +40,6 @@ function Footer() {
         </div>
 
       </div>
-
 
       <div className="footer-bottom">
         <span>© 2026 NORTH</span>

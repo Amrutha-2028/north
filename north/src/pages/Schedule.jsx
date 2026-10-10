@@ -36,9 +36,7 @@ function Schedule() {
 
                 </section>
 
-
                 <ScheduleStep
-                    number="01"
                     title="Start with your Graduation Requirements"
                     description="Use the requirements given by your school to ensure you are meeting all necessary criteria."
                 >
@@ -78,9 +76,7 @@ function Schedule() {
 
                 </ScheduleStep>
 
-
                 <ScheduleStep
-                    number="02"
                     title="Build Around Your Career Interests"
                     description="Choose advanced courses and electives that connect with the areas you want to explore."
                 >
@@ -151,9 +147,7 @@ function Schedule() {
 
                 </ScheduleStep>
 
-
                 <ScheduleStep
-                    number="03"
                     title="Avoid Common Mistakes"
                     description="A strong schedule isn't about taking every difficult class available."
                 >
@@ -187,14 +181,9 @@ function Schedule() {
     );
 }
 
-
-function ScheduleStep({ number, title, description, children }) {
+function ScheduleStep({ title, description, children }) {
     return (
         <section className="schedule-step">
-
-            <div className="step-number">
-                {number}
-            </div>
 
             <div className="step-content">
 
@@ -211,7 +200,6 @@ function ScheduleStep({ number, title, description, children }) {
         </section>
     );
 }
-
 
 function CareerTrack({ title, courses }) {
     return (
@@ -232,7 +220,6 @@ function CareerTrack({ title, courses }) {
         </div>
     );
 }
-
 
 function Mistake({ title, text }) {
     return (

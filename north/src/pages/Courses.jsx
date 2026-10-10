@@ -64,7 +64,6 @@ function Courses() {
 
       {/* ENGLISH */}
       <CourseSection
-        number="01"
         title="English"
         courses={[
           {
@@ -128,7 +127,6 @@ function Courses() {
 
       {/* MATHEMATICS */}
       <CourseSection
-        number="02"
         title="Mathematics"
         courses={[
           {
@@ -192,7 +190,6 @@ function Courses() {
 
       {/* SCIENCE */}
       <CourseSection
-        number="03"
         title="Science"
         courses={[
           {
@@ -263,7 +260,6 @@ function Courses() {
 
       {/* SOCIAL STUDIES */}
       <CourseSection
-        number="04"
         title="Social Studies"
         courses={[
           {
@@ -334,7 +330,7 @@ function Courses() {
 
       {/* AP VS HONORS */}
       <section className="comparison-section">
-        <p className="section-label">05 — COURSE LEVELS</p>
+        <p className="section-label">COURSE LEVELS</p>
 
         <h2>
           AP vs. Honors
@@ -395,7 +391,7 @@ function Courses() {
 
       {/* COLLEGE RECOMMENDATIONS */}
       <section className="recommendations-section">
-        <p className="section-label">06 — COLLEGE PREPARATION</p>
+        <p className="section-label">COLLEGE PREPARATION</p>
 
         <div className="recommendations-heading">
           <h2>
@@ -439,7 +435,7 @@ function Courses() {
 
       {/* CTA */}
       <section className="course-cta">
-        <p className="section-label">07 — NEXT STEP</p>
+        <p className="section-label">NEXT STEP</p>
 
         <h2>
           Ready to plan
@@ -461,12 +457,12 @@ function Courses() {
   );
 }
 
-function CourseSection({ number, title, courses }) {
+function CourseSection({ title, courses }) {
   return (
     <section className="course-section">
       <div className="course-section-header">
         <div>
-          <p className="section-label">{number}</p>
+
           <h2>{title}</h2>
         </div>
 

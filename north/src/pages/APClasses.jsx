@@ -149,15 +149,11 @@ function APClasses() {
 
         </section>
 
-
         {/* HOW AP WORKS */}
 
         <section className="ap-info-grid">
 
           <div className="ap-info-card">
-
-            <span className="ap-card-number">01</span>
-
             <h3>How APs Work</h3>
 
             <p>
@@ -168,11 +164,7 @@ function APClasses() {
 
           </div>
 
-
           <div className="ap-info-card">
-
-            <span className="ap-card-number">02</span>
-
             <h3>Potential College Credit</h3>
 
             <p>
@@ -182,11 +174,7 @@ function APClasses() {
 
           </div>
 
-
           <div className="ap-info-card">
-
-            <span className="ap-card-number">03</span>
-
             <h3>Academic Rigor</h3>
 
             <p>
@@ -198,7 +186,6 @@ function APClasses() {
           </div>
 
         </section>
-
 
         {/* TIMELINE */}
 
@@ -235,7 +222,6 @@ function APClasses() {
           </div>
 
         </section>
-
 
         {/* ALL AP COURSES */}
 

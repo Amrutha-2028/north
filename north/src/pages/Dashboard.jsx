@@ -210,8 +210,6 @@ function Dashboard() {
           <div className="quick-actions">
 
             <Link to="/courses" className="quick-card">
-              <span className="quick-number">01</span>
-
               <div>
                 <h3>School</h3>
                 <p>
@@ -223,8 +221,6 @@ function Dashboard() {
             </Link>
 
             <Link to="/goals" className="quick-card">
-              <span className="quick-number">02</span>
-
               <div>
                 <h3>Goals</h3>
                 <p>
@@ -236,8 +232,6 @@ function Dashboard() {
             </Link>
 
             <Link to="/progress" className="quick-card">
-              <span className="quick-number">03</span>
-
               <div>
                 <h3>Progress</h3>
                 <p>
@@ -249,8 +243,6 @@ function Dashboard() {
             </Link>
 
             <Link to="/profile" className="quick-card">
-              <span className="quick-number">04</span>
-
               <div>
                 <h3>Your Profile</h3>
                 <p>
