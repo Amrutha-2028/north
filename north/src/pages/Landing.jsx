@@ -265,7 +265,7 @@ function Landing() {
             every time you visit, NORTH grows with you.
           </p>
 
-          <a href="/signup" className="text-link">
+          <a href="/login" className="text-link">
             Create your account <span>→</span>
           </a>
 
