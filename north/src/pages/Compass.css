@@ -1,2366 +1,1064 @@
-/* =========================================================
-   NORTH COMPASS
-   VIDEO WORLD VERSION
-========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
 
 .compass-page {
-
   --accent: #73b9ff;
-
-  min-height: 100vh;
-
-  background: #071326;
-
-  color: white;
-
+  height: 100svh;
+  min-height: 580px;
+  overflow: hidden;
+  position: relative;
+  background: #030916;
+  color: #f4f7ff;
   font-family: "Raleway", sans-serif;
-
-  overflow-x: hidden;
 }
 
-.compass-page * {
+.compass-page *,
+.compass-page *::before,
+.compass-page *::after {
   box-sizing: border-box;
 }
 
 .compass-page button {
-  font-family: inherit;
+  font: inherit;
 }
 
-
-/* =========================================================
-   SHARED
-========================================================= */
-
-.compass-eyebrow,
-.section-eyebrow {
-
-  display: block;
-
-  font-size: 0.67rem;
-
-  letter-spacing: 0.22em;
-
-  font-weight: 600;
-
-  color: rgba(255,255,255,.52);
-}
-
-
-/* =========================================================
-   GALAXY INTRO
-========================================================= */
-
-.galaxy-intro {
-
+.compass-viewport {
   position: relative;
-
   width: 100%;
-
-  height: 900px;
-
+  height: 100svh;
+  min-height: 580px;
   overflow: hidden;
+  padding-top: 80px;
+  isolation: isolate;
+}
 
+.compass-eyebrow {
+  display: block;
+  color: #e2edffab;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+}
+
+/* INTRO */
+
+.intro-viewport {
   background: #02050b;
-
-  transition:
-    opacity 0.8s ease,
-    transform 1s cubic-bezier(.65,0,.35,1);
-
-  z-index: 50;
 }
-
-
-/*
-   When user enters Compass, the galaxy
-   zooms away and disappears.
-*/
-
-.galaxy-hidden {
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  transform: scale(1.8);
-}
-
-
-/* Galaxy video */
 
 .galaxy-video {
-
   position: absolute;
-
   inset: 0;
-
   width: 100%;
-
   height: 100%;
-
   object-fit: cover;
-
   object-position: center;
-
-  transform: scale(1.15);
-
-  filter:
-    brightness(.72)
-    saturate(1.18)
-    contrast(1.05);
-
-  animation:
-    galaxyBreathing 12s ease-in-out infinite;
-
+  transform: none;
+  filter: none;
+  opacity: 1;
   z-index: 0;
 }
 
-
-@keyframes galaxyBreathing {
-
-  0%,
-  100% {
-    transform: scale(1.12);
-  }
-
-  50% {
-    transform: scale(1.2);
-  }
-}
-
-
-/* Dark overlay */
-
-.galaxy-dark {
-
+.galaxy-overlay {
   position: absolute;
-
   inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(3,9,20,.55),
-      rgba(3,9,20,.15) 40%,
-      rgba(3,9,20,.7)
-    );
-
   z-index: 1;
-}
-
-
-/* Cinematic vignette */
-
-.galaxy-vignette {
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at center,
-      transparent 20%,
-      rgba(0,0,0,.58) 100%
-    );
-
-  z-index: 2;
-
+  background: linear-gradient(
+    90deg,
+    #02050e38,
+    #02050e08 55%,
+    #02050e30
+  );
   pointer-events: none;
 }
 
+.galaxy-edge-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    #01040c50,
+    transparent 24%,
+    transparent 75%,
+    #01040c20
+  );
+}
 
-/* =========================================================
-   GALAXY CONTENT
-========================================================= */
-
-.galaxy-content {
-
-  position: relative;
-
-  z-index: 5;
-
-  width: min(850px, 90%);
-
-  margin: auto;
-
-  padding-top: 240px;
-
+.intro-copy {
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  left: 50%;
+  width: min(800px, 90%);
+  transform: translate(-50%, -50%);
   text-align: center;
+  text-shadow: 0 3px 35px #0005;
 }
 
-
-.galaxy-content h1 {
-
-  margin: 20px 0;
-
-  font-size:
-    clamp(4rem, 9vw, 8rem);
-
-  line-height: .86;
-
-  letter-spacing: -.06em;
-
+.intro-copy h1 {
+  margin: 22px 0 18px;
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  line-height: 0.83;
+  letter-spacing: -0.075em;
   font-weight: 400;
 }
 
-
-.galaxy-content h1 strong {
-
+.intro-copy h1 strong {
   display: block;
-
-  color: var(--accent);
-
+  color: #9dcfff;
   font-weight: 400;
 }
 
-
-.galaxy-content p {
-
-  max-width: 450px;
-
-  margin: 25px auto 0;
-
-  color: rgba(255,255,255,.68);
-
-  line-height: 1.7;
+.intro-copy p {
+  margin: 26px auto 0;
+  color: #f7faffdc;
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
 }
-
-
-/* =========================================================
-   ENTER BUTTON
-========================================================= */
 
 .enter-compass-button {
-
-  margin-top: 35px;
-
-  padding: 15px 24px;
-
-  border: 0;
-
+  margin-top: 38px;
+  padding: 15px 23px;
+  border: 1px solid #ddefffa6;
   border-radius: 999px;
-
-  background: white;
-
-  color: #061020;
-
-  font-size: .78rem;
-
+  background: #0b1a2fcc;
+  color: #fff;
   font-weight: 600;
-
   cursor: pointer;
-
-  transition:
-    transform .3s ease,
-    background .3s ease,
-    box-shadow .3s ease;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
-
 
 .enter-compass-button span {
-
-  margin-left: 10px;
-
-  font-size: 1rem;
+  margin-left: 12px;
 }
-
 
 .enter-compass-button:hover {
-
-  transform: translateY(-4px);
-
-  background: var(--accent);
-
-  color: white;
-
-  box-shadow:
-    0 12px 35px
-    color-mix(
-      in srgb,
-      var(--accent) 25%,
-      transparent
-    );
+  transform: translateY(-2px);
+  background: #2d69a0dc;
+  border-color: #c5e4ff;
 }
 
-
-/* =========================================================
-   GALAXY BOTTOM HINT
-========================================================= */
-
-.galaxy-scroll {
-
+.intro-corner-note {
   position: absolute;
+  z-index: 3;
+  left: 5%;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #eff6ff94;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+}
 
+.intro-corner-note span,
+.world-count i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9dcfff;
+  box-shadow: 0 0 12px #9dcfff;
+}
+
+/* ORBIT SCREEN */
+
+.orbit-viewport {
+  padding: 98px 4.5% 18px;
+  background:
+    radial-gradient(ellipse at 50% 53%, #18356255, transparent 48%),
+    #040b18;
+  display: flex;
+  flex-direction: column;
+}
+
+.orbit-stars {
+  position: absolute;
+  inset: 80px 0 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(#d7eaffbb 1px, transparent 1.5px),
+    radial-gradient(#8ebdec88 1px, transparent 1.5px);
+  background-size: 103px 97px, 167px 151px;
+  background-position: 0 0, 49px 28px;
+  opacity: 0.4;
+}
+
+.orbit-header {
+  position: relative;
   z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  width: min(1250px, 100%);
+  margin: 0 auto;
+}
 
-  bottom: 30px;
+.orbit-header h1 {
+  margin: 10px 0 8px;
+  font-size: clamp(2.1rem, 3.5vw, 3.4rem);
+  line-height: 0.95;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+}
 
-  left: 50%;
+.orbit-header h1 strong {
+  color: #9dcfff;
+  font-weight: 400;
+}
 
-  transform: translateX(-50%);
+.orbit-header p {
+  margin: 0;
+  color: #e0ebfbab;
+  font-size: 0.8rem;
+}
 
-  color: rgba(255,255,255,.45);
-
-  font-size: .65rem;
-
-  letter-spacing: .12em;
-
-  text-transform: uppercase;
-
+.world-count {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 5px;
+  color: #dceafc90;
+  font-size: 0.6rem;
+  letter-spacing: 0.17em;
   white-space: nowrap;
 }
 
-
-.galaxy-scroll span {
-
-  display: inline-block;
-
-  width: 5px;
-
-  height: 5px;
-
-  margin-right: 9px;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  box-shadow:
-    0 0 10px var(--accent);
-
-  animation:
-    scrollPulse 2s ease-in-out infinite;
+.world-count i {
+  width: 6px;
+  height: 6px;
 }
 
+/* The stage preserves the original orbit composition. */
 
-@keyframes scrollPulse {
-
-  0%,
-  100% {
-    opacity: .3;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-
-/* =========================================================
-   MAIN COMPASS
-========================================================= */
-
-.compass-main {
-
+.orbit-stage {
   position: relative;
-
-  min-height: 900px;
-
-  padding:
-    130px 6%
-    80px;
-
-  overflow: hidden;
-
-  background: #071326;
+  z-index: 1;
+  width: min(1240px, 100%);
+  height: min(68vh, 660px);
+  min-height: 430px;
+  margin: 0 auto;
+  flex: 1 1 auto;
 }
 
-
-.compass-main-background {
-
+.orbit-track {
   position: absolute;
-
-  inset: 0;
-
-  background:
-
-    radial-gradient(
-      circle at 50% 58%,
-      color-mix(
-        in srgb,
-        var(--accent) 15%,
-        transparent
-      ),
-      transparent 30%
-    ),
-
-    radial-gradient(
-      circle at 50% 70%,
-      rgba(40,80,130,.14),
-      transparent 50%
-    );
-
-  pointer-events: none;
-}
-
-
-.compass-title {
-
-  position: relative;
-
-  z-index: 5;
-
-  text-align: center;
-}
-
-
-.compass-title h2 {
-
-  margin: 16px 0 12px;
-
-  font-size:
-    clamp(3rem, 6vw, 5.5rem);
-
-  line-height: .9;
-
-  letter-spacing: -.055em;
-
-  font-weight: 400;
-}
-
-
-.compass-title h2 strong {
-
-  display: block;
-
-  color: var(--accent);
-
-  font-weight: 400;
-}
-
-
-.compass-title p {
-
-  margin: 0;
-
-  color: rgba(255,255,255,.5);
-}
-
-
-/* =========================================================
-   ORBIT SYSTEM
-========================================================= */
-
-.orbit-system {
-
-  position: relative;
-
-  width: min(1100px, 100%);
-
-  height: 760px;
-
-  margin:
-    15px auto
-    0;
-}
-
-
-/* Orbital paths */
-
-.orbit-line {
-
-  position: absolute;
-
+  top: 48%;
   left: 50%;
-
-  top: 51%;
-
-  border:
-    1px solid
-    rgba(115,185,255,.22);
-
+  border: 1px solid #8ebbec30;
   border-radius: 50%;
-
-  transform:
-    translate(-50%,-50%);
-
+  transform: translate(-50%, -50%) rotate(-13deg);
   pointer-events: none;
 }
 
-
-.orbit-line-one {
-
-  width: 790px;
-
-  height: 400px;
-
-  transform:
-    translate(-50%,-50%)
-    rotate(-9deg);
+.orbit-track.outer {
+  width: 96%;
+  height: 85%;
 }
 
-
-.orbit-line-two {
-
-  width: 650px;
-
-  height: 315px;
-
-  opacity: .6;
-
-  transform:
-    translate(-50%,-50%)
-    rotate(10deg);
+.orbit-track.middle {
+  width: 78%;
+  height: 68%;
+  transform: translate(-50%, -50%) rotate(15deg);
+  border-color: #8ebbec24;
 }
 
-
-.orbit-line-three {
-
-  width: 490px;
-
-  height: 240px;
-
-  opacity: .35;
-
-  transform:
-    translate(-50%,-50%)
-    rotate(-15deg);
+.orbit-track.inner {
+  width: 58%;
+  height: 49%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+  border-color: #8ebbec1c;
 }
 
+/* Bigger planets */
 
-/* =========================================================
-   VIDEO PLANET
-========================================================= */
-
-.video-planet {
-
-  position: relative;
-
-  width: 300px;
-
-  height: 300px;
-
-  flex-shrink: 0;
-}
-
-
-.video-planet video {
-
+.orbit-planet {
+  --planet-accent: #73b9ff;
   position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  border-radius: 50%;
-
-  /*
-    This is important.
-
-    Your clips have dark/black space around
-    the planets, so the circular crop makes
-    the video behave visually like a planet.
-  */
-
-  box-shadow:
-
-    inset
-    -35px -15px 45px
-    rgba(0,0,0,.5),
-
-    0 0 35px
-    color-mix(
-      in srgb,
-      var(--accent) 28%,
-      transparent
-    );
-
-  animation:
-    planetFloat 6s ease-in-out infinite;
-}
-
-
-@keyframes planetFloat {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-
-/* Planet glow */
-
-.video-planet-glow {
-
-  position: absolute;
-
-  width: 120%;
-
-  height: 120%;
-
-  left: -10%;
-
-  top: -10%;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  opacity: .12;
-
-  filter: blur(40px);
-
-  animation:
-    planetGlow 4s ease-in-out infinite;
-
-  z-index: -1;
-}
-
-
-@keyframes planetGlow {
-
-  0%,
-  100% {
-    transform: scale(.95);
-
-    opacity: .09;
-  }
-
-  50% {
-    transform: scale(1.08);
-
-    opacity: .18;
-  }
-}
-
-
-/* Soft lighting over video */
-
-.video-planet-shine {
-
-  position: absolute;
-
-  inset: 0;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 28% 23%,
-      rgba(255,255,255,.2),
-      transparent 27%
-    ),
-
-    radial-gradient(
-      circle at 70% 75%,
-      rgba(0,0,0,.35),
-      transparent 55%
-    );
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   CENTER DESTINATION
-========================================================= */
-
-.center-destination {
-
-  position: absolute;
-
-  left: 50%;
-
-  top: 51%;
-
-  transform:
-    translate(-50%,-50%);
-
-  width: 390px;
-
-  height: 440px;
-
+  z-index: 4;
+  width: 132px;
+  min-height: 158px;
+  padding: 0;
+  border: 0;
+  color: #fff;
+  background: transparent;
   display: flex;
-
+  flex-direction: column;
   align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: filter 0.2s;
+}
 
-  justify-content: center;
+.orbit-planet:hover {
+  filter: brightness(1.16);
+}
 
-  z-index: 10;
+.planet-video {
+  position: relative;
+  display: block;
+  width: 94px;
+  height: 94px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #111b2c;
+  box-shadow:
+    0 0 0 1px #ffffff35,
+    0 0 28px color-mix(in srgb, var(--planet-accent, #73b9ff) 25%, transparent);
+  transition: box-shadow 0.2s;
+}
+
+.planet-video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.planet-video .planet-footage-uranus {
+  transform: scale(2.1);
+}
+
+.planet-shade {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 28% 20%, #ffffff25, transparent 35%),
+    radial-gradient(ellipse at 75% 75%, #0005, transparent 48%);
+}
+
+.planet-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid #ffffff40;
+  pointer-events: none;
 }
 
 
-.center-destination
-.video-planet {
 
-  width: 325px;
-
-  height: 325px;
+.planet-time {
+  margin-top: -3px;
+  padding: 5px 9px;
+  border: 1px solid #b8d4f540;
+  border-radius: 999px;
+  background: #050d1bf2;
+  color: #ddecffdf;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
+.orbit-planet.is-selected {
+  z-index: 7;
+}
+
+.orbit-planet.is-selected .planet-video {
+  box-shadow:
+    0 0 0 2px var(--planet-accent),
+    0 0 0 7px color-mix(in srgb, var(--planet-accent) 12%, transparent),
+    0 0 40px color-mix(in srgb, var(--planet-accent) 42%, transparent);
+}
+
+.orbit-planet.is-selected .planet-name {
+  color: white;
+}
+
+.orbit-planet.is-selected .planet-time {
+  border-color: color-mix(in srgb, var(--planet-accent) 65%, transparent);
+  color: white;
+}
+
+/* Planet positions: all eight remain in the orbit. */
+
+.orbit-mercury {
+  left: 7%;
+  top: 47%;
+}
+
+.orbit-venus {
+  left: 22%;
+  top: 15%;
+}
+
+.orbit-earth {
+  left: 50%;
+  top: 8%;
+}
+
+.orbit-mars {
+  left: 78%;
+  top: 15%;
+}
+
+.orbit-jupiter {
+  left: 93%;
+  top: 48%;
+}
+
+.orbit-saturn {
+  left: 79%;
+  top: 85%;
+}
+
+.orbit-uranus {
+  left: 50%;
+  top: 94%;
+}
+
+.orbit-neptune {
+  left: 21%;
+  top: 84%;
+}
+
+/* Selected planet information */
+
+/* Central planet display */
+
+.orbit-center {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  z-index: 8;
+  width: min(440px, 42%);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+  transition: filter 500ms ease;
+}
+
+.center-planet-trigger {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: clamp(155px, 18vw, 245px);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.center-planet-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+}
+
+.center-planet-trigger .planet-video-center {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px #ffffff45,
+    0 0 35px color-mix(in srgb, var(--accent) 35%, transparent),
+    0 0 85px color-mix(in srgb, var(--accent) 20%, transparent);
+  transition: box-shadow 450ms ease, transform 850ms cubic-bezier(.2,.8,.2,1);
+}
+
+.center-planet-trigger:hover .planet-video-center {
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent) 80%, white),
+    0 0 50px color-mix(in srgb, var(--accent) 48%, transparent),
+    0 0 110px color-mix(in srgb, var(--accent) 28%, transparent);
+}
 
 .center-glow {
-
   position: absolute;
-
-  width: 390px;
-
-  height: 390px;
-
+  z-index: 0;
+  top: 3%;
+  width: 85%;
+  aspect-ratio: 1;
   border-radius: 50%;
-
   background: var(--accent);
-
-  opacity: .13;
-
-  filter: blur(55px);
-
-  animation:
-    centerGlow 5s ease-in-out infinite;
+  opacity: 0.2;
+  filter: blur(65px);
+  pointer-events: none;
+  transition: opacity 400ms ease;
 }
 
-
-@keyframes centerGlow {
-
-  0%,
-  100% {
-    transform: scale(.93);
-  }
-
-  50% {
-    transform: scale(1.08);
-  }
-}
-
-
-/* =========================================================
-   CENTER LABEL
-========================================================= */
-
-.center-label {
-
-  position: absolute;
-
-  bottom: -8px;
-
-  left: 50%;
-
-  transform:
-    translateX(-50%);
-
-  text-align: center;
-
-  white-space: nowrap;
-}
-
-
-.center-label small {
-
-  display: block;
-
-  margin-bottom: 5px;
-
-  font-size: .57rem;
-
-  letter-spacing: .2em;
-
-  color: rgba(255,255,255,.38);
-}
-
-
-.center-label h3 {
-
-  margin: 0;
-
-  font-size: 1.25rem;
-
-  font-weight: 500;
-}
-
-
-.center-label span {
-
-  display: block;
-
-  margin-top: 4px;
-
-  color: var(--accent);
-
-  font-size: .62rem;
-
-  letter-spacing: .13em;
-}
-
-
-/* =========================================================
-   ORBITING DESTINATIONS
-========================================================= */
-
-.orbit-destination {
-
-  position: absolute;
-
-  width: 120px;
-
-  padding: 0;
-
-  border: 0;
-
-  background: transparent;
-
-  color: white;
-
-  cursor: pointer;
-
-  z-index: 15;
-
-  transition:
-    transform .35s ease,
-    filter .35s ease;
-}
-
-
-.orbit-destination:hover {
-
-  filter: brightness(1.2);
-
-  transform:
-    scale(1.14)
-    translateY(-5px);
-}
-
-
-.orbit-destination
-.video-planet {
-
-  width: 105px;
-
-  height: 105px;
-
-  margin: auto;
-}
-
-
-.orbit-destination > span {
-
-  display: block;
-
-  margin-top: 6px;
-
-  color: rgba(255,255,255,.55);
-
-  font-size: .61rem;
-
-  letter-spacing: .1em;
-
-  text-transform: uppercase;
-}
-
-
-/* Positioning */
-
-.orbit-destination-0 {
-
-  left: 0;
-
-  top: 285px;
-
-  animation:
-    orbitFloatOne 6s ease-in-out infinite;
-}
-
-
-.orbit-destination-1 {
-
-  left: 160px;
-
-  top: 25px;
-
-  animation:
-    orbitFloatTwo 7s ease-in-out infinite;
-}
-
-
-.orbit-destination-2 {
-
-  left: 50%;
-
-  top: 0;
-
-  animation:
-    orbitFloatThree 6.5s ease-in-out infinite;
-}
-
-
-.orbit-destination-3 {
-
-  right: 160px;
-
-  top: 25px;
-
-  animation:
-    orbitFloatOne 7.5s ease-in-out infinite;
-}
-
-
-@keyframes orbitFloatOne {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-
-@keyframes orbitFloatTwo {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(8px);
-  }
-}
-
-
-@keyframes orbitFloatThree {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-
-/* =========================================================
-   DESTINATION CARDS
-========================================================= */
-
-.destination-section {
-
-  padding:
-    120px 7%
-    130px;
-
-  background: #f3f5f3;
-
-  color: #101923;
-}
-
-
-.section-heading {
-
-  max-width: 1120px;
-
-  margin:
-    0 auto
-    50px;
-
+.center-details {
+  position: relative;
+  z-index: 3;
   display: flex;
-
-  justify-content: space-between;
-
-  align-items: end;
-
-  gap: 50px;
-}
-
-
-.section-heading .section-eyebrow {
-
-  color: #78848c;
-}
-
-
-.section-heading h2 {
-
-  margin: 12px 0 0;
-
-  font-size:
-    clamp(2.6rem, 5vw, 4.4rem);
-
-  line-height: .95;
-
-  font-weight: 400;
-
-  letter-spacing: -.05em;
-}
-
-
-.section-heading > p {
-
-  max-width: 350px;
-
-  margin: 0;
-
-  color: #68747d;
-
-  line-height: 1.7;
-}
-
-
-/* Grid */
-
-.destination-grid {
-
-  max-width: 1120px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, minmax(0,1fr));
-
-  gap: 17px;
-}
-
-
-/* Card */
-
-.destination-card {
-
-  position: relative;
-
-  min-height: 410px;
-
-  padding: 0;
-
-  overflow: hidden;
-
-  border:
-    1px solid #dce1df;
-
-  border-radius: 25px;
-
-  background: white;
-
-  color: #111923;
-
-  text-align: left;
-
-  cursor: pointer;
-
-  transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    border-color .35s ease;
-}
-
-
-.destination-card:hover {
-
-  transform:
-    translateY(-8px);
-
-  box-shadow:
-    0 22px 55px
-    rgba(20,30,40,.12);
-}
-
-
-.destination-card.selected {
-
-  border-color: var(--accent);
-
-  box-shadow:
-    0 0 0 2px var(--accent),
-    0 22px 55px
-    rgba(20,30,40,.1);
-}
-
-
-/* Card video */
-
-.card-video {
-
-  position: relative;
-
-  height: 190px;
-
-  overflow: hidden;
-
-  background: #061020;
-}
-
-
-.card-video video {
-
-  position: absolute;
-
-  inset: 0;
-
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  transform: scale(1.25);
-
-  transition:
-    transform .7s ease,
-    filter .5s ease;
+  margin-top: 13px;
+  pointer-events: auto;
 }
 
-
-.destination-card:hover
-.card-video video {
-
-  transform:
-    scale(1.4);
-
-  filter:
-    brightness(1.08);
-}
-
-
-.card-video-overlay {
-
-  position: absolute;
-
-  inset: 0;
-
-  z-index: 2;
-
-  background:
-    linear-gradient(
-      180deg,
-      transparent 45%,
-      rgba(3,8,16,.45)
-    );
-}
-
-
-.card-planet-glow {
-
-  position: absolute;
-
-  width: 130px;
-
-  height: 130px;
-
-  left: 50%;
-
-  top: 50%;
-
-  transform:
-    translate(-50%,-50%);
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  opacity: .08;
-
-  filter: blur(25px);
-
-  z-index: 1;
-}
-
-
-/* Card content */
-
-.card-content {
-
-  padding:
-    22px
-    23px
-    24px;
-}
-
-
-.card-category {
-
-  display: block;
-
-  margin-bottom: 8px;
-
-  color: #7c878f;
-
-  font-size: .59rem;
-
-  letter-spacing: .13em;
-
-  text-transform: uppercase;
-}
-
-
-.card-content h3 {
-
-  margin: 0;
-
-  font-size: 1.4rem;
-
-  font-weight: 500;
-}
-
-
-.card-content p {
-
-  margin:
-    10px
-    0
-    20px;
-
-  color: #68747d;
-
-  font-size: .77rem;
-
-  line-height: 1.6;
-}
-
-
-.card-footer {
-
+.center-title-row {
   display: flex;
-
   align-items: center;
-
-  justify-content: space-between;
-}
-
-
-.card-footer small {
-
-  color: #8b959c;
-
-  font-size: .55rem;
-
-  letter-spacing: .12em;
-}
-
-
-.card-footer span {
-
-  font-size: 1.15rem;
-
-  transition:
-    transform .25s ease,
-    color .25s ease;
-}
-
-
-.destination-card:hover
-.card-footer span {
-
-  transform:
-    translateX(5px);
-
-  color: var(--accent);
-}
-
-
-/* Selected mark */
-
-.selected-indicator {
-
-  position: absolute;
-
-  right: 15px;
-
-  top: 15px;
-
-  width: 27px;
-
-  height: 27px;
-
-  display: flex;
-
-  align-items: center;
-
   justify-content: center;
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  color: white;
-
-  font-size: .7rem;
-
-  z-index: 5;
+  gap: 12px;
+  width: 100%;
 }
 
-
-/* =========================================================
-   WORLD SECTION
-========================================================= */
-
-.world-section {
-
-  position: relative;
-
-  min-height: 700px;
-
-  padding:
-    100px 7%;
-
-  display: grid;
-
-  grid-template-columns:
-    minmax(300px,.8fr)
-    minmax(500px,1.2fr);
-
-  gap: 80px;
-
-  align-items: center;
-
-  background:
-
-    radial-gradient(
-      circle at 75% 50%,
-      color-mix(
-        in srgb,
-        var(--accent) 18%,
-        transparent
-      ),
-      transparent 40%
-    ),
-
-    #071326;
-
-  overflow: hidden;
+.center-details h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.6rem, 2.5vw, 2.3rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  text-shadow: 0 2px 20px #0008;
 }
 
-
-.world-information {
-
-  position: relative;
-
-  z-index: 5;
-
-  max-width: 480px;
-}
-
-
-.world-information .section-eyebrow {
-
-  color: var(--accent);
-}
-
-
-.world-information h2 {
-
-  margin:
-    18px
-    0
-    20px;
-
-  font-size:
-    clamp(2.8rem,5vw,5rem);
-
-  line-height: .93;
-
-  font-weight: 400;
-
-  letter-spacing: -.05em;
-}
-
-
-.world-information h2 strong {
-
-  display: block;
-
-  margin-top: 8px;
-
-  color: var(--accent);
-
-  font-weight: 400;
-}
-
-
-.world-information > p {
-
-  max-width: 430px;
-
-  color: rgba(255,255,255,.55);
-
-  line-height: 1.8;
-}
-
-
-.world-tags {
-
+.center-duration {
   display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 7px;
-
-  margin-top: 25px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    max-height 300ms ease,
+    opacity 250ms ease,
+    transform 300ms ease,
+    margin 300ms ease;
 }
 
-
-.world-tags span {
-
-  padding:
-    8px
-    12px;
-
-  border:
-    1px solid
-    rgba(255,255,255,.12);
-
-  border-radius: 999px;
-
-  color: rgba(255,255,255,.55);
-
-  font-size: .57rem;
-
-  letter-spacing: .09em;
+.center-duration.is-visible {
+  max-height: 75px;
+  margin-top: 7px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
-
-/* Begin */
-
-.begin-journey {
-
-  margin-top: 30px;
-
-  padding:
-    14px
-    21px;
-
-  border: 0;
-
-  border-radius: 999px;
-
-  background: white;
-
-  color: #061020;
-
-  font-size: .74rem;
-
+.duration-number {
+  color: var(--accent);
+  font-size: 1.35rem;
   font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    transform .25s ease,
-    background .25s ease;
+  letter-spacing: -0.04em;
 }
 
-
-.begin-journey span {
-
-  margin-left: 9px;
+.duration-unit {
+  color: #dceaffb8;
+  font-size: 0.57rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
 }
 
-
-.begin-journey:hover {
-
-  transform:
-    translateY(-3px);
-
-  background: var(--accent);
-
-  color: white;
-}
-
-
-/* =========================================================
-   LARGE WORLD VIDEO
-========================================================= */
-
-.world-video-container {
-
-  position: relative;
-
-  min-height: 500px;
-
-  border-radius: 35px;
-
-  overflow: hidden;
-
-  background: #020812;
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  box-shadow:
-    inset 0 0 100px
-    rgba(0,0,0,.4);
-}
-
-
-.world-video {
-
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  object-fit: cover;
-
-  transform: scale(1.25);
-
-  filter:
-    brightness(.88)
-    saturate(1.08);
-
-  transition:
-    opacity .5s ease;
-}
-
-
-.world-video-overlay {
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.05),
-      rgba(0,0,0,.2) 60%,
-      rgba(0,0,0,.7)
-    );
-
-  z-index: 2;
-}
-
-
-.world-video-glow {
-
-  position: absolute;
-
-  width: 400px;
-
-  height: 400px;
-
-  left: 50%;
-
-  top: 42%;
-
-  transform:
-    translate(-50%,-50%);
-
-  border-radius: 50%;
-
-  background: var(--accent);
-
-  opacity: .1;
-
-  filter: blur(60px);
-
-  z-index: 1;
-}
-
-
-.world-caption {
-
-  position: absolute;
-
-  left: 28px;
-
-  bottom: 27px;
-
-  z-index: 5;
-}
-
-
-.world-caption small {
-
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: rgba(255,255,255,.38);
-
-  font-size: .55rem;
-
-  letter-spacing: .18em;
-}
-
-
-.world-caption strong {
-
-  color: var(--accent);
-
-  font-size: .75rem;
-
-  letter-spacing: .12em;
-
-  font-weight: 500;
-}
-
-
-/* =========================================================
-   JOURNEY
-========================================================= */
-
-.journey-section {
-
-  padding:
-    130px 7%;
-
-  background: #f3f5f3;
-
-  color: #101923;
-}
-
-
-.journey-heading {
-
-  max-width: 800px;
-
-  margin:
-    0 auto
-    65px;
-
-  text-align: center;
-}
-
-
-.journey-heading
-.section-eyebrow {
-
-  color: #78848c;
-}
-
-
-.journey-heading h2 {
-
-  margin:
-    15px 0;
-
-  font-size:
-    clamp(2.6rem,5vw,4.5rem);
-
-  line-height: .95;
-
-  font-weight: 400;
-
-  letter-spacing: -.05em;
-}
-
-
-.journey-heading p {
-
-  color: #6d7880;
-
-  line-height: 1.7;
-}
-
-
-/* Journey path */
-
-.journey-path {
-
-  position: relative;
-
-  max-width: 1120px;
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-}
-
-
-.journey-path::before {
-
-  content: "";
-
-  position: absolute;
-
-  left: 7%;
-
-  right: 7%;
-
-  top: 34px;
-
-  height: 1px;
-
-  background: #d3d9d6;
-}
-
-
-.journey-stage {
-
-  position: relative;
-
-  z-index: 2;
-
-  padding:
-    0
-    18px;
-
-  text-align: center;
-}
-
-
-.journey-number {
-
-  width: 68px;
-
-  height: 68px;
-
-  margin:
-    0 auto
-    25px;
-
-  display: flex;
-
+.focus-here-button {
+  display: inline-flex;
   align-items: center;
-
   justify-content: center;
-
-  border-radius: 50%;
-
-  border:
-    1px solid #ccd4d1;
-
-  background: #f3f5f3;
-
-  color: #89939a;
-
-  font-size: .65rem;
-
-  letter-spacing: .1em;
+  gap: 10px;
+  margin-top: 0;
+  padding: 9px 15px;
+  border: 1px solid #daedff8c;
+  border-radius: 999px;
+  background: #0b1c32d9;
+  color: #f8fbff;
+  font-size: 0.67rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  pointer-events: auto;
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease,
+    opacity 200ms ease;
 }
 
+.focus-here-button span {
+  margin: 0;
+  font-size: 0.85rem;
+}
 
-.journey-active
-.journey-number {
-
+.focus-here-button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 30%, #0b1c32);
   border-color: var(--accent);
+  transform: translateY(-1px);
+}
 
-  background: var(--accent);
-
-  color: white;
-
-  box-shadow:
-    0 0 0 8px
-    color-mix(
-      in srgb,
-      var(--accent) 12%,
-      transparent
-    );
+.focus-here-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 
-.journey-subtitle {
-
-  display: block;
-
-  margin-bottom: 7px;
-
-  color: #89949b;
-
-  font-size: .57rem;
-
-  letter-spacing: .16em;
+.orbit-footer {
+  position: relative;
+  z-index: 2;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  color: #dae8fa9a;
+  font-size: 0.62rem;
 }
 
-
-.journey-stage h3 {
-
-  margin:
-    0
-    0
-    10px;
-
-  font-size: 1.3rem;
-
-  font-weight: 500;
+.orbit-footer span:first-child {
+  color: #a7d5ff;
 }
 
+/* FOCUS SCREEN WRAPPER */
 
-.journey-stage p {
-
-  max-width: 190px;
-
-  margin: auto;
-
-  color: #748087;
-
-  font-size: .75rem;
-
-  line-height: 1.6;
+.focus-viewport {
+  padding: 91px 22px 16px;
+  background: #030816;
 }
 
+/* SHORT LAPTOP SCREENS */
 
-/* =========================================================
-   THE DIVE ANIMATION
-========================================================= */
-
-.is-diving .compass-main {
-
-  animation:
-    compassDive .9s ease;
-}
-
-
-.is-diving .orbit-system {
-
-  animation:
-    orbitDive .9s cubic-bezier(.7,0,.3,1);
-}
-
-
-.is-diving .orbit-line {
-
-  animation:
-    orbitSpeed .8s ease;
-}
-
-
-@keyframes compassDive {
-
-  0% {
-    transform:
-      scale(1);
-
-    filter:
-      blur(0);
+@media (max-height: 760px) and (min-width: 761px) {
+  .orbit-viewport {
+    padding-top: 88px;
   }
 
-  55% {
-    transform:
-      scale(1.06);
-
-    filter:
-      blur(1px);
+  .orbit-header h1 {
+    font-size: 2.5rem;
   }
 
-  100% {
-    transform:
-      scale(1);
-
-    filter:
-      blur(0);
-  }
-}
-
-
-@keyframes orbitDive {
-
-  0% {
-    transform:
-      scale(1);
-  }
-
-  50% {
-    transform:
-      scale(1.15);
-  }
-
-  100% {
-    transform:
-      scale(1);
-  }
-}
-
-
-@keyframes orbitSpeed {
-
-  0% {
-    opacity: .25;
-  }
-
-  50% {
-    opacity: .8;
-  }
-
-  100% {
-    opacity: .25;
-  }
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1100px) {
-
-  .destination-grid {
-
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-
-  .world-section {
-
-    grid-template-columns:
-      1fr;
-
-    gap: 55px;
-  }
-
-
-  .world-information {
-
-    max-width: 700px;
-  }
-
-
-  .world-video-container {
-
-    min-height: 550px;
-  }
-
-
-  .orbit-system {
-
-    transform:
-      scale(.9);
-  }
-
-}
-
-
-@media (max-width: 760px) {
-
-  .galaxy-intro {
-
-    height: 760px;
-  }
-
-
-  .galaxy-content {
-
-    padding-top: 210px;
-  }
-
-
-  .galaxy-content h1 {
-
-    font-size:
-      4rem;
-  }
-
-
-  .compass-main {
-
-    min-height: 760px;
-
-    padding-top: 100px;
-  }
-
-
-  .orbit-system {
-
-    width: 650px;
-
-    height: 500px;
-
-    transform:
-      scale(.7);
-
-    transform-origin:
-      top center;
-
-    margin-left: 50%;
-
-    translate:
-      -50%
-      0;
-  }
-
-
-  .section-heading {
-
-    display: block;
-  }
-
-
-  .section-heading > p {
-
-    margin-top: 20px;
-  }
-
-
-  .destination-grid {
-
-    grid-template-columns:
-      1fr;
-  }
-
-
-  .destination-card {
-
-    min-height: 420px;
-  }
-
-
-  .world-section {
-
-    padding:
-      90px 6%;
-  }
-
-
-  .world-video-container {
-
-    min-height: 430px;
-
-    border-radius: 25px;
-  }
-
-
-  .journey-path {
-
-    grid-template-columns:
-      repeat(2,1fr);
-
-    gap: 45px 0;
-  }
-
-
-  .journey-path::before {
-
-    display: none;
-  }
-
-}
-
-
-@media (max-width: 480px) {
-
-  .galaxy-intro {
-
-    height: 680px;
-  }
-
-
-  .galaxy-content {
-
-    padding-top: 190px;
-  }
-
-
-  .galaxy-content h1 {
-
-    font-size:
-      3.2rem;
-  }
-
-
-  .compass-title h2 {
-
-    font-size:
-      3rem;
-  }
-
-
-  .orbit-system {
-
-    transform:
-      scale(.55);
-  }
-
-
-  .destination-section {
-
-    padding:
-      90px 5%;
-  }
-
-
-  .world-information h2 {
-
-    font-size:
-      2.8rem;
-  }
-
-
-  .world-video-container {
-
+  .orbit-stage {
     min-height: 350px;
   }
 
+  .orbit-planet {
+    width: 112px;
+    min-height: 130px;
+    gap: 5px;
+  }
 
-  .journey-path {
+  .planet-video {
+    width: 82px;
+    height: 82px;
+  }
 
-    grid-template-columns:
-      1fr;
+  .planet-name {
+    font-size: 0.0rem;
+  }
+
+  .planet-time {
+    font-size: 0.53rem;
+    padding: 4px 7px;
+  }
+
+  .planet-video-center {
+    width: 88px;
+    height: 88px;
+  }
+
+  .center-details p {
+    margin: 4px auto 6px;
+    font-size: 0.62rem;
+  }
+
+  .focus-here-button {
+    margin-top: 0;
+    padding: 8px 14px;
   }
 
 }
 
-/* Dark, starry NORTH look shared with the landing page. */
-.compass-page .galaxy-content,
-.compass-page .compass-main,
-.compass-page .destination-section,
-.compass-page .world-section,
-.compass-page .journey-section {
-  font-family: "Raleway", sans-serif;
+/* TABLETS */
+
+@media (max-width: 900px) {
+  .orbit-viewport {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  .orbit-planet {
+    width: 100px;
+    min-height: 132px;
+    gap: 6px;
+  }
+
+  .planet-video {
+    width: 72px;
+    height: 72px;
+  }
+
+  
+  .planet-time {
+    font-size: 0.49rem;
+    padding: 4px 6px;
+  }
+
+  .orbit-center {
+    width: 34%;
+  }
+
+  .planet-video-center {
+    width: 92px;
+    height: 92px;
+  }
+
+  .center-details p {
+    max-width: 235px;
+    font-size: 0.62rem;
+  }
+
+  .orbit-mercury {
+    left: 7%;
+  }
+
+  .orbit-jupiter {
+    left: 93%;
+  }
 }
 
-.compass-page .enter-compass-button,
-.compass-page .begin-journey {
-  border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
-  background: rgba(52, 127, 196, .88);
-  color: #f5f7fa;
-  box-shadow: 0 8px 30px rgba(40, 120, 210, .2);
+/* MOBILE: orbit becomes a spacious, scrollable planet scene */
+
+@media (max-width: 650px) {
+  .compass-page {
+    height: auto;
+    min-height: 100svh;
+    overflow-y: auto;
+  }
+
+  .compass-viewport {
+    height: auto;
+    min-height: calc(100svh - 80px);
+    padding-top: 96px;
+  }
+
+  .intro-viewport {
+    height: 100svh;
+    min-height: 600px;
+  }
+
+  .intro-copy {
+    top: 46%;
+  }
+
+  .intro-copy h1 {
+    font-size: clamp(4rem, 17vw, 6rem);
+  }
+
+  .intro-copy p {
+    max-width: 320px;
+    line-height: 1.6;
+  }
+
+  .orbit-viewport {
+    min-height: 1080px;
+    padding: 100px 14px 22px;
+  }
+
+  .orbit-header {
+    align-items: flex-start;
+  }
+
+  .orbit-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .orbit-header p {
+    max-width: 270px;
+    line-height: 1.5;
+  }
+
+  .world-count {
+    padding-top: 8px;
+  }
+
+  .orbit-stage {
+    width: 100%;
+    height: 800px;
+    min-height: 800px;
+    margin-top: 10px;
+    flex: none;
+  }
+
+  .orbit-track.outer {
+    width: 105%;
+    height: 72%;
+    top: 48%;
+  }
+
+  .orbit-track.middle {
+    width: 88%;
+    height: 59%;
+    top: 48%;
+  }
+
+  .orbit-track.inner {
+    width: 70%;
+    height: 45%;
+    top: 48%;
+  }
+
+  .orbit-planet {
+    width: 86px;
+    min-height: 112px;
+    gap: 5px;
+  }
+
+  .planet-video {
+    width: 62px;
+    height: 62px;
+  }
+
+  
+
+  .planet-time {
+    font-size: 0.45rem;
+    padding: 4px 5px;
+  }
+
+  .orbit-mercury {
+    left: 10%;
+    top: 39%;
+  }
+
+  .orbit-venus {
+    left: 27%;
+    top: 14%;
+  }
+
+  .orbit-earth {
+    left: 73%;
+    top: 14%;
+  }
+
+  .orbit-mars {
+    left: 90%;
+    top: 39%;
+  }
+
+  .orbit-jupiter {
+    left: 88%;
+    top: 64%;
+  }
+
+  .orbit-saturn {
+    left: 73%;
+    top: 87%;
+  }
+
+  .orbit-uranus {
+    left: 36%;
+    top: 94%;
+  }
+
+  .orbit-neptune {
+    left: 12%;
+    top: 66%;
+  }
+
+  .orbit-center {
+    width: min(290px, 76%);
+    top: 49%;
+  }
+
+  .planet-video-center {
+    width: 88px;
+    height: 88px;
+  }
+
+  .center-glow {
+    width: 170px;
+    height: 170px;
+  }
+
+  .center-details {
+    margin-top: 8px;
+  }
+
+  .center-details h2 {
+    font-size: 1.55rem;
+  }
+
+  .center-title-row {
+    gap: 8px;
+  }
+
+  .focus-here-button {
+    padding: 8px 11px;
+    font-size: 0.62rem;
+  }
+
+  .center-details p {
+    max-width: 240px;
+    font-size: 0.65rem;
+  }
+
+  .orbit-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 0.6rem;
+  }
+
+  .focus-viewport {
+    min-height: calc(100svh - 80px);
+    padding: 90px 10px 14px;
+  }
 }
 
-.compass-page .enter-compass-button:hover,
-.compass-page .begin-journey:hover {
-  background: var(--accent);
-  color: #fff;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-.compass-page .compass-main,
-.compass-page .destination-section,
-.compass-page .journey-section {
-  background-color: #071326;
-  color: #f5f7fa;
+
+/* Central planet sizing across screen sizes */
+
+
+.is-launching .orbit-center .planet-video-center {
+  transform: scale(3.2);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent) 80%, white),
+    0 0 75px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
-.compass-page .compass-main-background {
-  background:
-    radial-gradient(circle at 50% 58%, color-mix(in srgb, var(--accent) 15%, transparent), transparent 30%),
-    radial-gradient(circle at 50% 70%, rgba(40, 80, 130, .14), transparent 50%),
-    #071326;
+@media (max-width: 900px) {
+  .center-planet-trigger {
+    width: clamp(150px, 22vw, 205px);
+  }
 }
 
-.compass-page .destination-section,
-.compass-page .journey-section {
-  position: relative;
-  overflow: hidden;
+@media (max-width: 650px) {
+  .center-planet-trigger {
+    width: clamp(140px, 42vw, 180px);
+  }
+
+  .is-launching .orbit-center .planet-video-center {
+    transform: scale(2.5);
+  }
 }
 
-.compass-page .destination-section::before,
-.compass-page .journey-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
+@media (prefers-reduced-motion: reduce) {
+  .is-launching .orbit-center .planet-video-center {
+    transform: none;
+  }
+}
+
+
+/* Travel from the selected world into focus mode */
+
+.orbit-center .planet-video-center {
+  transform-origin: center;
+}
+
+.orbit-center .center-details {
+  transition: opacity 250ms ease, transform 300ms ease;
+}
+
+.is-launching .orbit-header,
+.is-launching .orbit-footer,
+.is-launching .orbit-stars,
+.is-launching .orbit-track,
+.is-launching .orbit-planet {
+  opacity: 0;
+  transition: opacity 450ms ease;
+}
+
+.orbit-header,
+.orbit-footer,
+.orbit-stars,
+.orbit-track,
+.orbit-planet {
+  transition: opacity 450ms ease;
+}
+
+.is-launching .orbit-center {
+  z-index: 50;
+  filter: brightness(1.15);
   pointer-events: none;
-  opacity: .32;
-  background-image: radial-gradient(circle, rgba(183, 216, 255, .75) 1px, transparent 1.5px);
-  background-size: 83px 79px;
-  animation: compassStarDrift 12s ease-in-out infinite alternate;
 }
 
-@keyframes compassStarDrift {
-  from { opacity: .2; transform: translateY(0); }
-  to { opacity: .4; transform: translateY(-7px); }
+.is-launching .orbit-center .planet-video-center {
+  transform: scale(5);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--accent) 80%, white),
+    0 0 100px color-mix(in srgb, var(--accent) 55%, transparent);
 }
 
-.compass-page .destination-section > *:not(.sparkle-layer),
-.compass-page .journey-section > *:not(.sparkle-layer) {
-  position: relative;
-  z-index: 2;
+.is-launching .orbit-center .center-details {
+  opacity: 0;
+  transform: translateY(10px);
 }
 
-.compass-page .section-heading .section-eyebrow,
-.compass-page .journey-heading .section-eyebrow {
-  color: var(--accent);
+.is-launching .orbit-center .center-glow {
+  opacity: 0.65;
 }
 
-.compass-page .section-heading > p,
-.compass-page .journey-heading p {
-  color: rgba(229, 237, 247, .62);
+@media (max-width: 650px) {
+  .is-launching .orbit-center .planet-video-center {
+    transform: scale(3.5);
+  }
 }
 
-.compass-page .destination-card {
-  border-color: rgba(149, 183, 220, .14);
-  background: rgba(12, 29, 49, .88);
-  color: #f5f7fa;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+@media (prefers-reduced-motion: reduce) {
+  .is-launching .orbit-center .planet-video-center {
+    transform: none;
+  }
 }
 
-.compass-page .destination-card:hover {
-  box-shadow: 0 22px 55px rgba(0, 0, 0, .36);
-}
 
-.compass-page .card-category,
-.compass-page .card-content p {
-  color: rgba(219, 231, 244, .63);
-}
-
-.compass-page .card-footer small {
-  color: rgba(219, 231, 244, .45);
-}
-
-.compass-page .journey-path::before {
-  background: rgba(168, 196, 226, .25);
-}
-
-.compass-page .journey-number {
-  border-color: rgba(168, 196, 226, .3);
-  background: #0e2035;
-  color: rgba(226, 237, 248, .7);
-}
-
-.compass-page .journey-subtitle,
-.compass-page .journey-stage p {
-  color: rgba(219, 231, 244, .56);
-}
-
-.compass-page .sparkle-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.compass-page .sparkle {
-  position: absolute;
+.orbit-planet-duration {
   display: block;
-  border-radius: 50%;
-  background: #d7e9ff;
-  box-shadow: 0 0 7px rgba(169, 211, 255, .8);
-  opacity: .15;
-  animation: compassTwinkle ease-in-out infinite alternate;
+  margin-top: 5px;
+  color: #b8c8df;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
-@keyframes compassTwinkle {
-  from { opacity: .12; transform: scale(.65); }
-  to { opacity: .8; transform: scale(1.35); }
+
+/* Give the orbit labels a little more room */
+.orbit-planet {
+  width: 112px;
+  min-height: 140px;
+  overflow: visible;
 }
 
-.planet-art {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 50%;
-  box-shadow: inset -35px -15px 45px rgba(0, 0, 0, .52), 0 0 35px color-mix(in srgb, var(--accent) 28%, transparent);
-  animation: planetFloat 6s ease-in-out infinite;
+.orbit-planet {
+  white-space: nowrap;
+  font-size: 0.8rem;
 }
 
-.card-video .planet-art {
-  border-radius: 0;
-  animation: none;
-  box-shadow: none;
-}
-
-.planet-art-mercury {
-  background:
-    radial-gradient(circle at 28% 24%, rgba(255,255,255,.62) 0 2%, transparent 3%),
-    radial-gradient(circle at 65% 61%, #514a47 0 3%, transparent 4%),
-    radial-gradient(circle at 40% 72%, #81756e 0 5%, transparent 6%),
-    radial-gradient(circle at 35% 28%, #c7b9a9, #80766d 53%, #393a3f 100%);
-}
-
-.planet-art-venus {
-  background:
-    radial-gradient(ellipse at 30% 38%, rgba(255, 226, 178, .72), transparent 26%),
-    radial-gradient(ellipse at 65% 64%, rgba(174, 95, 50, .58), transparent 34%),
-    repeating-linear-gradient(165deg, transparent 0 15px, rgba(255, 225, 182, .17) 17px 24px, transparent 28px 39px),
-    radial-gradient(circle at 35% 25%, #ffd79d, #cb8054 58%, #643f42 100%);
-}
-
-.orbit-destination-2,
-.orbit-destination-6 {
-  left: calc(50% - 60px);
-}
-
-@media (max-width: 760px) {
-  .orbit-system {
-    width: 650px;
-    height: 760px;
-  }
-
-  .orbit-destination-2,
-  .orbit-destination-6 {
-    left: calc(50% - 60px);
-  }
-}
-
-.orbit-destination-4 {
-  right: 0;
-  top: 285px;
-  animation: orbitFloatOne 7.5s ease-in-out infinite;
-}
-
-.orbit-destination-5 {
-  right: 160px;
-  top: 535px;
-  animation: orbitFloatTwo 7s ease-in-out infinite;
-}
-
-.orbit-destination-6 {
+/* Keep the bottom planet and its label inside the stage */
+.orbit-uranus {
   left: 50%;
-  top: 645px;
-  animation: orbitFloatThree 6.5s ease-in-out infinite;
+  top: 90%;
 }
 
-.orbit-destination-7 {
-  left: 160px;
-  top: 535px;
-  animation: orbitFloatOne 7s ease-in-out infinite;
-}
+@media (max-width: 650px) {
+  .orbit-planet {
+    width: 88px;
+    min-height: 115px;
+  }
 
-/* Keep each planet anchored while its own video supplies the motion. */
-.compass-page .orbit-destination {
-  animation: none;
-}
+  .orbit-planet  {
+    font-size: 0.72rem;
+  }
 
-.compass-page .video-planet video {
-  animation: none;
-  transform: none;
-}
-
-.compass-page .planet-art {
-  animation: none;
-}
-
-/* Focus timer overlay */
-
-.focus-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  overflow-y: auto;
-  background: rgba(3, 7, 18, 0.78);
-  backdrop-filter: blur(8px);
-}
-
-.center-planet-button {
-  display: block;
-  padding: 0;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  color: inherit;
-}
-
-.center-planet-button:focus-visible,
-.planet-focus-button:focus-visible {
-  outline: 2px solid var(--accent, #c3e0ff);
-  outline-offset: 6px;
-}
-
-.planet-focus-button {
-  margin-top: 12px;
-  padding: 9px 15px;
-  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  border-radius: 999px;
-  background: rgba(8, 16, 32, 0.65);
-  color: #e7f1ff;
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.planet-focus-button:hover {
-  background: rgba(100, 145, 205, 0.2);
-  transform: translateY(-1px);
+  .orbit-uranus {
+    left: 50%;
+    top: 95%;
+  }
 }
