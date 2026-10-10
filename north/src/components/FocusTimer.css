@@ -1,205 +1,518 @@
 
-.focus-timer {
-  position: relative;
-  width: min(100%, 440px);
-  margin: 0 auto;
-  padding: 36px 30px;
-  overflow: hidden;
-  text-align: center;
-  color: #e7f1ff;
-  background:
-    radial-gradient(ellipse at 50% 15%, rgba(72, 122, 190, 0.16), transparent 48%),
-    rgba(7, 14, 29, 0.94);
-  border: 1px solid rgba(151, 190, 240, 0.18);
-  border-radius: 26px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(20px);
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
+
+/* Base */
+
+.focus-timer,
+.focus-timer * {
+  box-sizing: border-box;
 }
+
+.focus-timer {
+  position: fixed;
+  top: 76px;
+  left: 0;
+  width: 100%;
+  height: calc(100svh - 76px);
+  margin: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050711;
+}
+
+
+/* Full-screen background video */
+
+.focus-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #030611;
+  pointer-events: none;
+}
+
+.focus-background-video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.focus-background-shade {
+  display: none;
+}
+
+
+/* Exit button */
 
 .focus-close {
   position: absolute;
-  top: 14px;
-  right: 17px;
-  width: 34px;
-  height: 34px;
-  color: #a8bbd4;
-  font-size: 25px;
+  z-index: 20;
+  top: 18px;
+  right: 22px;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(230, 239, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(5, 12, 28, 0.25);
+  color: #f4f7ff;
+  font-family: "Raleway", sans-serif;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+
+.focus-close:hover {
+  background: rgba(5, 12, 28, 0.7);
+}
+
+/* Scene selector */
+
+.focus-scene-control {
+  position: absolute;
+  z-index: 15;
+  top: 16px;
+  left: 18px;
+}
+
+.focus-scene-menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid transparent;
+  border-radius: 999px;
   background: transparent;
-  border: 0;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.focus-scene-menu:hover,
+.focus-scene-menu:focus-within {
+  border-color: rgba(230, 239, 255, 0.16);
+  background: rgba(5, 12, 28, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.focus-scene-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font-family: "Raleway", sans-serif;
   cursor: pointer;
 }
 
-.focus-eyebrow {
-  margin: 0 0 22px;
-  color: #8daed4;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+.focus-scene-emoji {
+  font-size: 1rem;
 }
 
-.focus-planet {
-  display: grid;
-  place-items: center;
-  width: 86px;
-  height: 86px;
-  margin: 0 auto 20px;
-  border: 1px solid rgba(135, 190, 255, 0.42);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 25%, #8db7e5, #315582 38%, #111f3d 72%);
-  box-shadow:
-    0 0 35px rgba(91, 157, 237, 0.18),
-    inset -10px -8px 20px rgba(0, 0, 0, 0.35);
-}
-
-.focus-planet span {
-  color: #f3f8ff;
-  font-size: 26px;
-  text-shadow: 0 0 16px #b9dcff;
-}
-
-.focus-timer h2 {
-  margin: 0;
-  font-size: 23px;
+.focus-scene-label {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  transition: max-width 180ms ease, opacity 180ms ease;
 }
 
-.focus-subtitle {
-  margin: 9px 0 28px;
-  color: #8fa2bd;
-  font-size: 12px;
+.focus-scene-menu:hover .focus-scene-option,
+.focus-scene-menu:focus-within .focus-scene-option {
+  gap: 6px;
+}
+
+.focus-scene-menu:hover .focus-scene-label,
+.focus-scene-menu:focus-within .focus-scene-label {
+  max-width: 120px;
+  opacity: 1;
+}
+
+.focus-scene-option.active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.focus-scene-option:focus-visible,
+.focus-music button:focus-visible {
+  outline: 2px solid var(--focus-accent);
+  outline-offset: 3px;
+}
+
+/* Left-side timer layout */
+
+.focus-layout {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+  height: 100%;
+  min-height: 0;
+  padding: 35px 0 35px clamp(28px, 7vw, 110px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.focus-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: min(100%, 410px);
+  margin: auto 0;
+  gap: 13px;
+}
+
+.focus-planet-name {
+  padding-left: 3px;
+  color: rgba(240, 245, 255, 0.86);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Minimal, translucent timer card */
+
+.focus-clock-panel {
+  position: relative;
+  width: 100%;
+  border: 1px solid rgba(225, 237, 255, 0.19);
+  border-radius: 19px;
+  background: rgba(5, 11, 27, 0.23);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.focus-clock-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  padding: 27px 27px 23px;
+  text-align: left;
 }
 
 .focus-clock {
-  margin-bottom: 24px;
-  color: #edf5ff;
-  font-size: clamp(36px, 8vw, 48px);
+  margin: 0;
+  color: #fff;
+  font-family: "Raleway", sans-serif;
+  font-size: clamp(3.6rem, 6.5vw, 5.2rem);
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
-  font-weight: 300;
-  letter-spacing: 0.06em;
+  letter-spacing: -0.07em;
+  line-height: 1.12;
+  white-space: nowrap;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
 }
 
-.focus-progress {
-  height: 3px;
-  overflow: hidden;
-  background: rgba(142, 174, 215, 0.14);
-  border-radius: 99px;
-}
-
-.focus-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #638fd8, #b8dfff);
-  box-shadow: 0 0 12px rgba(133, 193, 255, 0.55);
-  transition: width 0.2s linear;
-}
-
-.focus-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 25px 0;
-}
-
-.focus-stats > div {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  padding: 17px 8px;
-  border: 1px solid rgba(143, 178, 224, 0.12);
-  border-radius: 14px;
-  background: rgba(120, 157, 205, 0.045);
-}
-
-.focus-stats strong {
-  color: #dcecff;
-  font-size: 23px;
+.focus-progress-caption {
+  margin: 12px 0 14px;
+  color: rgba(247, 249, 255, 0.82);
+  font-size: 0.72rem;
   font-weight: 500;
 }
 
-.focus-stats span {
-  color: #91a6c2;
-  font-size: 10px;
+.focus-progress {
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(240, 245, 255, 0.2);
 }
 
-.focus-stats .focus-unit {
-  font-size: 12px;
+.focus-progress-fill {
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--focus-accent);
+  transition: width 250ms linear;
 }
+
+.focus-timer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 13px;
+}
+
+.focus-star-count,
+.focus-goal-label {
+  color: rgba(247, 249, 255, 0.8);
+  font-size: 0.69rem;
+  font-weight: 600;
+}
+
+.focus-star-count {
+  color: #f3d89b;
+}
+
+/* Buttons inside the card */
 
 .focus-actions {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 23px;
 }
 
 .focus-primary,
 .focus-secondary {
-  width: 100%;
-  padding: 13px 16px;
-  border-radius: 12px;
-  font: inherit;
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 19px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: "Raleway", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 180ms ease, border-color 180ms ease;
 }
 
 .focus-primary {
-  color: #071326;
-  background: #c3e0ff;
-  border: 1px solid #c3e0ff;
-  font-weight: 700;
+  background: var(--focus-accent);
+  color: #07101e;
 }
 
-.focus-primary:hover {
-  background: #e0efff;
+.focus-primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--focus-accent) 82%, white);
+}
+
+.focus-secondary {
+  border-color: rgba(240, 245, 255, 0.25);
+  background: transparent;
+  color: #fff;
+}
+
+.focus-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .focus-primary:disabled,
 .focus-secondary:disabled {
-  cursor: wait;
   opacity: 0.55;
+  cursor: not-allowed;
 }
 
-.focus-secondary {
-  color: #c6d7ed;
-  background: rgba(120, 157, 205, 0.06);
-  border: 1px solid rgba(143, 178, 224, 0.2);
+/* Completion state */
+
+.focus-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 9px;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.focus-secondary:hover {
-  border-color: rgba(143, 190, 250, 0.5);
-}
-
-.focus-complete {
-  padding-top: 5px;
-}
-
-.focus-complete-star {
-  margin-bottom: 10px;
-  color: #c9e4ff;
-  font-size: 30px;
-  text-shadow: 0 0 24px rgba(135, 193, 255, 0.8);
-}
-
-.focus-complete h3 {
+.focus-result h3 {
   margin: 0;
-  font-size: 19px;
+  font-size: 1.05rem;
+  font-weight: 600;
 }
 
-.focus-complete p {
-  margin: 10px 0 20px;
-  color: #9db1cd;
-  font-size: 13px;
+.focus-result p {
+  margin: 0 0 5px;
+  color: rgba(245, 248, 255, 0.8);
+  font-size: 0.77rem;
+  line-height: 1.55;
+}
+
+.focus-result .focus-primary,
+.focus-result .focus-secondary {
+  width: 100%;
+}
+
+.focus-reward {
+  width: 100%;
+  padding: 12px 0;
+  border-top: 1px solid rgba(240, 245, 255, 0.16);
+}
+
+.focus-reward-label {
+  color: #f3d89b;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.focus-reward h3 {
+  margin-top: 8px;
+  font-size: 0.95rem;
 }
 
 .focus-error {
-  color: #ffb8b8;
-  font-size: 12px;
+  margin: 0;
+  color: #ffc0c7;
+  font-size: 0.74rem;
+  line-height: 1.5;
 }
 
-.focus-footnote {
-  margin: 20px 0 0;
-  color: #7286a2;
-  font-size: 10px;
-  line-height: 1.6;
+/* Minimal music bar, expands on hover/focus */
+
+.focus-music {
+  position: absolute;
+  z-index: 16;
+  right: 20px;
+  bottom: 18px;
+  width: min(285px, calc(100vw - 32px));
+  border: 1px solid rgba(225, 237, 255, 0.16);
+  border-radius: 15px;
+  background: rgba(5, 12, 28, 0.34);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.focus-music:hover,
+.focus-music:focus-within {
+  border-color: rgba(225, 237, 255, 0.28);
+  background: rgba(5, 12, 28, 0.9);
+}
+
+.focus-music-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 57px;
+  padding: 9px 12px;
+}
+
+.focus-music-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 33px;
+  height: 33px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--focus-accent);
+  font-size: 1.1rem;
+}
+
+.focus-music-now {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  gap: 4px;
+}
+
+.focus-music-now strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.focus-music-now span {
+  color: rgba(230, 238, 255, 0.65);
+  font-size: 0.62rem;
+}
+
+.focus-music-toggle {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(225, 237, 255, 0.2);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.focus-music-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 0;
+  padding: 0 9px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-height 220ms ease, padding 220ms ease, opacity 180ms ease;
+}
+
+.focus-music:hover .focus-music-expanded,
+.focus-music:focus-within .focus-music-expanded {
+  max-height: 250px;
+  padding: 4px 9px 10px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.focus-music-kicker {
+  padding: 5px;
+  color: rgba(230, 238, 255, 0.58);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.focus-track-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 9px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.focus-track-option:hover,
+.focus-track-option.active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.focus-track-symbol {
+  color: var(--focus-accent);
+}
+
+.focus-track-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.focus-track-copy strong {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.focus-track-copy small {
+  color: rgba(230, 238, 255, 0.62);
+  font-size: 0.62rem;
+}
+
+.focus-music-error {
+  margin: 0;
+  padding: 0 12px 10px;
+  color: #ffc0c7;
+  font-size: 0.68rem;
+  line-height: 1.4;
 }

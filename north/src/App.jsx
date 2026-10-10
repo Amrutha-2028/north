@@ -12,6 +12,8 @@ import Goals from "./pages/Goals";
 import Compass from "./pages/Compass";
 import SubmitInfo from "./pages/SubmitInfo";
 import TestPrep from "./pages/TestPrep";
+import Opportunities from "./pages/Opportunities";
+import ResumeMaker from "./pages/ResumeMaker";
 
 import "./App.css";
 
@@ -32,6 +34,8 @@ function App() {
         <Route path="/compass" element={<Compass />} />
         <Route path="/submit-info" element={<SubmitInfo />} />
         <Route path="/test-prep" element={<TestPrep />} />
+        <Route path="/opportunities" element={<Opportunities />} />
+        <Route path="/resume-maker" element={<ResumeMaker />} />
       </Routes>
 
       {/* Floating utility available across North */}

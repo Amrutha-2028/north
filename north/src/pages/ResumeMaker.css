@@ -1,0 +1,886 @@
+/* =========================================
+   NORTH • RESUME MAKER
+   One complete stylesheet, no override layers
+   ========================================= */
+
+.rm-page {
+  min-height: 100vh;
+  padding: 1px 0 80px;
+  color: #f5f7fa;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.rm-page *,
+.rm-page *::before,
+.rm-page *::after {
+  box-sizing: border-box;
+}
+
+.rm-main {
+  width: min(1480px, 100%);
+  margin: 0 auto;
+  padding: 112px 5% 0;
+}
+
+/* ---------- Page introduction ---------- */
+
+.rm-header {
+  max-width: 780px;
+  margin: 0 auto 54px;
+  text-align: center;
+}
+
+.rm-eyebrow {
+  margin-bottom: 22px;
+  color: #83baff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.23em;
+  text-transform: uppercase;
+}
+
+.rm-header > h1 {
+  margin: 0;
+  color: #f7f9fc;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.rm-header > h1 span {
+  color: #91bdf2;
+  text-shadow: 0 0 34px rgba(73, 143, 226, 0.17);
+}
+
+.rm-header > p {
+  max-width: 610px;
+  margin: 22px auto 0;
+  color: #aab9cc;
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.rm-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.rm-example-note {
+  padding: 11px 15px;
+  border: 1px solid rgba(105, 170, 240, 0.2);
+  border-radius: 8px;
+  background: rgba(43, 87, 135, 0.13);
+  color: #b9d8fb !important;
+  font-size: 0.86rem !important;
+}
+
+/* ---------- Buttons ---------- */
+
+.rm-primary-button,
+.rm-secondary-button,
+.rm-add-button,
+.rm-add-section-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.3;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.rm-primary-button {
+  border: 1px solid #8bbcf3;
+  background: #a9cdf6;
+  color: #10243b;
+  box-shadow: 0 5px 18px rgba(68, 135, 210, 0.12);
+}
+
+.rm-primary-button:hover {
+  transform: translateY(-1px);
+  border-color: #c0ddff;
+  background: #c0dcfb;
+  box-shadow: 0 8px 24px rgba(68, 135, 210, 0.2);
+}
+
+.rm-secondary-button {
+  border: 1px solid rgba(145, 177, 213, 0.25);
+  background: rgba(21, 39, 61, 0.68);
+  color: #e1eaf5;
+}
+
+.rm-secondary-button:hover {
+  border-color: rgba(135, 185, 242, 0.55);
+  background: rgba(42, 70, 103, 0.65);
+}
+
+.rm-primary-button:focus-visible,
+.rm-secondary-button:focus-visible,
+.rm-add-button:focus-visible,
+.rm-add-section-button:focus-visible,
+.rm-text-button:focus-visible {
+  outline: 2px solid #9bc9ff;
+  outline-offset: 3px;
+}
+
+/* ---------- Workspace layout ---------- */
+
+.rm-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+  align-items: start;
+  gap: 26px;
+}
+
+.rm-editor,
+.rm-preview-panel {
+  min-width: 0;
+  border: 1px solid rgba(130, 180, 230, 0.13);
+  border-radius: 14px;
+  background: linear-gradient(
+    145deg,
+    rgba(22, 42, 65, 0.86),
+    rgba(12, 26, 43, 0.91)
+  );
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
+}
+
+.rm-editor {
+  padding: 26px;
+}
+
+.rm-preview-panel {
+  position: sticky;
+  top: 96px;
+  padding: 23px;
+}
+
+/* ---------- Panel headings ---------- */
+
+.rm-panel-heading,
+.rm-preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.rm-step-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #83baff;
+  font-size: 0.66rem;
+  font-weight: 750;
+  letter-spacing: 0.19em;
+}
+
+.rm-panel-heading h2,
+.rm-preview-heading h2 {
+  margin: 0;
+  color: #f5f8fc;
+  font-size: 1.35rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.rm-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  color: #b5c6d9;
+  font-size: 0.76rem;
+}
+
+.rm-live-indicator > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8bc9a7;
+  box-shadow: 0 0 10px rgba(139, 201, 167, 0.3);
+}
+
+.rm-preview-tag {
+  padding: 5px 9px;
+  border: 1px solid rgba(125, 184, 244, 0.2);
+  border-radius: 5px;
+  background: rgba(73, 132, 197, 0.12);
+  color: #a9d0ff;
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+}
+
+/* ---------- Form sections ---------- */
+
+.rm-form-section {
+  min-width: 0;
+  margin-top: 20px;
+  padding: 22px 0 23px;
+  border-top: 1px solid rgba(151, 184, 218, 0.13);
+}
+
+.rm-form-section > h3 {
+  margin: 0 0 8px;
+  color: #f0f5fb;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.rm-help {
+  margin: 0 0 20px;
+  color: #9fb0c4;
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+
+.rm-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.rm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin-bottom: 17px;
+  color: #c8d5e4;
+  font-size: 0.79rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.rm-field:last-child {
+  margin-bottom: 0;
+}
+
+.rm-field input,
+.rm-field textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(145, 177, 213, 0.2);
+  border-radius: 7px;
+  outline: none;
+  background: rgba(7, 19, 33, 0.55);
+  color: #f0f5fc;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 400;
+  line-height: 1.5;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.rm-field input {
+  min-height: 43px;
+  padding: 10px 12px;
+}
+
+.rm-field textarea {
+  min-height: 92px;
+  padding: 11px 12px;
+  resize: vertical;
+}
+
+.rm-field input::placeholder,
+.rm-field textarea::placeholder {
+  color: #71859c;
+  opacity: 1;
+}
+
+.rm-field input:hover,
+.rm-field textarea:hover {
+  border-color: rgba(145, 190, 240, 0.38);
+}
+
+.rm-field input:focus,
+.rm-field textarea:focus {
+  border-color: #83baff;
+  background: rgba(9, 23, 40, 0.88);
+  box-shadow: 0 0 0 3px rgba(103, 173, 245, 0.12);
+}
+
+.rm-field input:focus-visible,
+.rm-field textarea:focus-visible {
+  outline: none;
+}
+
+/* ---------- Editable section headings ---------- */
+
+.rm-section-editor-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.rm-section-editor-heading > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  min-width: 0;
+}
+
+.rm-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 27px;
+  height: 27px;
+  border: 1px solid rgba(123, 177, 237, 0.2);
+  border-radius: 6px;
+  background: rgba(65, 119, 179, 0.13);
+  color: #9fc9fa;
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.rm-section-editor-heading h3 {
+  margin: 4px 0 0;
+  color: #f0f5fb;
+  font-size: 0.91rem;
+  font-weight: 700;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.rm-text-button {
+  flex-shrink: 0;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: #91a8c1;
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 160ms ease;
+}
+
+.rm-text-button:hover {
+  color: #c4ddfa;
+}
+
+.rm-remove-section:hover,
+.rm-activity-top .rm-text-button:hover {
+  color: #f0a4a4;
+}
+
+/* ---------- Individual activity cards ---------- */
+
+.rm-activity-card {
+  margin-bottom: 13px;
+  padding: 17px;
+  border: 1px solid rgba(137, 174, 215, 0.14);
+  border-radius: 9px;
+  background: rgba(7, 20, 34, 0.4);
+}
+
+.rm-activity-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 17px;
+}
+
+.rm-activity-top > span {
+  color: #83baff;
+  font-size: 0.65rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+}
+
+.rm-add-button {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 3px;
+  border: 1px dashed rgba(132, 177, 226, 0.32);
+  background: rgba(48, 85, 126, 0.1);
+  color: #bdd8f7;
+  font-size: 0.82rem;
+}
+
+.rm-add-button > span,
+.rm-add-section-button > span {
+  color: #8bbcf3;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.rm-add-button:hover,
+.rm-add-section-button:hover {
+  border-color: rgba(142, 194, 251, 0.65);
+  background: rgba(56, 100, 151, 0.2);
+}
+
+.rm-add-section-button {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 8px;
+  border: 1px solid rgba(132, 177, 226, 0.23);
+  background: rgba(48, 85, 126, 0.12);
+  color: #c8def8;
+  font-size: 0.86rem;
+}
+
+/* ---------- Editor actions and privacy note ---------- */
+
+.rm-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(151, 184, 218, 0.13);
+}
+
+.rm-editor-actions .rm-primary-button,
+.rm-editor-actions .rm-secondary-button {
+  flex: 1 1 150px;
+}
+
+.rm-privacy-note {
+  margin: 19px 0 0;
+  color: #91a5bb;
+  font-size: 0.76rem;
+  line-height: 1.75;
+}
+
+/* ---------- Live resume preview ---------- */
+
+.rm-paper {
+  width: 100%;
+  min-height: 650px;
+  padding: 34px 29px;
+  overflow-wrap: anywhere;
+  border-radius: 3px;
+  background: #ffffff;
+  color: #202833;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.rm-paper-header {
+  margin-bottom: 19px;
+  padding-bottom: 13px;
+  border-bottom: 1.5px solid #313d4a;
+  text-align: center;
+}
+
+.rm-paper-header h1 {
+  margin: 0 0 5px;
+  color: #172433;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.rm-paper-class {
+  margin-top: 5px;
+  color: #465568;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.65px;
+}
+
+.rm-paper-contact {
+  margin-top: 8px;
+  color: #394657;
+  font-size: 8px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.rm-paper-section {
+  margin-top: 16px;
+  break-inside: auto;
+  page-break-inside: auto;
+}
+
+.rm-paper-section h3 {
+  margin: 0 0 9px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #aab4bf;
+  color: #24364a;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.75px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.rm-paper-entry {
+  margin: 0 0 10px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.rm-paper-entry:last-child {
+  margin-bottom: 0;
+}
+
+.rm-paper-entry-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  color: #202b38;
+  font-size: 9.5px;
+  line-height: 1.45;
+}
+
+.rm-paper-entry-heading strong {
+  min-width: 0;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.rm-paper-entry-heading > span {
+  flex-shrink: 0;
+  color: #455263;
+  font-size: 8px;
+  text-align: right;
+}
+
+.rm-paper-organization {
+  margin-top: 1px;
+  color: #4b5969;
+  font-size: 8.5px;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.rm-paper-bullets {
+  margin: 4px 0 0;
+  padding-left: 15px;
+  color: #303b48;
+  font-size: 8.5px;
+  line-height: 1.5;
+}
+
+.rm-paper-bullets li {
+  margin: 0 0 2px;
+  padding-left: 1px;
+}
+
+.rm-empty-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  padding: 30px 12px;
+  color: #637285;
+  text-align: center;
+}
+
+.rm-empty-preview > span {
+  margin-bottom: 12px;
+  color: #6b8db5;
+  font-size: 1.8rem;
+}
+
+.rm-empty-preview p {
+  margin: 0 0 8px;
+  color: #2e3e50;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rm-empty-preview small {
+  max-width: 250px;
+  color: #6c7888;
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+
+.rm-preview-caption {
+  margin: 16px 2px 0;
+  color: #9eafc3;
+  font-size: 0.77rem;
+  line-height: 1.7;
+}
+
+/* ---------- Medium screens ---------- */
+
+@media (max-width: 1050px) {
+  .rm-main {
+    padding-right: 4%;
+    padding-left: 4%;
+  }
+
+  .rm-workspace {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .rm-preview-panel {
+    position: static;
+  }
+
+  .rm-paper {
+    max-width: 650px;
+    min-height: 720px;
+    margin: 0 auto;
+    padding: 42px 45px;
+    font-size: 11px;
+  }
+
+  .rm-paper-header h1 {
+    font-size: 27px;
+  }
+
+  .rm-paper-class {
+    font-size: 9px;
+  }
+
+  .rm-paper-contact {
+    font-size: 9px;
+  }
+
+  .rm-paper-section h3 {
+    font-size: 11px;
+  }
+
+  .rm-paper-entry-heading {
+    font-size: 10.5px;
+  }
+
+  .rm-paper-entry-heading > span,
+  .rm-paper-organization,
+  .rm-paper-bullets {
+    font-size: 9px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+  .rm-main {
+    padding: 100px 17px 45px;
+  }
+
+  .rm-header {
+    margin-bottom: 34px;
+  }
+
+  .rm-header > h1 {
+    font-size: clamp(2.1rem, 9vw, 3.2rem);
+  }
+
+  .rm-header > p {
+    font-size: 0.9rem;
+  }
+
+  .rm-header-actions {
+    flex-direction: column;
+  }
+
+  .rm-header-actions button {
+    width: 100%;
+  }
+
+  .rm-editor {
+    padding: 19px 16px;
+  }
+
+  .rm-preview-panel {
+    padding: 16px 12px;
+  }
+
+  .rm-panel-heading h2,
+  .rm-preview-heading h2 {
+    font-size: 1.15rem;
+  }
+
+  .rm-live-indicator {
+    gap: 5px;
+    font-size: 0.68rem;
+  }
+
+  .rm-field-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .rm-activity-card {
+    padding: 14px 12px;
+  }
+
+  .rm-section-editor-heading {
+    flex-wrap: wrap;
+  }
+
+  .rm-paper {
+    min-height: 480px;
+    padding: 25px 19px;
+    font-size: 9px;
+  }
+
+  .rm-paper-header h1 {
+    font-size: 21px;
+  }
+
+  .rm-paper-class {
+    font-size: 7px;
+  }
+
+  .rm-paper-contact {
+    font-size: 7px;
+  }
+
+  .rm-paper-section h3 {
+    font-size: 9px;
+  }
+
+  .rm-paper-entry-heading {
+    font-size: 8.5px;
+  }
+
+  .rm-paper-entry-heading > span,
+  .rm-paper-organization,
+  .rm-paper-bullets {
+    font-size: 7.5px;
+  }
+
+  .rm-editor-actions {
+    flex-direction: column;
+  }
+
+  .rm-editor-actions button {
+    width: 100%;
+    flex-basis: auto;
+  }
+}
+
+/* ---------- Print / Save PDF ---------- */
+
+@page {
+  size: letter;
+  margin: 0.55in;
+}
+
+@media print {
+  html,
+  body {
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #202833 !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #resume-paper,
+  #resume-paper * {
+    visibility: visible !important;
+  }
+
+  #resume-paper {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    color: #202833 !important;
+    box-shadow: none !important;
+    font-size: 9.5pt !important;
+    line-height: 1.35 !important;
+  }
+
+  #resume-paper .rm-paper-header {
+    margin-bottom: 13pt !important;
+    padding-bottom: 9pt !important;
+  }
+
+  #resume-paper .rm-paper-header h1 {
+    font-size: 21pt !important;
+  }
+
+  #resume-paper .rm-paper-class {
+    font-size: 7.5pt !important;
+  }
+
+  #resume-paper .rm-paper-contact {
+    font-size: 7.5pt !important;
+  }
+
+  #resume-paper .rm-paper-section {
+    margin-top: 12pt !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  #resume-paper .rm-paper-section h3 {
+    margin-bottom: 6pt !important;
+    padding-bottom: 3pt !important;
+    font-size: 9pt !important;
+  }
+
+  #resume-paper .rm-paper-entry {
+    margin-bottom: 7pt !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #resume-paper .rm-paper-entry-heading {
+    font-size: 8.5pt !important;
+  }
+
+  #resume-paper .rm-paper-entry-heading > span,
+  #resume-paper .rm-paper-organization,
+  #resume-paper .rm-paper-bullets {
+    font-size: 7.5pt !important;
+  }
+
+  #resume-paper .rm-paper-bullets {
+    line-height: 1.35 !important;
+  }
+
+  #resume-paper .rm-empty-preview {
+    display: none !important;
+  }
+}
