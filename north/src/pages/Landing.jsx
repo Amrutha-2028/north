@@ -93,7 +93,7 @@ function Landing() {
       <section className="intro" id="mission">
 
         <p className="section-label">
-          01 — THE NORTH APPROACH
+          THE NORTH APPROACH
         </p>
 
         <div className="intro-content">
@@ -120,7 +120,7 @@ function Landing() {
         <div className="landing-compass-copy">
 
           <p className="section-label">
-            02 — YOUR JOURNEY
+            YOUR JOURNEY
           </p>
 
           <h2>
@@ -248,7 +248,7 @@ function Landing() {
       <section className="why-section">
 
         <p className="section-label">
-          03 — MAKE IT YOURS
+          MAKE IT YOURS
         </p>
 
         <div className="why-content">
@@ -302,7 +302,7 @@ function Landing() {
       <section className="home-cta">
 
         <p className="section-label">
-          04 — START HERE
+          START HERE
         </p>
 
         <h2>
@@ -329,4 +329,3 @@ function Landing() {
 }
 
 export default Landing;
-

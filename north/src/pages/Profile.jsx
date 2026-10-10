@@ -3,6 +3,8 @@ import { supabase } from "../lib/supabase";
 import Navbar from "../components/Navbar";
 import "./Profile.css";
 import ConstellationCollection from "../components/ConstellationCollection";
+import Sparkles from "../components/Sparkles";
+import { Link } from "react-router-dom";
 
 const defaultProfile = {
   name: "",
@@ -123,8 +125,8 @@ function Profile() {
   return (
     <div className="page">
       <Navbar />
-
       <main className="profile-page">
+        <div className="profile-sparkles" aria-hidden="true"><Sparkles /></div>
         <section className="profile-header">
           <p className="section-label">MY NORTH</p>
 
@@ -182,7 +184,7 @@ function Profile() {
                 name="graduationYear"
                 value={profile.graduationYear}
                 onChange={handleChange}
-                placeholder="2027"
+                placeholder="27"
               />
             </label>
 
@@ -204,7 +206,7 @@ function Profile() {
                 name="gpa"
                 value={profile.gpa}
                 onChange={handleChange}
-                step="0.01"
+                step="0."
                 placeholder="4.00"
               />
             </label>
@@ -218,6 +220,14 @@ function Profile() {
           >
             {saved ? "Profile Saved ✓" : "Save Profile"}
           </button>
+        </section>
+        <section className="profile-goals-link">
+          <div>
+            <p className="section-label">YOUR PLAN</p>
+            <h2>Goals</h2>
+            <p>Keep your goals connected to your student profile.</p>
+          </div>
+          <Link to="/goals">Open Goals</Link>
         </section>
         <section className="profile-constellations">
           <ConstellationCollection />

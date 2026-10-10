@@ -203,7 +203,7 @@ export default function Compass() {
               <h1>
                 Choose your <strong>orbit.</strong>
               </h1>
-              
+
             </div>
 
             <span className="world-count">
@@ -282,7 +282,7 @@ export default function Compass() {
 
           <footer className="orbit-footer">
             <span>✦ Choose a world. Settle in. Begin.</span>
-            
+
           </footer>
         </main>
       )}

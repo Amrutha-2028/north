@@ -17,7 +17,6 @@ const PSAT_SECTIONS = [
 
 const ACT_ADVICE = [
   {
-    number: "01",
     title: "English",
     subtitle: "Learn the rules, then recognize the patterns.",
     tips: [
@@ -28,7 +27,6 @@ const ACT_ADVICE = [
     ],
   },
   {
-    number: "02",
     title: "Math",
     subtitle: "Understand the concept before racing the clock.",
     tips: [
@@ -39,7 +37,6 @@ const ACT_ADVICE = [
     ],
   },
   {
-    number: "03",
     title: "Reading",
     subtitle: "Choose what the passage supports, not what sounds reasonable.",
     tips: [
@@ -50,7 +47,6 @@ const ACT_ADVICE = [
     ],
   },
   {
-    number: "04",
     title: "Science",
     subtitle: "Read the evidence carefully.",
     tips: [
@@ -267,14 +263,10 @@ export default function TestPrep() {
         <section className="tp-hero">
           <div className="tp-eyebrow">
             <span className="tp-eyebrow-dot" />
-            YOUR TEST PREP COMPASS
+            ACT AND PSAT TEST PREP
           </div>
 
-          <h1>
-            You don't have to
-            <br />
-            <span>figure it all out alone.</span>
-          </h1>
+          <h1>ACT and PSAT Test Prep</h1>
 
           <p className="tp-hero-description">
             Standardized tests can feel like a maze when nobody has shown you
@@ -522,7 +514,7 @@ export default function TestPrep() {
 
           <div className="tp-merit-flow">
             <article className="tp-merit-step">
-              <span className="tp-merit-number">01</span>
+
               <h3>Take the PSAT/NMSQT</h3>
               <p>
                 National Merit consideration is tied to the PSAT/NMSQT and
@@ -532,7 +524,7 @@ export default function TestPrep() {
             </article>
 
             <article className="tp-merit-step">
-              <span className="tp-merit-number">02</span>
+
               <h3>Calculate your Selection Index</h3>
               <p>
                 The formula doubles your Reading and Writing section score,
@@ -545,7 +537,7 @@ export default function TestPrep() {
             </article>
 
             <article className="tp-merit-step">
-              <span className="tp-merit-number">03</span>
+
               <h3>Semifinalist selection</h3>
               <p>
                 National Merit allocates Semifinalist places across states and
@@ -556,7 +548,7 @@ export default function TestPrep() {
             </article>
 
             <article className="tp-merit-step">
-              <span className="tp-merit-number">04</span>
+
               <h3>Complete the Finalist requirements</h3>
               <p>
                 Semifinalists who want to advance must complete the official
@@ -598,7 +590,7 @@ export default function TestPrep() {
 
           <div className="tp-plan-grid">
             <article className="tp-plan-card">
-              <span>01 / BASELINE</span>
+              <span>BASELINE</span>
               <h3>Take a practice test</h3>
               <p>
                 Start with one timed test or a full section. Record your score
@@ -607,7 +599,7 @@ export default function TestPrep() {
             </article>
 
             <article className="tp-plan-card">
-              <span>02 / REVIEW</span>
+              <span>REVIEW</span>
               <h3>Find the patterns</h3>
               <p>
                 Review wrong, guessed, and slow questions. Group mistakes by
@@ -616,7 +608,7 @@ export default function TestPrep() {
             </article>
 
             <article className="tp-plan-card">
-              <span>03 / PRACTICE</span>
+              <span>PRACTICE</span>
               <h3>Target your weak spots</h3>
               <p>
                 Do focused practice for the skills that need attention. Ask for
@@ -625,7 +617,7 @@ export default function TestPrep() {
             </article>
 
             <article className="tp-plan-card">
-              <span>04 / RECHECK</span>
+              <span>RECHECK</span>
               <h3>Try another timed set</h3>
               <p>
                 Check whether the same mistakes are happening. Change your

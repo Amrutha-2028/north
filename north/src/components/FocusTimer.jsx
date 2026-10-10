@@ -276,8 +276,6 @@ export default function FocusTimer({
         />
       </div>
 
-
-
       {/* Exit */}
       <button
         className="focus-close"

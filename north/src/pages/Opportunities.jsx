@@ -6,7 +6,6 @@ import "./Opportunities.css";
 const guides = [
   {
     id: "internships",
-    number: "01",
     title: "Finding internships & research",
     subtitle: "Learn how to find opportunities that aren't advertised everywhere.",
     intro:
@@ -43,7 +42,6 @@ const guides = [
   },
   {
     id: "cold-emailing",
-    number: "02",
     title: "Cold emailing & finding mentors",
     subtitle: "Introduce yourself before asking someone to invest their time in you.",
     intro:
@@ -75,7 +73,6 @@ const guides = [
   },
   {
     id: "competitions",
-    number: "03",
     title: "Competitions & challenges",
     subtitle: "Demonstrate what you can do, not just what you say you enjoy.",
     intro:
@@ -102,7 +99,6 @@ const guides = [
   },
   {
     id: "clubs",
-    number: "04",
     title: "Clubs & volunteering",
     subtitle: "Consistency and contribution matter more than collecting memberships.",
     intro:
@@ -134,7 +130,6 @@ const guides = [
   },
   {
     id: "projects",
-    number: "05",
     title: "Personal projects",
     subtitle: "Turn a question, curiosity, or everyday problem into something real.",
     intro:
@@ -166,7 +161,6 @@ const guides = [
   },
   {
     id: "leadership",
-    number: "06",
     title: "Leadership & taking initiative",
     subtitle: "Leadership starts before someone gives you a title.",
     intro:
@@ -198,7 +192,6 @@ const guides = [
   },
   {
     id: "tracking",
-    number: "07",
     title: "Your extracurricular journal & résumé",
     subtitle: "Record the little things now so you don't forget them later.",
     intro:
@@ -225,7 +218,6 @@ const guides = [
   },
   {
     id: "breaks",
-    number: "08",
     title: "Making the most of summer & winter break",
     subtitle: "Use longer breaks to make progress without scheduling every minute.",
     intro:
@@ -298,7 +290,7 @@ function GuideCard({ guide, index, expanded, onToggle }) {
         aria-expanded={expanded}
         aria-controls={`op-guide-content-${guide.id}`}
       >
-        <span className="op-guide-number">{guide.number}</span>
+
         <span className="op-guide-heading">
           <span className="op-guide-title">{guide.title}</span>
           <span className="op-guide-subtitle">{guide.subtitle}</span>
@@ -355,34 +347,7 @@ function Opportunities() {
       <Navbar />
 
       <main className="op-main">
-        <section className="op-hero">
-          <div className="op-eyebrow">
-            <span className="op-eyebrow-star">✦</span>
-            YOUR GUIDE TO WHAT COMES NEXT
-          </div>
-
-          <h1>
-            Build a path
-            <br />
-            <span>that means something.</span>
-          </h1>
-
-          <p className="op-hero-description">
-            You don't need an older sibling, a network of connections, or
-            someone who has already figured everything out. Start with what
-            interests you, learn how to find opportunities, and build from
-            there.
-          </p>
-
-          <a className="op-primary-link" href="#op-guides">
-            Explore the guide <span aria-hidden="true">↓</span>
-          </a>
-
-          <div className="op-hero-note">
-            <span>✧</span>
-            There is no single correct path. This is a place to find yours.
-          </div>
-        </section>
+        <header className="op-page-heading"><h1>Extracurriculars</h1></header>
 
         <section className="op-principle" aria-labelledby="op-principle-title">
           <div className="op-section-label">BEFORE YOU BEGIN</div>
@@ -397,17 +362,17 @@ function Opportunities() {
 
           <div className="op-principle-grid">
             <div className="op-principle-item">
-              <span className="op-principle-icon">01</span>
+              <span className="op-principle-icon" aria-hidden="true">✦</span>
               <h3>Find your interests</h3>
               <p>Explore questions and subjects that genuinely excite you.</p>
             </div>
             <div className="op-principle-item">
-              <span className="op-principle-icon">02</span>
+              <span className="op-principle-icon" aria-hidden="true">✦</span>
               <h3>Take action</h3>
               <p>Build, investigate, compete, volunteer, or contribute.</p>
             </div>
             <div className="op-principle-item">
-              <span className="op-principle-icon">03</span>
+              <span className="op-principle-icon" aria-hidden="true">✦</span>
               <h3>Keep growing</h3>
               <p>Reflect, improve your skills, and follow through.</p>
             </div>
@@ -608,7 +573,7 @@ function Opportunities() {
 
         <div className="op-break-timeline">
           <article className="op-break-step">
-            <div className="op-break-number">01</div>
+
             <div>
               <span className="op-break-phase">BEFORE THE BREAK</span>
               <h3>Explore & prepare</h3>
@@ -622,7 +587,7 @@ function Opportunities() {
           </article>
 
           <article className="op-break-step">
-            <div className="op-break-number">02</div>
+
             <div>
               <span className="op-break-phase">EARLY BREAK</span>
               <h3>Choose your focus</h3>
@@ -635,7 +600,7 @@ function Opportunities() {
           </article>
 
           <article className="op-break-step">
-            <div className="op-break-number">03</div>
+
             <div>
               <span className="op-break-phase">DURING THE BREAK</span>
               <h3>Build & follow through</h3>
@@ -649,7 +614,7 @@ function Opportunities() {
           </article>
 
           <article className="op-break-step">
-            <div className="op-break-number">04</div>
+
             <div>
               <span className="op-break-phase">BEFORE SCHOOL RETURNS</span>
               <h3>Reflect & document</h3>

@@ -329,9 +329,8 @@ export default function ResumeMaker() {
         <header className="rm-header">
           <div className="rm-eyebrow">NORTH CAREER TOOLKIT</div>
           <h1>
-            Your experience.
+            Resume Maker
             <br />
-            <span>Your next opportunity.</span>
           </h1>
           <p>
             Build a resume that reflects what you have learned, created, and
@@ -357,7 +356,7 @@ export default function ResumeMaker() {
           <div className="rm-editor">
             <div className="rm-panel-heading">
               <div>
-                <span className="rm-step-label">STEP 01</span>
+                <span className="rm-step-label">RESUME</span>
                 <h2>Build your resume</h2>
               </div>
               <span className="rm-live-indicator"><span /> Live preview</span>
@@ -551,7 +550,7 @@ export default function ResumeMaker() {
           <aside className="rm-preview-panel">
             <div className="rm-preview-heading">
               <div>
-                <span className="rm-step-label">STEP 02</span>
+                <span className="rm-step-label">PREVIEW</span>
                 <h2>Your resume</h2>
               </div>
               <span className="rm-preview-tag">LIVE</span>

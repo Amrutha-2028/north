@@ -405,7 +405,7 @@ function Goals() {
 
               <div>
                 <p className="section-label">
-                  01 — PRIORITY
+                  PRIORITY
                 </p>
 
                 <h2>
@@ -525,7 +525,7 @@ function Goals() {
 
               <div>
                 <p className="section-label">
-                  02 — TO-DO
+                  TO-DO
                 </p>
 
                 <h2>

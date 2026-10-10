@@ -3,6 +3,8 @@
 ========================================= */
 
 .profile-page {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   padding-bottom: 120px;
 
@@ -240,8 +242,26 @@
 .profile-constellations {
   width: 100%;
   min-width: 0;
-  margin-top: 34px;
+  margin: 64px auto 0;
+  padding: 0 6vw;
 }
+
+.profile-goals-link {
+  max-width: 1000px;
+  margin: 28px auto 0;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(120, 180, 230, 0.14);
+  background: rgba(29, 56, 82, 0.76);
+  color: #dce7f2;
+}
+.profile-goals-link h2 { margin: 6px 0; }
+.profile-goals-link p:not(.section-label) { margin: 0; color: #91a3b5; }
+.profile-goals-link a { color: #b8dcf8; text-decoration: none; border: 1px solid rgba(100,175,235,.3); padding: 12px 18px; }
+.profile-sparkles { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .45; }
 
 /* Prevent the constellation layout from widening the whole page. */
 .profile-page {
@@ -253,7 +273,9 @@
 }
 
 @media (max-width: 600px) {
+  .profile-goals-link { margin: 24px 6vw 0; padding: 24px 20px; align-items: flex-start; flex-direction: column; }
   .profile-constellations {
-    margin-top: 24px;
+    margin-top: 40px;
+    padding: 0 6vw;
   }
 }

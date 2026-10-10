@@ -12,7 +12,7 @@ const navItems = [
   { to: "/ap-classes", label: "AP Classes", icon: "◇" },
   { to: "/gpa", label: "GPA", icon: "∿" },
   { to: "/test-prep", label: "Test Prep", icon: "◎" },
-  { to: "/opportunities", label: "Opportunities", icon: "✦" },
+  { to: "/opportunities", label: "Extracurriculars", icon: "✦" },
   { to: "/resume-maker", label: "Resume Maker", icon: "✎" },
 ];
 

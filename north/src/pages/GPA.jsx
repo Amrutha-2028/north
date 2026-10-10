@@ -139,7 +139,6 @@ function GPA() {
 
         </section>
 
-
         {/* CALCULATOR */}
 
         <section className="calculator-section">
@@ -160,7 +159,6 @@ function GPA() {
             </div>
 
           </div>
-
 
           {/* RESULTS — MOVED TO TOP */}
 
@@ -198,14 +196,12 @@ function GPA() {
 
           </section>
 
-
           {/* YEARS */}
 
           <div className="years-container">
 
             <GpaYear
               title="Freshman"
-              number="01"
               year="freshman"
               data={years.freshman}
               updateCourseCount={updateCourseCount}
@@ -213,7 +209,6 @@ function GPA() {
 
             <GpaYear
               title="Sophomore"
-              number="02"
               year="sophomore"
               data={years.sophomore}
               updateCourseCount={updateCourseCount}
@@ -221,7 +216,6 @@ function GPA() {
 
             <GpaYear
               title="Junior"
-              number="03"
               year="junior"
               data={years.junior}
               updateCourseCount={updateCourseCount}
@@ -229,14 +223,12 @@ function GPA() {
 
             <GpaYear
               title="Senior"
-              number="04"
               year="senior"
               data={years.senior}
               updateCourseCount={updateCourseCount}
             />
 
           </div>
-
 
           {/* SCALE — MOVED BELOW */}
 
@@ -264,7 +256,6 @@ function GPA() {
               </button>
 
             </div>
-
 
             <div className="scale-table">
 
@@ -297,7 +288,6 @@ function GPA() {
               ))}
 
             </div>
-
 
             {showCustomize && (
               <div className="custom-scale">
@@ -372,13 +362,11 @@ function GPA() {
 
           </div>
 
-
           {/* INFO */}
 
           <section className="gpa-info">
 
             <div className="gpa-info-card">
-              <span>01</span>
 
               <h3>Unweighted GPA</h3>
 
@@ -390,7 +378,6 @@ function GPA() {
             </div>
 
             <div className="gpa-info-card">
-              <span>02</span>
 
               <h3>Weighted GPA</h3>
 
@@ -402,7 +389,6 @@ function GPA() {
             </div>
 
             <div className="gpa-info-card">
-              <span>03</span>
 
               <h3>Why It Matters</h3>
 
@@ -425,10 +411,8 @@ function GPA() {
   );
 }
 
-
 function GpaYear({
   title,
-  number,
   year,
   data,
   updateCourseCount,
@@ -439,7 +423,7 @@ function GpaYear({
       <div className="year-heading">
 
         <div>
-          <p className="year-label">{number}</p>
+
           <h3>{title}</h3>
         </div>
 
