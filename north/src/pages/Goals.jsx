@@ -33,9 +33,6 @@ function Goals() {
   ];
 
   useEffect(() => {
-    loadGoals();
-  }, []);
-
   const loadGoals = async () => {
     const {
       data: { user },
@@ -60,6 +57,9 @@ function Goals() {
 
     setLoading(false);
   };
+
+    void loadGoals();
+  }, []);
 
   const addGoal = async (e) => {
     e.preventDefault();

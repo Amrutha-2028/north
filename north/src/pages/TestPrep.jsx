@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Sparkles from "../components/Sparkles";
 import "./TestPrep.css";

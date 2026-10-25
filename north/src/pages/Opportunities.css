@@ -54,13 +54,6 @@
   text-decoration: none;
 }
 
-/* Keep the existing Sparkles component behind the content.
-   The first direct child of .op-page is Sparkles. */
-
-.op-page > :first-child {
-  pointer-events: none;
-}
-
 .op-page > .navbar,
 .op-page > nav,
 .op-page > main {

@@ -195,7 +195,8 @@ function APClasses() {
             PLANNING AHEAD
           </p>
 
-          <h2>Usually Taken AP Classes</h2>
+          <h2>Possible AP Course Sequences</h2>
+          <p>These are examples, not standard placements. Course availability, prerequisites, readiness, and school policies vary. Confirm your sequence with your counselor.</p>
 
           <div className="timeline-grid">
 

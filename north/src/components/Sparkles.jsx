@@ -1,20 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Sparkles() {
-  const [stars, setStars] = useState([]);
-
-  useEffect(() => {
-    const generatedStars = Array.from({ length: 90 }, (_, index) => ({
+  const [stars] = useState(() =>
+    Array.from({ length: 90 }, (_, index) => ({
       id: index,
       left: Math.random() * 100,
       top: Math.random() * 100,
       size: Math.random() * 2 + 1,
       delay: Math.random() * 5,
       duration: Math.random() * 3 + 2,
-    }));
-
-    setStars(generatedStars);
-  }, []);
+    }))
+  );
 
   return (
     <div className="sparkle-layer">
