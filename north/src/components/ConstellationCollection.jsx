@@ -35,21 +35,30 @@ function ConstellationArt({
       />
 
       {validConnections.map((connection, index) => {
-        const [from, to] = connection;
-        const first = validStars[from];
-        const second = validStars[to];
+        const [fromValue, toValue] = Array.isArray(connection)
+          ? connection
+          : [connection?.from ?? connection?.start, connection?.to ?? connection?.end];
+        const findStar = (value) => {
+          if (Number.isInteger(Number(value)) && String(value).trim() !== "") {
+            return { star: validStars[Number(value)], index: Number(value) };
+          }
+          const index = validStars.findIndex((star) => star.name === value || star.id === value);
+          return { star: validStars[index], index };
+        };
+        const first = findStar(fromValue);
+        const second = findStar(toValue);
 
-        if (!first || !second) return null;
+        if (!first.star || !second.star) return null;
 
-        const lit = from < starsLit && to < starsLit;
+        const lit = first.index < starsLit && second.index < starsLit;
 
         return (
           <line
             key={`line-${index}`}
-            x1={first.x}
-            y1={first.y}
-            x2={second.x}
-            y2={second.y}
+            x1={first.star.x}
+            y1={first.star.y}
+            x2={second.star.x}
+            y2={second.star.y}
             className={`constellation-line ${lit ? "lit" : ""}`}
           />
         );

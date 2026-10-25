@@ -766,7 +766,26 @@
   gap: 14px;
 }
 
+.pillars-heading {
+  grid-column: 1 / -1;
+  margin-bottom: 12px;
+}
+
+.pillars-heading h2 {
+  margin: 12px 0 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  letter-spacing: -0.04em;
+}
+
+.pillar-number {
+  color: #7093b3;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
 .feature-card {
+  display: block;
   position: relative;
 
   min-height: 260px;

@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sparkles from "../components/Sparkles";
 import { Link } from "react-router-dom";
+import ScheduleTemplateDownload from "../components/ScheduleTemplateDownload";
 
 function Landing() {
   return (
@@ -173,75 +174,36 @@ function Landing() {
         </div>
 
       </section>
-      {/* FEATURES */}
+      {/* FOUR PILLARS */}
       <section className="features" id="explore">
-
-        <a href="/courses" className="feature-card">
-          <h3>Courses</h3>
-
-          <p>
-            Explore courses and understand how your choices can shape
-            your high school experience and future opportunities.
-          </p>
-
-          <span className="feature-arrow">↗</span>
-        </a>
-
-        <a href="/schedule" className="feature-card">
-          <h3>Schedule</h3>
-
-          <p>
-            Build a balanced schedule that challenges you while leaving
-            room for the activities and interests you care about.
-          </p>
-
-          <span className="feature-arrow">↗</span>
-        </a>
-
-        <a href="/ap-classes" className="feature-card">
-          <h3>AP Preparation</h3>
-
-          <p>
-            Explore AP classes, understand what they involve, and
-            prepare for the work ahead with useful resources.
-          </p>
-
-          <span className="feature-arrow">↗</span>
-        </a>
-
-        <div className="feature-card">
-          <h3>Activities</h3>
-
-          <p>
-            Discover extracurricular opportunities that connect with
-            your interests and help you build meaningful experiences.
-          </p>
-
-          <span className="feature-arrow">↗</span>
+        <div className="pillars-heading">
+          <p className="section-label">FOUR PILLARS</p>
+          <h2>Find your next step.</h2>
         </div>
-
-        <div className="feature-card">
-          <h3>Scholarships</h3>
-
-          <p>
-            Find scholarship opportunities that align with your
-            interests, achievements, and goals.
-          </p>
-
-          <span className="feature-arrow">↗</span>
-        </div>
-
-        <div className="feature-card">
-          <h3>Study</h3>
-
-          <p>
-            Build better study habits with resources designed to help
-            you learn efficiently and prepare with confidence.
-          </p>
-
-          <span className="feature-arrow">↗</span>
-        </div>
-
+        <Link to="/schedule" className="feature-card">
+          <span className="pillar-number">01 / PLAN</span>
+          <h3>Plan</h3>
+          <p>Explore courses and shape a balanced high school schedule around your goals.</p>
+          <span className="feature-arrow" aria-hidden="true">&#8599;</span>
+        </Link>
+        <Link to="/opportunities" className="feature-card">
+          <span className="pillar-number">02 / PURSUE</span>
+          <h3>Pursue</h3>
+          <p>Find ideas for projects, service, competitions, research, and summer plans.</p>
+          <span className="feature-arrow" aria-hidden="true">&#8599;</span>
+        </Link>
+        <Link to="/resume-maker" className="feature-card">
+          <span className="pillar-number">03 / PRESENT</span>
+          <h3>Present</h3>
+          <p>Describe your work clearly with a resume that reflects what you actually did.</p>
+          <span className="feature-arrow" aria-hidden="true">&#8599;</span>
+        </Link>
+        <Link to="/test-prep" className="feature-card">
+          <span className="pillar-number">04 / PREPARE</span>
+          <h3>Prepare</h3>
+          <p>Build study habits and get ready for the tests and classes ahead.</p>
+          <span className="feature-arrow" aria-hidden="true">&#8599;</span>
+        </Link>
       </section>
 
       {/* PERSONALIZATION */}
@@ -265,35 +227,10 @@ function Landing() {
             every time you visit, NORTH grows with you.
           </p>
 
-          <a href="/login" className="text-link">
+          <a href="/signup" className="text-link">
             Create your account <span>→</span>
           </a>
 
-        </div>
-
-      </section>
-
-      {/* STATS */}
-      <section className="stats">
-
-        <div className="stat">
-          <strong>90%</strong>
-          <p>of colleges consider course rigor in admissions</p>
-        </div>
-
-        <div className="stat">
-          <strong>$4B</strong>
-          <p>in scholarships go unclaimed annually</p>
-        </div>
-
-        <div className="stat">
-          <strong>400+</strong>
-          <p>extracurricular opportunities students can explore</p>
-        </div>
-
-        <div className="stat">
-          <strong>38</strong>
-          <p>AP courses offered by College Board</p>
         </div>
 
       </section>
@@ -319,6 +256,8 @@ function Landing() {
           Create Your North
           <span>→</span>
         </a>
+
+        <ScheduleTemplateDownload />
 
       </section>
 

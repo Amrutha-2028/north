@@ -1,5 +1,4 @@
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import "./Courses.css";
 
@@ -22,6 +21,10 @@ function Courses() {
             <span>your direction.</span>
           </h2>
 
+          <p className="course-grade-note">
+            Course names and grade levels below are examples; sequences, prerequisites, and availability vary by school.
+          </p>
+
           <p>
             Choosing the right courses in high school is about more than
             checking boxes. Challenge yourself, explore subjects that
@@ -33,6 +36,27 @@ function Courses() {
         <a className="course-intro-button" href="/schedule">
           Plan Your Schedule
         </a>
+      </section>
+
+      <section className="course-intro" aria-labelledby="cds-heading">
+        <div className="course-intro-content">
+          <p className="section-label">RESEARCH COLLEGES</p>
+          <h2 id="cds-heading">Use Common Data Sets as a <span>planning tool.</span></h2>
+          <p>
+            A college's Common Data Set (CDS) is a gold mine for understanding
+            how that school describes its admissions process. Look at section C7
+            for how it rates factors such as the rigor of your secondary-school
+            record, and section C5 for high-school course units the college requires or recommends. Section C7
+            shows how the college rates factors such as course rigor. Use these sections
+            to investigate whether it recommends additional math or science study. Recommendations vary by college and program, and a CDS
+            does not tell you to take a specific extra class or predict admission.
+            Check each college's current admissions and program pages, then plan
+            with your counselor around your school?s offerings and your readiness.
+          </p>
+          <a className="course-intro-button" href="https://commondataset.org/" target="_blank" rel="noreferrer">
+            Find Common Data Sets
+          </a>
+        </div>
       </section>
 
       {/* LEGEND */}
@@ -408,7 +432,7 @@ function Courses() {
 
         <div className="recommendation-grid">
           <Recommendation title="English" years="4 Years">
-            Most colleges expect four years of English.
+            Four years is a common recommendation, but requirements and recommendations vary by college and program.
           </Recommendation>
 
           <Recommendation title="Mathematics" years="4 Years">
@@ -416,11 +440,11 @@ function Courses() {
           </Recommendation>
 
           <Recommendation title="Science" years="3–4 Years">
-            Three years is common, while selective colleges often recommend four.
+            Check each college's recommendations; some suggest additional lab science.
           </Recommendation>
 
           <Recommendation title="Social Studies" years="3–4 Years">
-            Three years is common, while selective colleges often recommend four.
+            Requirements and recommendations vary by college and program.
           </Recommendation>
 
           <Recommendation title="Foreign Language" years="2–4 Years">

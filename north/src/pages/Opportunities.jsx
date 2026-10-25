@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import Sparkles from "../components/Sparkles";
+import PageHeader from "../components/PageHeader";
 import "./Opportunities.css";
 
 const guides = [
@@ -343,8 +343,12 @@ function Opportunities() {
 
   return (
     <div className="op-page">
-      <Sparkles />
       <Navbar />
+      <PageHeader
+        number="PURSUE WHAT INTERESTS YOU"
+        title="Extracurriculars Guide"
+        subtitle="Explore projects, service, research, competitions, and meaningful ways to contribute."
+      />
 
       <main className="op-main">
         <header className="op-page-heading"><h1>Extracurriculars</h1></header>

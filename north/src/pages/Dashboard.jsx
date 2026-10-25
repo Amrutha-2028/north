@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import Navbar from "../components/Navbar";
 import Sparkles from "../components/Sparkles";
+import ScheduleTemplateDownload from "../components/ScheduleTemplateDownload";
 import "./Home.css";
 
 function Dashboard() {
@@ -231,11 +232,11 @@ function Dashboard() {
               <span className="quick-arrow">↗</span>
             </Link>
 
-            <Link to="/progress" className="quick-card">
+            <Link to="/goals" className="quick-card">
               <div>
-                <h3>Progress</h3>
+                <h3>Goals</h3>
                 <p>
-                  See how your academic journey is developing.
+                  Keep track of the goals you are working toward.
                 </p>
               </div>
 
@@ -254,6 +255,8 @@ function Dashboard() {
             </Link>
 
           </div>
+
+          <ScheduleTemplateDownload />
 
         </section>
 

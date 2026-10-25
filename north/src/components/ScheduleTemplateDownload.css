@@ -1,0 +1,27 @@
+.schedule-template-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  color: #a9d7f7;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 180ms ease, gap 180ms ease;
+}
+
+.schedule-template-download:hover {
+  gap: 12px;
+  color: #e5f5ff;
+}
+
+.schedule-template-download:focus-visible {
+  outline: 2px solid #a9d7f7;
+  outline-offset: 4px;
+}
+
+.schedule-template-download--button {
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(100, 170, 230, 0.2);
+}

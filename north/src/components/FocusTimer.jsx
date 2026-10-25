@@ -88,7 +88,7 @@ export default function FocusTimer({
         setMusicError("Couldn't play this track. Check that its file exists.");
       });
     }
-  }, [selectedMusic]);
+  }, [selectedMusic, musicPlaying]);
 
   // Play or pause the soundtrack.
   useEffect(() => {

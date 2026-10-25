@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import ScheduleTemplateDownload from "../components/ScheduleTemplateDownload";
 import "./Schedule.css";
 
 function Schedule() {
@@ -41,7 +42,8 @@ function Schedule() {
                     description="Use the requirements given by your school to ensure you are meeting all necessary criteria."
                 >
 
-                    <h3>Typical Graduation Requirements</h3>
+                    <h3>Examples of Graduation Requirements</h3>
+                    <p>Requirements vary by state, district, and school. Use your school's official graduation checklist to plan; this list is not universal.</p>
 
                     <div className="requirement-grid">
 
@@ -66,13 +68,9 @@ function Schedule() {
 
                     </div>
 
-                    <a
-                        href="/scheduletemplate.xlsx"
-                        download="NORTH-Schedule-Template.xlsx"
-                        className="guide-button"
-                    >
-                        Download Schedule Template →
-                    </a>
+                    <ScheduleTemplateDownload className="schedule-template-download--button">
+                        Download Schedule Template
+                    </ScheduleTemplateDownload>
 
                 </ScheduleStep>
 
