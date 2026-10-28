@@ -11,6 +11,7 @@ import SubmitInfo from "./pages/SubmitInfo";
 import TestPrep from "./pages/TestPrep";
 import Opportunities from "./pages/Opportunities";
 import ResumeMaker from "./pages/ResumeMaker";
+import { Analytics } from "@vercel/analytics/next"
 
 import "./App.css";
 
@@ -43,6 +44,7 @@ function App() {
         </span>
       </a>
 
+      <Analytics />
     </BrowserRouter>
   );
 }
