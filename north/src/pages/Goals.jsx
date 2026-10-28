@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase";
 import Navbar from "../components/Navbar";
 import Sparkles from "../components/Sparkles";
 import "./Goals.css";
 
 function Goals() {
-  const [goals, setGoals] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [goals, setGoals] = useState(() => {
+    const savedGoals = window.localStorage.getItem("north-goals");
+    return savedGoals ? JSON.parse(savedGoals) : [];
+  });
 
   const [showForm, setShowForm] = useState(false);
 
@@ -33,33 +34,8 @@ function Goals() {
   ];
 
   useEffect(() => {
-  const loadGoals = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      setLoading(false);
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from("goals")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("priority", { ascending: true });
-
-    if (error) {
-      console.error("Goal loading error:", error);
-    } else {
-      setGoals(data || []);
-    }
-
-    setLoading(false);
-  };
-
-    void loadGoals();
-  }, []);
+    window.localStorage.setItem("north-goals", JSON.stringify(goals));
+  }, [goals]);
 
   const addGoal = async (e) => {
     e.preventDefault();
@@ -72,18 +48,8 @@ function Goals() {
     setSaving(true);
     setFormError("");
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      setFormError("You must be signed in to create a goal.");
-      setSaving(false);
-      return;
-    }
-
     const newGoal = {
-      user_id: user.id,
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
       title: title.trim(),
       description: description.trim() || null,
       due_date: dueDate || null,
@@ -93,20 +59,7 @@ function Goals() {
       completed: false,
     };
 
-    const { data, error } = await supabase
-      .from("goals")
-      .insert(newGoal)
-      .select()
-      .single();
-
-    if (error) {
-      console.error("Goal save error:", error);
-      setFormError(error.message);
-      setSaving(false);
-      return;
-    }
-
-    setGoals((currentGoals) => [...currentGoals, data]);
+    setGoals((currentGoals) => [...currentGoals, newGoal]);
 
     setTitle("");
     setDescription("");
@@ -129,40 +82,13 @@ function Goals() {
       )
     );
 
-    const { error } = await supabase
-      .from("goals")
-      .update({ completed: newCompleted })
-      .eq("id", goal.id);
-
-    if (error) {
-      console.error("Goal update error:", error);
-
-      setGoals((currentGoals) =>
-        currentGoals.map((item) =>
-          item.id === goal.id
-            ? { ...item, completed: goal.completed }
-            : item
-        )
-      );
-    }
   };
 
   const deleteGoal = async (id) => {
-    const previousGoals = goals;
-
     setGoals((currentGoals) =>
       currentGoals.filter((goal) => goal.id !== id)
     );
 
-    const { error } = await supabase
-      .from("goals")
-      .delete()
-      .eq("id", id);
-
-    if (error) {
-      console.error("Goal delete error:", error);
-      setGoals(previousGoals);
-    }
   };
 
   const handleDragStart = (goal) => {
@@ -200,16 +126,6 @@ function Goals() {
     setGoals(updatedGoals);
     setDraggedGoal(null);
 
-    for (const goal of updatedGoals) {
-      const { error } = await supabase
-        .from("goals")
-        .update({ priority: goal.priority })
-        .eq("id", goal.id);
-
-      if (error) {
-        console.error("Priority update error:", error);
-      }
-    }
   };
 
   const shortTermGoals = goals.filter(
@@ -219,19 +135,6 @@ function Goals() {
   const longTermGoals = goals.filter(
     (goal) => goal.goal_type === "long-term"
   );
-
-  if (loading) {
-    return (
-      <div className="goals-page">
-        <Navbar />
-
-        <div className="goals-loading">
-          <div className="goals-loader"></div>
-          <p>Finding your goals...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="goals-page">

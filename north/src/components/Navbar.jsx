@@ -1,7 +1,5 @@
 
-import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { supabase } from "../lib/supabase";
 import "./Navbar.css";
 
 const navItems = [
@@ -17,27 +15,7 @@ const navItems = [
 ];
 
 function Navbar() {
-  const [user, setUser] = useState(null);
   const location = useLocation();
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/";
-  };
 
   const isActive = (path) => {
     if (path === "/") return location.pathname === "/";
@@ -70,33 +48,9 @@ function Navbar() {
           </Link>
         ))}
 
-        {user && (
-          <Link
-            to="/profile"
-            className={`nav-icon-link ${
-              isActive("/profile") ? "active" : ""
-            }`}
-            aria-label="Profile"
-            aria-current={isActive("/profile") ? "page" : undefined}
-            title="Profile"
-          >
-            <span className="nav-icon" aria-hidden="true">◉</span>
-            <span className="nav-tooltip">Profile</span>
-          </Link>
-        )}
       </div>
 
-      <div className="nav-actions">
-        {user ? (
-          <button className="nav-logout" onClick={handleLogout}>
-            Log Out
-          </button>
-        ) : (
-          <Link to="/login" className="nav-button">
-            Sign In
-          </Link>
-        )}
-      </div>
+      <div className="nav-actions" aria-hidden="true" />
     </nav>
   );
 }
