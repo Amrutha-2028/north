@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e": "node tests/run-e2e.js",
+    "test:e2e:ui": "node tests/run-e2e.js --ui"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",

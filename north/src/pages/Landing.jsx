@@ -65,10 +65,7 @@ function Landing() {
 
           <div className="hero-actions">
 
-            <a href="/signup" className="primary-button">
-              Create Your North
-              <span>→</span>
-            </a>
+            
 
             <a href="#explore" className="secondary-button">
               Explore North
@@ -76,9 +73,7 @@ function Landing() {
 
           </div>
 
-          <p className="hero-note">
-            Create an account to save your plans and make NORTH yours.
-          </p>
+         
 
         </div>
 
@@ -221,15 +216,7 @@ function Landing() {
             <span>Your direction.</span>
           </h2>
 
-          <p>
-            Create your NORTH account to save your academic information,
-            courses, plans, GPA, and goals. Instead of starting over
-            every time you visit, NORTH grows with you.
-          </p>
-
-          <a href="/signup" className="text-link">
-            Create your account <span>→</span>
-          </a>
+          
 
         </div>
 
@@ -248,14 +235,7 @@ function Landing() {
           <span>your North?</span>
         </h2>
 
-        <p>
-          Create your account and start building your path.
-        </p>
-
-        <a href="/signup" className="primary-button">
-          Create Your North
-          <span>→</span>
-        </a>
+       
 
         <ScheduleTemplateDownload />
 

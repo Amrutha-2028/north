@@ -1,6 +1,5 @@
 
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "../lib/supabase";
 import { awardConstellationStars } from "../lib/constellationRewards";
 import "./FocusTimer.css";
 
@@ -144,7 +143,6 @@ export default function FocusTimer({
     if (elapsed >= goalSeconds) {
       setElapsed(0);
       setSavedStars(0);
-      setConstellationReward(null);
     }
 
     setStartedAt(Date.now() - startElapsed * 1000);
@@ -179,7 +177,6 @@ export default function FocusTimer({
     setRunning(false);
     setStartedAt(null);
     setError("");
-    setConstellationReward(null);
 
     if (finalElapsed === 0) {
       setStatus("idle");
@@ -189,44 +186,10 @@ export default function FocusTimer({
     setStatus("saving");
 
     const stars = Math.floor(finalElapsed / STAR_INTERVAL);
-    const completedMinutes = Math.floor(finalElapsed / 60);
-
-    const { error: saveError } = await supabase
-      .from("focus_sessions")
-      .insert({
-        planet,
-        duration_seconds: finalElapsed,
-        stars_earned: stars,
-      });
-
-    if (saveError) {
-      console.error("Could not save focus session:", saveError);
-      setError("Your session couldn't be saved. Please try again.");
-      setStatus("paused");
-      return;
-    }
 
     setSavedStars(stars);
-
-    if (stars > 0) {
-      try {
-        const reward = await awardConstellationStars(completedMinutes);
-
-        setConstellationReward({
-          starsEarned: reward.stars_earned,
-          newlyUnlocked: reward.newly_unlocked ?? [],
-        });
-      } catch (rewardError) {
-        console.error(
-          "Session saved, but constellation rewards failed:",
-          rewardError
-        );
-
-        setError(
-          "Your session was saved, but your constellation progress couldn't update. Please check your connection."
-        );
-      }
-    }
+    const reward = awardConstellationStars(stars);
+    setConstellationReward(reward);
 
     setStatus("complete");
   };
@@ -357,15 +320,9 @@ export default function FocusTimer({
                   <p>
                     You earned {savedStars} {savedStars === 1 ? "star" : "stars"}.
                   </p>
-
-                  {constellationReward?.newlyUnlocked?.map((item) => (
-                    <p key={item.id}>✦ {item.name} unlocked</p>
+                  {constellationReward?.newlyUnlocked.map((item) => (
+                    <p key={item.id}>✦ {item.name} formed in your night sky.</p>
                   ))}
-
-                  {constellationReward &&
-                    constellationReward.newlyUnlocked?.length === 0 && (
-                      <p>Your constellation progress has been updated.</p>
-                    )}
 
                   <button
                     className="focus-primary"

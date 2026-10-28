@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import FocusTimer from "../components/FocusTimer";
+import ConstellationCollection from "../components/ConstellationCollection";
 import "./Compass.css";
 
 const destinations = [
@@ -284,6 +285,7 @@ export default function Compass() {
             <span>✦ Choose a world. Settle in. Begin.</span>
 
           </footer>
+          <ConstellationCollection />
         </main>
       )}
 

@@ -6,12 +6,13 @@
 .hero-compass {
   position: absolute;
   top: 50%;
-  right: 9%;
-  width: 360px;
-  height: 360px;
-  transform: translateY(-50%);
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  transform: translate(-50%, -50%);
   pointer-events: none;
-  opacity: 0.8;
+  opacity: 0.32;
+  z-index: 1;
 }
 
 .hero-compass-ring {
@@ -267,9 +268,9 @@
   .hero-compass {
     width: 250px;
     height: 250px;
-    right: 50%;
-    top: 32%;
-    transform: translate(50%, -50%);
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
     opacity: 0.35;
   }
 
@@ -283,7 +284,7 @@
   .hero-compass {
     width: 210px;
     height: 210px;
-    top: 28%;
+    top: 45%;
   }
 
   .home-cta {
