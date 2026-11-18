@@ -6,6 +6,35 @@
   gap: 16px;
 }
 
+.gpa-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 12px 48px;
+  padding: 16px 0 12px;
+}
+
+.gpa-intro .section-label {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.gpa-intro h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.04em;
+}
+
+.gpa-intro p:not(.section-label) {
+  max-width: 50ch;
+  color: var(--text-2);
+}
+
+@media (max-width: 760px) {
+  .gpa-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Results bar */
 .gpa-results {
   position: sticky;
@@ -22,7 +51,7 @@
 
 .result-card,
 .result-actions {
-  background: rgba(21, 21, 20, 0.94);
+  background: rgba(18, 38, 58, 0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
@@ -50,7 +79,7 @@
 }
 
 .result-card.featured strong {
-  color: var(--accent-text);
+  color: var(--gold);
 }
 
 .result-card p {

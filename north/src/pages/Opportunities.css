@@ -132,7 +132,7 @@
 
 .op-comparison-featured {
   border-color: var(--accent-line);
-  background: radial-gradient(ellipse at 100% 0%, rgba(255, 107, 61, 0.12), transparent 60%), var(--surface);
+  background: radial-gradient(ellipse at 100% 0%, rgba(99, 174, 245, 0.12), transparent 60%), var(--surface);
 }
 
 .op-comparison-label {
@@ -377,10 +377,10 @@
   height: 36px;
   margin: 12px 0 0;
   padding: 0 14px;
-  border: 1px solid var(--text);
+  border: 1px solid var(--accent-strong);
   border-radius: 999px;
-  background: var(--text);
-  color: #0b0b0a;
+  background: var(--accent-strong);
+  color: var(--on-accent);
   font-size: 13.5px;
   font-weight: 600;
 }
@@ -442,7 +442,7 @@
   padding: 20px;
   border: 1px solid var(--accent-line);
   border-radius: var(--r-lg);
-  background: radial-gradient(ellipse at 0% 0%, rgba(255, 107, 61, 0.14), transparent 60%), var(--surface);
+  background: radial-gradient(ellipse at 0% 0%, rgba(99, 174, 245, 0.14), transparent 60%), var(--surface);
 }
 
 .op-break-feature-icon {
@@ -452,8 +452,8 @@
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: var(--accent);
-  color: #160a05;
+  background: var(--gold);
+  color: var(--on-gold);
 }
 
 .op-break-feature-label,
@@ -591,8 +591,8 @@
   margin-top: 6px;
   padding: 0 16px;
   border-radius: 999px;
-  background: var(--text);
-  color: #0b0b0a;
+  background: var(--accent-strong);
+  color: var(--on-accent);
   font-size: 14px;
   font-weight: 600;
 }

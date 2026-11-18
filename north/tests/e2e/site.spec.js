@@ -191,9 +191,9 @@ test("GPA counters and scale controls update", async ({ page }) => {
   await page.reload();
   await expect(page.locator(".gpa-year .counter").first().locator("span")).toHaveText("1");
 
-  await page.getByRole("button", { name: "Customize scale" }).click();
+  await page.getByRole("button", { name: "Customize My Scale" }).click();
   await expect(page.getByRole("spinbutton", { name: "A in Standard" })).toBeVisible();
-  await page.getByRole("button", { name: "Reset to default" }).click();
+  await page.getByRole("button", { name: "Reset to Default" }).click();
 });
 
 test("scholarship tabs group results and saved items reach My North", async ({ page }) => {

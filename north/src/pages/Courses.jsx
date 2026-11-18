@@ -8,7 +8,7 @@ function Courses() {
     <div className="page">
       <Navbar />
       <PageHeader
-        number="Plan / Courses"
+        number="COURSE PLANNING"
         title="Choose With Purpose."
         subtitle="Explore your options. Build your foundation. Plan with intention."
       />

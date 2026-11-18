@@ -346,7 +346,7 @@ function Opportunities() {
     <div className="op-page">
       <Navbar />
       <PageHeader
-        number="Prepare / Extracurriculars"
+        number="PURSUE WHAT INTERESTS YOU"
         title="Extracurriculars Guide"
         subtitle="Explore projects, service, research, competitions, and meaningful ways to contribute."
       />

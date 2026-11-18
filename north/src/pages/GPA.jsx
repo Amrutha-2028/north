@@ -63,27 +63,42 @@ function GPA() {
       <Navbar />
 
       <PageHeader
-        number="Track / GPA"
+        number="GPA PLANNING"
         title="GPA Calculator"
-        subtitle="Count your grades by year and course level. Everything saves on this device as you go, and shows up in My North."
+        subtitle="Understand your grades. See your progress. Plan ahead."
       />
 
       <main className="gpa-page">
+        <section className="gpa-intro">
+          <p className="section-label">WHAT IS GPA?</p>
+          <h2>
+            Your grades,
+            <br />
+            <span>in one number.</span>
+          </h2>
+          <p>
+            GPA stands for Grade Point Average. It is a numerical
+            summary of your academic performance, making it easier
+            to understand your grades without looking through an
+            entire transcript.
+          </p>
+        </section>
+
         <section className="gpa-results" aria-live="polite">
           <div className="result-card">
-            <span>Unweighted</span>
+            <span>Unweighted GPA</span>
             <strong>{formatGpa(unweighted)}</strong>
             <p>4.0 scale</p>
           </div>
           <div className="result-card featured">
-            <span>Weighted</span>
+            <span>Weighted GPA</span>
             <strong>{formatGpa(weighted)}</strong>
-            <p>Your scale below</p>
+            <p>Using your selected scale</p>
           </div>
           <div className="result-card">
             <span>Courses</span>
             <strong>{totalCourses}</strong>
-            <p>entered so far</p>
+            <p>courses entered</p>
           </div>
           <div className="result-actions">
             <span className="saved-pill">
@@ -112,9 +127,9 @@ function GPA() {
         <section className="scale-card">
           <div className="scale-header">
             <div>
-              <p className="section-label">Grading scale</p>
-              <h2>Weighted scale</h2>
-              <p className="scale-note">Match this to your school's scale. Official GPAs can be calculated differently.</p>
+              <p className="section-label">GPA SCALE</p>
+              <h2>NORTH GPA Scale</h2>
+              <p className="scale-note">Your school's official GPA calculation may be different. Adjust the values to match your school's official grading system.</p>
             </div>
             <div className="scale-buttons">
               {showCustomize && (
@@ -123,7 +138,7 @@ function GPA() {
                   className="btn btn-sm btn-ghost"
                   onClick={() => setState((prev) => ({ ...prev, scale: defaultScale }))}
                 >
-                  Reset to default
+                  Reset to Default
                 </button>
               )}
               <button
@@ -131,7 +146,7 @@ function GPA() {
                 className="btn btn-sm"
                 onClick={() => setShowCustomize(!showCustomize)}
               >
-                {showCustomize ? "Done editing" : "Customize scale"}
+                {showCustomize ? "Hide Customization" : "Customize My Scale"}
               </button>
             </div>
           </div>
@@ -172,15 +187,15 @@ function GPA() {
         <section className="gpa-info">
           <div className="gpa-info-card">
             <h3>Unweighted GPA</h3>
-            <p>Your grades on a 4.0 scale, with no extra points for course difficulty.</p>
+            <p>Measures your grades on a standard 4.0 scale without giving additional points for course difficulty.</p>
           </div>
           <div className="gpa-info-card">
             <h3>Weighted GPA</h3>
-            <p>Adds points for Honors and AP courses, depending on your school's grading system.</p>
+            <p>Gives additional points to courses such as Honors and AP, depending on your school's grading system.</p>
           </div>
           <div className="gpa-info-card">
-            <h3>Why it matters</h3>
-            <p>GPA is one part of your profile. Colleges also look at rigor, trends, activities and essays.</p>
+            <h3>Why It Matters</h3>
+            <p>GPA is one part of your academic profile. Colleges may also consider course rigor, grades, activities, essays, and more.</p>
           </div>
         </section>
       </main>

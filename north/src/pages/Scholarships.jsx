@@ -192,7 +192,7 @@ function Scholarships() {
       <Navbar />
 
       <PageHeader
-        number="Money / Scholarships"
+        number="FUND YOUR FUTURE"
         title="Scholarships worth your time"
         subtitle="Sort them by amount, merit, location, grade and citizenship. Save the ones you want and track them from here to your inbox."
       />

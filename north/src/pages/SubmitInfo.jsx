@@ -47,7 +47,7 @@ function SubmitInfo() {
             <section className="submit-card">
                 <div className="submit-icon">✦</div>
 
-                <p className="submit-label">NORTH / SEND A SIGNAL</p>
+                <p className="submit-label">NORTH / TRANSMISSION</p>
 
                 <h1>
                     Help shape <span>North.</span>

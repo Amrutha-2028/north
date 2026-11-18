@@ -69,9 +69,9 @@
 }
 
 .tp-button--primary {
-  border-color: var(--text);
-  background: var(--text);
-  color: #0b0b0a;
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--on-accent);
   font-weight: 600;
 }
 
@@ -795,7 +795,7 @@
   padding: 0 14px 0 6px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: rgba(21, 21, 20, 0.88);
+  background: rgba(18, 38, 58, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   color: var(--text-2);
@@ -810,8 +810,8 @@
   width: 24px;
   height: 24px;
   border-radius: 999px;
-  background: var(--accent);
-  color: #160a05;
+  background: var(--gold);
+  color: var(--on-gold);
   font-size: 12px;
 }
 

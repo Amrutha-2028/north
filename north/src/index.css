@@ -4,38 +4,48 @@
    ========================================================================== */
 
 :root {
-  /* Surfaces */
-  --bg: #0b0b0a;
-  --bg-raised: #111110;
-  --surface: #151514;
-  --surface-2: #1b1b19;
-  --surface-3: #232321;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.14);
+  /* Surfaces: North's original deep navy */
+  --bg: #0b1626;
+  --bg-raised: #0f1f32;
+  --surface: #12263a;
+  --surface-2: #172f48;
+  --surface-3: #1f3b58;
+  --line: rgba(150, 190, 230, 0.12);
+  --line-strong: rgba(150, 190, 230, 0.22);
 
   /* Text */
-  --text: #f3f2ee;
-  --text-2: #b9b7b0;
-  --muted: #8a8882;
-  --faint: #5f5e5a;
+  --text: #f5f7fa;
+  --text-2: #c5d0dc;
+  --muted: #8fa0b2;
+  --faint: #637890;
 
-  /* Accent: North signal */
-  --accent: #ff6b3d;
-  --accent-soft: rgba(255, 107, 61, 0.12);
-  --accent-line: rgba(255, 107, 61, 0.35);
-  --accent-text: #ff8c66;
+  /* Blue: North's main accent */
+  --accent: #63aef5;
+  --accent-strong: #347fc4;
+  --accent-hover: #4593da;
+  --accent-soft: rgba(99, 174, 245, 0.12);
+  --accent-line: rgba(99, 174, 245, 0.38);
+  --accent-text: #8fc7f2;
+  --on-accent: #ffffff;
+
+  /* Yellow: the North star */
+  --gold: #f3d89b;
+  --gold-strong: #f5c76a;
+  --gold-soft: rgba(243, 216, 155, 0.12);
+  --gold-line: rgba(243, 216, 155, 0.38);
+  --on-gold: #0b1626;
 
   /* Status */
-  --green: #4ade80;
-  --green-soft: rgba(74, 222, 128, 0.12);
-  --yellow: #facc15;
-  --yellow-soft: rgba(250, 204, 21, 0.12);
-  --blue: #7cb7ff;
-  --blue-soft: rgba(124, 183, 255, 0.12);
-  --red: #f87171;
-  --red-soft: rgba(248, 113, 113, 0.12);
-  --violet: #b8a4ff;
-  --violet-soft: rgba(184, 164, 255, 0.12);
+  --green: #6ee7a8;
+  --green-soft: rgba(110, 231, 168, 0.12);
+  --yellow: #f5c76a;
+  --yellow-soft: rgba(245, 199, 106, 0.14);
+  --blue: #8fc7f2;
+  --blue-soft: rgba(143, 199, 242, 0.12);
+  --red: #f29b9b;
+  --red-soft: rgba(242, 155, 155, 0.12);
+  --violet: #b69cf2;
+  --violet-soft: rgba(182, 156, 242, 0.12);
 
   /* Type */
   --font: "Geist", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -76,7 +86,12 @@ body {
   font-family: var(--font);
   font-size: 15px;
   line-height: 1.55;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(35, 91, 150, 0.28), transparent 32%),
+    radial-gradient(circle at 15% 45%, rgba(25, 70, 125, 0.16), transparent 30%),
+    radial-gradient(circle at 85% 70%, rgba(35, 80, 140, 0.12), transparent 30%),
+    var(--bg);
+  background-attachment: fixed;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -123,7 +138,7 @@ a {
 
 ::selection {
   background: var(--accent);
-  color: #0b0b0a;
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -142,6 +157,86 @@ a {
   }
 }
 
+/* Drifting starfield behind every page (from the original North design) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -200px 0 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.75) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(130, 190, 255, 0.55) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(243, 216, 155, 0.45) 0.8px, transparent 1.2px);
+  background-size: 170px 170px, 240px 240px, 310px 310px;
+  background-position: 20px 30px, 100px 150px, 50px 80px;
+  opacity: 0.35;
+  animation: sparkleDrift 25s linear infinite;
+}
+
+@keyframes sparkleDrift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(170px);
+  }
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* Twinkling stars (Sparkles component) */
+.sparkle-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: #d9efff;
+  box-shadow: 0 0 6px rgba(150, 215, 255, 0.8);
+  opacity: 0;
+  animation-name: twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.sparkle:nth-child(5n) {
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(243, 216, 155, 0.8);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+/* Reveal-on-scroll used by the landing page */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* --------------------------------------------------------------------------
    Layout primitives
    -------------------------------------------------------------------------- */
@@ -149,7 +244,6 @@ a {
 .app,
 .page {
   min-height: 100vh;
-  background: var(--bg);
   overflow-x: clip;
 }
 
@@ -176,16 +270,16 @@ a {
 .section-label::before,
 .eyebrow::before {
   content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 2px;
-  background: var(--accent);
+  width: 7px;
+  height: 7px;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  background: var(--gold);
 }
 
 /* Muted second half of a headline: "Your plan <span>shouldn't be.</span>" */
 h1 span,
 h2 span {
-  color: var(--muted);
+  color: #7f9cba;
 }
 
 /* --------------------------------------------------------------------------
@@ -225,25 +319,26 @@ h2 span {
 }
 
 .btn-primary {
-  background: var(--text);
-  border-color: var(--text);
-  color: #0b0b0a;
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+  color: var(--on-accent);
 }
 
 .btn-primary:hover {
-  background: #ffffff;
-  border-color: #ffffff;
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 8px 24px -8px rgba(52, 127, 196, 0.6);
 }
 
 .btn-accent {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #160a05;
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--on-gold);
 }
 
 .btn-accent:hover {
-  background: #ff825b;
-  border-color: #ff825b;
+  background: var(--gold-strong);
+  border-color: var(--gold-strong);
 }
 
 .btn-ghost {

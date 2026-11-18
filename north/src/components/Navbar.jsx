@@ -54,8 +54,7 @@ function Navbar() {
     <header className="navbar" ref={navRef}>
       <div className="navbar-inner">
         <Link to="/" className="logo" aria-label="North home" onClick={closeAll}>
-          <span className="logo-mark" aria-hidden="true">✦</span>
-          north
+          NORTH<span className="logo-star" aria-hidden="true">✦</span>
         </Link>
 
         <nav className="nav-links" aria-label="Main navigation">

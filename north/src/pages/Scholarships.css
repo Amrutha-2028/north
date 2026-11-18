@@ -16,7 +16,7 @@
   gap: 10px;
   margin: 0 calc(var(--gutter) * -1);
   padding: 12px var(--gutter);
-  background: rgba(11, 11, 10, 0.86);
+  background: rgba(11, 22, 38, 0.86);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
@@ -30,8 +30,8 @@
   margin-left: 6px;
   padding: 0 5px;
   border-radius: 999px;
-  background: var(--accent);
-  color: #160a05;
+  background: var(--gold);
+  color: var(--on-gold);
   font-size: 11px;
   font-weight: 700;
 }
@@ -141,7 +141,7 @@
 
 .sch-match.on .sch-switch::after {
   transform: translateX(12px);
-  background: #160a05;
+  background: var(--on-gold);
 }
 
 .sch-match-link {
@@ -255,7 +255,7 @@
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.015em;
-  color: var(--accent-text);
+  color: var(--gold);
 }
 
 .sch-amount span {
@@ -297,9 +297,9 @@
 }
 
 .sch-save.saved {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: #160a05;
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-gold);
 }
 
 .sch-save.saved svg {

@@ -356,7 +356,7 @@ export default function ResumeMaker() {
 
       <main className="rm-main">
         <header className="rm-header">
-          <p className="section-label">Track / Resume</p>
+          <p className="section-label">NORTH CAREER TOOLKIT</p>
           <h1>
             Resume Maker
             <br />

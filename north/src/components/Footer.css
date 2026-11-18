@@ -7,7 +7,7 @@
 
 .footer-main {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.5fr) repeat(5, minmax(0, 1fr));
   gap: 32px;
 }
 
@@ -23,12 +23,12 @@
   align-items: center;
   gap: 8px;
   font-size: 17px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-weight: 750;
+  letter-spacing: 0.15em;
 }
 
 .footer-logo span {
-  color: var(--accent);
+  color: var(--gold);
 }
 
 .footer-brand p {
@@ -51,6 +51,11 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--faint);
+}
+
+.footer-column p {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .footer-column a {

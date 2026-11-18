@@ -61,14 +61,14 @@
 }
 
 .rm-primary-button {
-  border-color: var(--text);
-  background: var(--text);
-  color: #0b0b0a;
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
+  color: var(--on-accent);
   font-weight: 600;
 }
 
 .rm-primary-button:hover {
-  background: #fff;
+  background: var(--accent-hover);
 }
 
 .rm-example-note {

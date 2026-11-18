@@ -32,7 +32,7 @@ function SignalButton() {
   return (
     <Link to="/submit-info" className="north-signal" aria-label="Send a signal: share feedback">
       <span className="north-signal-icon" aria-hidden="true">✦</span>
-      <span className="north-signal-text">Send a signal</span>
+      <span className="north-signal-text">send a signal →</span>
     </Link>
   );
 }

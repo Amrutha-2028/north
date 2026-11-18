@@ -142,11 +142,11 @@ function Goals() {
         <section className="goals-header">
           <div>
             <p className="section-label">
-              Track / Goals
+              YOUR NORTH
             </p>
 
             <h1>
-              Your goals
+              Your <span>Goals.</span>
             </h1>
 
             <p>

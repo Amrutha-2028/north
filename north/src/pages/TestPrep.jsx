@@ -263,7 +263,7 @@ export default function TestPrep() {
 
       <main className="tp-main">
         <section className="tp-hero">
-          <p className="section-label">Prepare / Test prep</p>
+          <p className="section-label">ACT AND PSAT TEST PREP</p>
 
           <h1>ACT and PSAT Test Prep</h1>
 
