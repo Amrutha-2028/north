@@ -4,7 +4,21 @@ const routes = [
   "/", "/courses", "/schedule", "/ap-classes", "/gpa",
   "/goals", "/compass", "/submit-info",
   "/test-prep", "/opportunities", "/resume-maker",
+  "/scholarships", "/me",
 ];
+
+// North saves data on the device, so clear it between clicks to keep each
+// page's button inventory stable.
+async function gotoFresh(page, route) {
+  await page.evaluate(() => {
+    try {
+      window.localStorage.clear();
+    } catch {
+      // about:blank has no storage.
+    }
+  }).catch(() => {});
+  await page.goto(route, { waitUntil: "commit" });
+}
 
 const mockUser = {
   id: "playwright-student",
@@ -77,14 +91,16 @@ test("all app routes load and every initial visible button can be clicked", asyn
   page.on("pageerror", (error) => pageErrors.push(error.message));
 
   for (const route of routes) {
-    await page.goto(route, { waitUntil: "commit" });
+    await gotoFresh(page, route);
+    await page.waitForLoadState("domcontentloaded");
     await expect(page.locator("body")).toContainText(/.+/);
     const buttonCount = await page.locator("button:visible").count();
 
     for (let index = 0; index < buttonCount; index += 1) {
       // Reload before each click so one button's state change cannot hide or
       // reorder another button in the same page's inventory.
-      await page.goto(route, { waitUntil: "commit" });
+      await gotoFresh(page, route);
+      await page.waitForLoadState("domcontentloaded");
       const button = page.locator("button:visible").nth(index);
       await expect(button, `${route}: visible button ${index + 1}`).toBeVisible();
       await expect(button, `${route}: button ${index + 1} needs an accessible name`)
@@ -167,18 +183,49 @@ test("GPA counters and scale controls update", async ({ page }) => {
   await page.goto("/gpa");
   const firstCounter = page.locator(".gpa-year .counter").first();
   await expect(firstCounter.locator("span")).toHaveText("0");
-  await firstCounter.getByRole("button", { name: "+" }).click();
+  await firstCounter.getByRole("button", { name: /^Add one/ }).click();
   await expect(firstCounter.locator("span")).toHaveText("1");
-  await page.getByRole("button", { name: "Customize My Scale" }).click();
-  await expect(page.getByRole("heading", { name: "Customize Your Scale" })).toBeVisible();
-  await page.getByRole("button", { name: "Reset to Default" }).click();
+  await expect(page.locator(".result-card").first()).toContainText("4.00");
+
+  // Grades are saved on the device and survive a reload.
+  await page.reload();
+  await expect(page.locator(".gpa-year .counter").first().locator("span")).toHaveText("1");
+
+  await page.getByRole("button", { name: "Customize scale" }).click();
+  await expect(page.getByRole("spinbutton", { name: "A in Standard" })).toBeVisible();
+  await page.getByRole("button", { name: "Reset to default" }).click();
+});
+
+test("scholarship tabs group results and saved items reach My North", async ({ page }) => {
+  await page.goto("/scholarships");
+  await page.getByRole("tab", { name: "Citizenship" }).click();
+  await expect(page.getByRole("heading", { name: /No US citizenship or green card required/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Requires US citizenship or permanent residency/ })).toBeVisible();
+
+  await page.getByRole("tab", { name: "Seniors only" }).click();
+  await expect(page.getByRole("heading", { name: /Open before senior year/ })).toBeVisible();
+
+  await page.getByRole("button", { name: "Save The Gates Scholarship" }).click();
+  await page.getByRole("tab", { name: /My list/ }).click();
+  await expect(page.getByRole("heading", { name: "The Gates Scholarship" })).toBeVisible();
+
+  await page.goto("/me");
+  await page.getByLabel("Full name").fill("Sam Rivera");
+  await page.getByLabel("Grade").selectOption("11");
+  await expect(page.getByRole("heading", { name: "Hi, Sam." })).toBeVisible();
+  await expect(page.locator(".me-list")).toContainText("The Gates Scholarship");
+
+  await page.goto("/scholarships");
+  await expect(page.getByRole("button", { name: "Match my profile" })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("heading", { name: "Coolidge Scholarship" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Coca-Cola Scholars Program" })).toHaveCount(0);
 });
 
 test("goal form and submission form controls respond without remote writes", async ({ page }) => {
   await page.goto("/goals");
   await page.getByRole("button", { name: /Add Goal/ }).click();
   await expect(page.getByRole("heading", { name: "What are you working toward?" })).toBeVisible();
-  const goalColor = page.getByRole("button", { name: "Choose #7DD3A8" });
+  const goalColor = page.getByRole("button", { name: "Choose #4ADE80" });
   await goalColor.click();
   await expect(goalColor).toHaveClass(/selected/);
 

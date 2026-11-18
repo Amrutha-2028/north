@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
-import Sparkles from "../components/Sparkles";
+import Footer from "../components/Footer";
+import { KEYS, usePersistentState } from "../lib/storage";
 import "./Goals.css";
 
 function Goals() {
-  const [goals, setGoals] = useState(() => {
-    const savedGoals = window.localStorage.getItem("north-goals");
-    return savedGoals ? JSON.parse(savedGoals) : [];
-  });
+  const [storedGoals, setGoals] = usePersistentState(KEYS.goals, []);
+  const goals = Array.isArray(storedGoals) ? storedGoals : [];
 
   const [showForm, setShowForm] = useState(false);
 
@@ -15,7 +14,7 @@ function Goals() {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [goalType, setGoalType] = useState("long-term");
-  const [color, setColor] = useState("#8FC7F2");
+  const [color, setColor] = useState("#FF6B3D");
 
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
@@ -23,19 +22,15 @@ function Goals() {
   const [draggedGoal, setDraggedGoal] = useState(null);
 
   const goalColors = [
+    "#FF6B3D",
     "#8FC7F2",
-    "#7DD3A8",
-    "#F5C76A",
-    "#F29B9B",
-    "#B69CF2",
-    "#F2A7D5",
+    "#4ADE80",
+    "#FACC15",
+    "#F87171",
+    "#B8A4FF",
     "#6ED7D0",
-    "#AAB7C4",
+    "#B9B7B0",
   ];
-
-  useEffect(() => {
-    window.localStorage.setItem("north-goals", JSON.stringify(goals));
-  }, [goals]);
 
   const addGoal = async (e) => {
     e.preventDefault();
@@ -65,7 +60,7 @@ function Goals() {
     setDescription("");
     setDueDate("");
     setGoalType("long-term");
-    setColor("#8FC7F2");
+    setColor("#FF6B3D");
     setFormError("");
     setSaving(false);
     setShowForm(false);
@@ -140,10 +135,6 @@ function Goals() {
     <div className="goals-page">
       <Navbar />
 
-      <div className="goals-background">
-        <Sparkles />
-        <div className="goals-glow"></div>
-      </div>
 
       <main className="goals-container">
 
@@ -151,15 +142,15 @@ function Goals() {
         <section className="goals-header">
           <div>
             <p className="section-label">
-              YOUR NORTH
+              Track / Goals
             </p>
 
             <h1>
-              Your <span>Goals.</span>
+              Your goals
             </h1>
 
             <p>
-              Turn what you want into what you're working toward.
+              Turn what you want into what you're working toward. Saved on this device.
             </p>
           </div>
 
@@ -559,6 +550,7 @@ function Goals() {
         </div>
 
       </main>
+      <Footer />
     </div>
   );
 }

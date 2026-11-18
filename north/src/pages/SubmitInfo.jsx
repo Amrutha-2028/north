@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
+import Navbar from "../components/Navbar";
 
 function SubmitInfo() {
     const [type, setType] = useState("idea");
@@ -39,16 +40,14 @@ function SubmitInfo() {
     };
 
     return (
+        <div className="app">
+        <Navbar />
         <main className="submit-page">
-            <div className="submit-stars" />
-
-            <div className="submit-orbit submit-orbit-one" />
-            <div className="submit-orbit submit-orbit-two" />
 
             <section className="submit-card">
                 <div className="submit-icon">✦</div>
 
-                <p className="submit-label">NORTH / TRANSMISSION</p>
+                <p className="submit-label">NORTH / SEND A SIGNAL</p>
 
                 <h1>
                     Help shape <span>North.</span>
@@ -176,6 +175,7 @@ function SubmitInfo() {
                 )}
             </section>
         </main>
+        </div>
     );
 }
 

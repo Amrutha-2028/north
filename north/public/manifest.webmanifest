@@ -1,0 +1,18 @@
+{
+  "name": "North",
+  "short_name": "North",
+  "description": "Your high school compass. Plan courses, track GPA, build a resume and find scholarships. Your data stays on your device.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0a",
+  "theme_color": "#0b0b0a",
+  "icons": [
+    { "src": "/logo.png", "sizes": "500x500", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "GPA", "url": "/gpa" },
+    { "name": "Scholarships", "url": "/scholarships" },
+    { "name": "Resume", "url": "/resume-maker" }
+  ]
+}

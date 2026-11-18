@@ -1,7 +1,9 @@
 
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import Sparkles from "../components/Sparkles";
+import Footer from "../components/Footer";
+import { KEYS, useProfile, usePersistentState } from "../lib/storage";
+import { computeGpa, createGpaState } from "../lib/gpa";
 import "./ResumeMaker.css";
 
 const makeEntry = () => ({
@@ -245,8 +247,35 @@ function ResumeSection({ section }) {
 }
 
 export default function ResumeMaker() {
-  const [resume, setResume] = useState(blankResume);
+  const [resume, setResume] = usePersistentState(KEYS.resume, blankResume);
   const [showExample, setShowExample] = useState(false);
+  const [filledNote, setFilledNote] = useState("");
+  const [profile] = useProfile();
+  const [gpaState] = usePersistentState(KEYS.gpa, createGpaState);
+
+  const fillFromProfile = () => {
+    const weighted = computeGpa(gpaState, true);
+    const unweighted = computeGpa(gpaState, false);
+    const gpaNote = weighted
+      ? `Weighted GPA: ${weighted.toFixed(2)}`
+      : unweighted
+        ? `GPA: ${unweighted.toFixed(2)}`
+        : "";
+
+    setResume((current) => ({
+      ...current,
+      name: current.name || profile.name,
+      graduationYear: current.graduationYear || profile.gradYear,
+      email: current.email || profile.email,
+      location: current.location || profile.state,
+      gpa: current.gpa || gpaNote,
+    }));
+    setFilledNote(
+      profile.name || gpaNote
+        ? "Filled empty fields from My North."
+        : "Nothing to fill yet. Add your details in My North first."
+    );
+  };
 
   const updateResume = (field, value) => {
     setResume((current) => ({ ...current, [field]: value }));
@@ -318,27 +347,31 @@ export default function ResumeMaker() {
   const startBlank = () => {
     setResume(blankResume());
     setShowExample(false);
+    setFilledNote("");
   };
 
   return (
     <div className="rm-page">
-      <Sparkles />
       <Navbar />
 
       <main className="rm-main">
         <header className="rm-header">
-          <div className="rm-eyebrow">NORTH CAREER TOOLKIT</div>
+          <p className="section-label">Track / Resume</p>
           <h1>
             Resume Maker
             <br />
           </h1>
           <p>
-            Build a resume that reflects what you have learned, created, and
-            contributed. Start with an example or make your own from scratch.
+            Build a resume that reflects what you have learned, created and
+            contributed. It saves on this device as you type, so you can come
+            back and keep adding to it all through high school.
           </p>
 
           <div className="rm-header-actions">
-            <button className="rm-primary-button" onClick={loadExample} type="button">
+            <button className="rm-primary-button" onClick={fillFromProfile} type="button">
+              Fill from My North
+            </button>
+            <button className="rm-secondary-button" onClick={loadExample} type="button">
               View example resume
             </button>
             <button className="rm-secondary-button" onClick={startBlank} type="button">
@@ -350,6 +383,7 @@ export default function ResumeMaker() {
               Example loaded. Edit any field to make this resume your own.
             </p>
           )}
+          {filledNote && !showExample && <p className="rm-example-note">{filledNote}</p>}
         </header>
 
         <div className="rm-workspace">
@@ -359,7 +393,7 @@ export default function ResumeMaker() {
                 <span className="rm-step-label">RESUME</span>
                 <h2>Build your resume</h2>
               </div>
-              <span className="rm-live-indicator"><span /> Live preview</span>
+              <span className="rm-live-indicator"><span /> Saved on this device</span>
             </div>
 
             <section className="rm-form-section">
@@ -542,8 +576,8 @@ export default function ResumeMaker() {
             </div>
 
             <p className="rm-privacy-note">
-              Your resume is edited in this page and is not sent to an AI service.
-              Save a PDF before refreshing, because this version does not save entries.
+              Your resume is saved in this browser only. It is never uploaded or
+              sent to an AI service. Use Print / Save PDF to get a file you can submit.
             </p>
           </div>
 
@@ -603,6 +637,7 @@ export default function ResumeMaker() {
           </aside>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

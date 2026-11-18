@@ -1,5 +1,4 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
 
 /* Base */
 
@@ -62,7 +61,7 @@
   border-radius: 50%;
   background: rgba(5, 12, 28, 0.25);
   color: #f4f7ff;
-  font-family: "Raleway", sans-serif;
+  font-family: var(--font);
   font-size: 1.5rem;
   cursor: pointer;
   transition: background 180ms ease;
@@ -111,7 +110,7 @@
   border-radius: 999px;
   background: transparent;
   color: #fff;
-  font-family: "Raleway", sans-serif;
+  font-family: var(--font);
   cursor: pointer;
 }
 
@@ -209,7 +208,7 @@
 .focus-clock {
   margin: 0;
   color: #fff;
-  font-family: "Raleway", sans-serif;
+  font-family: var(--font);
   font-size: clamp(3.6rem, 6.5vw, 5.2rem);
   font-weight: 400;
   font-variant-numeric: tabular-nums;
@@ -279,7 +278,7 @@
   padding: 0 19px;
   border: 1px solid transparent;
   border-radius: 999px;
-  font-family: "Raleway", sans-serif;
+  font-family: var(--font);
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;

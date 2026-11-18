@@ -1,28 +1,14 @@
-import Sparkles from "./Sparkles";
 import "./PageHeader.css";
 
-function PageHeader({ number, title, subtitle }) {
+function PageHeader({ number, title, subtitle, children }) {
   return (
     <section className="page-header">
-
-      <Sparkles />
-
-      <div className="page-header-glow"></div>
-
       <div className="page-header-content">
-
-        <p className="page-header-number">
-          {number}
-        </p>
-
+        {number && <p className="section-label">{number}</p>}
         <h1>{title}</h1>
-
-        <p className="page-header-subtitle">
-          {subtitle}
-        </p>
-
+        {subtitle && <p className="page-header-subtitle">{subtitle}</p>}
+        {children && <div className="page-header-actions">{children}</div>}
       </div>
-
     </section>
   );
 }

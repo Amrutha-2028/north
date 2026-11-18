@@ -11,7 +11,7 @@ function Schedule() {
             <Navbar />
 
             <PageHeader
-                number="SCHEDULE PLANNING"
+                number="Plan / Schedule"
                 title="Schedule Guide"
                 subtitle="Build a schedule that works for you."
             />

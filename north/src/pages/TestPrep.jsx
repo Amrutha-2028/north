@@ -1,7 +1,14 @@
 import { useMemo, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
-import Sparkles from "../components/Sparkles";
+import Footer from "../components/Footer";
+import { KEYS, usePersistentState } from "../lib/storage";
 import "./TestPrep.css";
+
+const defaultTestScores = {
+  act: { english: 35, math: 30, reading: 27, science: 29 },
+  psat: { rw: 43, math: 33 },
+  index: { rw: 700, math: 700 },
+};
 
 const ACT_SECTIONS = [
   { key: "english", label: "English", total: 50, description: "Grammar, punctuation, and rhetoric" },
@@ -173,22 +180,25 @@ export default function TestPrep() {
 
   const [activeTab, setActiveTab] = useState("act");
 
-  const [actCorrect, setActCorrect] = useState({
-    english: 35,
-    math: 30,
-    reading: 27,
-    science: 29,
-  });
+  // Calculator inputs are saved on this device so students can come back
+  // after each practice test.
+  const [testScores, setTestScores] = usePersistentState(KEYS.testScores, defaultTestScores);
+  const actCorrect = useMemo(() => ({ ...defaultTestScores.act, ...testScores?.act }), [testScores]);
+  const psatCorrect = useMemo(() => ({ ...defaultTestScores.psat, ...testScores?.psat }), [testScores]);
+  const indexScores = useMemo(() => ({ ...defaultTestScores.index, ...testScores?.index }), [testScores]);
 
-  const [psatCorrect, setPsatCorrect] = useState({
-    rw: 43,
-    math: 33,
-  });
-
-  const [indexScores, setIndexScores] = useState({
-    rw: 700,
-    math: 700,
-  });
+  const makeSetter = (group) => (update) =>
+    setTestScores((current) => {
+      const previous = { ...defaultTestScores[group], ...current?.[group] };
+      return {
+        ...defaultTestScores,
+        ...current,
+        [group]: typeof update === "function" ? update(previous) : update,
+      };
+    });
+  const setActCorrect = makeSetter("act");
+  const setPsatCorrect = makeSetter("psat");
+  const setIndexScores = makeSetter("index");
 
   const actScores = useMemo(() => {
     return Object.fromEntries(
@@ -249,22 +259,11 @@ export default function TestPrep() {
 
   return (
     <div className="testprep-page">
-      <div className="tp-background" aria-hidden="true">
-        <div className="tp-background-glow tp-background-glow--one" />
-        <div className="tp-background-glow tp-background-glow--two" />
-        <div className="tp-sparkles">
-          <Sparkles />
-        </div>
-      </div>
-
       <Navbar />
 
       <main className="tp-main">
         <section className="tp-hero">
-          <div className="tp-eyebrow">
-            <span className="tp-eyebrow-dot" />
-            ACT AND PSAT TEST PREP
-          </div>
+          <p className="section-label">Prepare / Test prep</p>
 
           <h1>ACT and PSAT Test Prep</h1>
 
@@ -951,6 +950,7 @@ export default function TestPrep() {
         </span>
         <span>Want to calculate?</span>
       </button>
+      <Footer />
     </div>
   );
 }

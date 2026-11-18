@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import PageHeader from "../components/PageHeader";
+import Footer from "../components/Footer";
 import "./Courses.css";
 
 function Courses() {
@@ -7,7 +8,7 @@ function Courses() {
     <div className="page">
       <Navbar />
       <PageHeader
-        number="COURSE PLANNING"
+        number="Plan / Courses"
         title="Choose With Purpose."
         subtitle="Explore your options. Build your foundation. Plan with intention."
       />
@@ -477,6 +478,7 @@ function Courses() {
         </a>
       </section>
 
+      <Footer />
     </div>
   );
 }
@@ -505,7 +507,7 @@ function CourseSection({ title, courses }) {
 
               <div className="course-tags">
                 {course.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
+                  <span key={tag} data-tag={tag}>{tag}</span>
                 ))}
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import PageHeader from "../components/PageHeader";
+import Footer from "../components/Footer";
 import "./Opportunities.css";
 
 const guides = [
@@ -345,7 +346,7 @@ function Opportunities() {
     <div className="op-page">
       <Navbar />
       <PageHeader
-        number="PURSUE WHAT INTERESTS YOU"
+        number="Prepare / Extracurriculars"
         title="Extracurriculars Guide"
         subtitle="Explore projects, service, research, competitions, and meaningful ways to contribute."
       />
@@ -675,6 +676,7 @@ function Opportunities() {
           </a>
         </section>
       </main>
+      <Footer />
     </div>
   );
 }

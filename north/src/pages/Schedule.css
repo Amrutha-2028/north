@@ -1,377 +1,172 @@
-/* =========================================
-   SCHEDULE PAGE
-========================================= */
-
-.guide-page {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-bottom: 120px;
-}
-
-/* =========================================
-   PAGE HEADER
-========================================= */
-
-.page-header {
-  position: relative;
-  min-height: 48vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  text-align: center;
-  background: radial-gradient(
-    circle at 50% 55%,
-    rgba(45, 125, 210, 0.18),
-    transparent 42%
-  );
-}
-
-.page-header-glow {
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: rgba(45, 130, 220, 0.09);
-  filter: blur(100px);
-  animation: pageGlow 6s ease-in-out infinite;
-}
-
-@keyframes pageGlow {
-  0%,
-  100% {
-    transform: scale(0.9);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: scale(1.1);
-    opacity: 0.9;
-  }
-}
-
-.page-header-content {
-  position: relative;
-  z-index: 5;
-  width: min(900px, 90%);
-  padding-top: 60px;
-  animation: pageAppear 0.9s ease forwards;
-}
-
-@keyframes pageAppear {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.page-header-number {
-  margin: 0 0 20px;
-  color: #63aef5;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-}
-
-.page-header h1 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(3.2rem, 8vw, 7rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-}
-
-.page-header-subtitle {
-  max-width: 650px;
-  margin: 25px auto 0;
-  color: #91a4b8;
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-/* =========================================
-   GENERAL
-========================================= */
-
-.section-label {
-  margin: 0 0 12px;
-  color: #63aef5;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.guide-intro {
-  padding: 100px 6vw 80px;
-}
-
-.guide-intro h2 {
-  margin: 0;
-  font-size: clamp(2.8rem, 5vw, 5rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.guide-intro h2 span {
-  color: #60758c;
-}
-
-.guide-intro > p:last-child {
-  max-width: 700px;
-  margin: 28px 0 0;
-  color: #91a4b8;
-  line-height: 1.8;
-}
-
-/* =========================================
-   SCHEDULE STEPS
-========================================= */
-
 .schedule-step {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-  margin: 0 6vw;
-  padding: 80px 0;
-  border-top: 1px solid rgba(120, 180, 230, 0.1);
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--line);
+  counter-increment: step;
 }
 
-.step-number {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  color: #63aef5;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
+.guide-page {
+  counter-reset: step;
+}
+
+.schedule-step::before {
+  content: "Step " counter(step, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
   padding-top: 8px;
 }
 
-.step-content {
-  min-width: 0;
-}
-
 .step-content > h2 {
-  max-width: 850px;
-  margin: 0;
-  color: #edf3f8;
-  font-size: clamp(2rem, 4vw, 3.8rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-size: clamp(24px, 3vw, 32px);
+  letter-spacing: -0.035em;
 }
 
 .step-description {
-  max-width: 700px;
-  margin: 20px 0 45px;
-  color: #91a3b5;
-  font-size: 0.9rem;
-  line-height: 1.8;
+  max-width: 60ch;
+  margin: 10px 0 24px;
+  color: var(--text-2);
+  font-size: 15.5px;
 }
 
 .step-content > h3 {
-  margin: 0 0 22px;
-  color: #dce7f2;
-  font-size: 1.15rem;
+  margin-bottom: 6px;
+  font-size: 15px;
+  letter-spacing: -0.015em;
 }
 
-/* =========================================
-   REQUIREMENTS
-========================================= */
+.step-content > p:not(.step-description) {
+  max-width: 64ch;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 13.5px;
+}
 
 .requirement-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .requirement-card {
-  padding: 18px 20px;
-  border: 1px solid rgba(120, 180, 230, 0.09);
-  background: rgba(20, 39, 59, 0.55);
-  color: #aebdcb;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--surface);
+  font-size: 13.5px;
 }
 
-.requirement-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(90, 170, 245, 0.25);
-  color: #dce7f2;
+.requirement-card::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 4px;
 }
 
-/* =========================================
-   BUTTON
-========================================= */
-
-.guide-button {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 14px 22px;
-  border: 1px solid rgba(100, 170, 230, 0.2);
-  color: #9ec9f2;
-  text-decoration: none;
-  font-size: 0.72rem;
-  transition: 0.25s ease;
+.schedule-template-download--button {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: 13.5px;
+  transition: background 0.15s var(--ease);
 }
 
-.guide-button:hover {
-  border-color: rgba(100, 170, 230, 0.45);
-  background: rgba(70, 140, 210, 0.08);
-  transform: translateY(-2px);
+.schedule-template-download--button:hover {
+  background: var(--surface-2);
 }
-
-/* =========================================
-   CAREER TRACKS
-========================================= */
 
 .career-track {
-  margin-bottom: 28px;
-  padding: 28px;
-  border: 1px solid rgba(120, 180, 230, 0.09);
-  background: linear-gradient(
-    145deg,
-    rgba(27, 52, 79, 0.7),
-    rgba(13, 28, 44, 0.85)
-  );
-  transition: 0.3s ease;
+  padding: 16px 0;
+  border-top: 1px solid var(--line);
 }
 
-.career-track:hover {
-  border-color: rgba(90, 170, 245, 0.25);
-  transform: translateY(-3px);
+.career-track:first-of-type {
+  border-top: 0;
+  padding-top: 0;
 }
 
 .career-track h3 {
-  margin: 0 0 20px;
-  color: #e1eaf2;
-  font-size: 1.25rem;
+  margin-bottom: 10px;
+  font-size: 15px;
+  letter-spacing: -0.015em;
 }
 
 .career-courses {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
 }
 
 .career-courses span {
-  padding: 9px 13px;
-  border: 1px solid rgba(100, 170, 230, 0.1);
-  border-radius: 2px;
-  background: rgba(60, 130, 200, 0.07);
-  color: #9bb6ce;
-  font-size: 0.7rem;
-  line-height: 1.4;
-  transition: 0.2s ease;
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-2);
+  font-size: 12.5px;
 }
-
-.career-courses span:hover {
-  border-color: rgba(100, 170, 230, 0.3);
-  background: rgba(60, 130, 200, 0.12);
-  color: #dce7f2;
-}
-
-/* =========================================
-   MISTAKES
-========================================= */
 
 .mistakes-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .mistake-card {
-  position: relative;
-  min-height: 230px;
-  padding: 30px;
-  border: 1px solid rgba(120, 180, 230, 0.09);
-  background: rgba(20, 39, 59, 0.55);
-  transition: 0.3s ease;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
 }
 
-.mistake-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(90, 170, 245, 0.25);
-}
-
-.mistake-card > span {
-  display: flex;
-  width: 30px;
-  height: 30px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40px;
-  border: 1px solid rgba(99, 174, 245, 0.25);
-  border-radius: 50%;
-  color: #63aef5;
-  font-size: 0.75rem;
+.mistake-card span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--red-soft);
+  color: var(--red);
+  font-size: 13px;
   font-weight: 700;
 }
 
 .mistake-card h3 {
-  margin: 0 0 13px;
-  color: #dce7f2;
-  font-size: 1.05rem;
-  line-height: 1.35;
+  font-size: 15px;
+  letter-spacing: -0.015em;
 }
 
 .mistake-card p {
-  margin: 0;
-  color: #899daf;
-  font-size: 0.78rem;
-  line-height: 1.75;
+  color: var(--muted);
+  font-size: 13.5px;
 }
 
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 1000px) {
-  .requirement-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .mistakes-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  .page-header {
-    min-height: 42vh;
-  }
-
-  .page-header h1 {
-    font-size: clamp(2.8rem, 14vw, 5rem);
-  }
-
-  .guide-intro {
-    padding-top: 65px;
-  }
-
+@media (max-width: 860px) {
   .schedule-step {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 60px 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 32px 0;
   }
 
-  .requirement-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .career-track {
-    padding: 22px;
+  .schedule-step::before {
+    padding-top: 0;
   }
 
   .mistakes-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

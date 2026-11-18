@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
@@ -11,15 +12,38 @@ import SubmitInfo from "./pages/SubmitInfo";
 import TestPrep from "./pages/TestPrep";
 import Opportunities from "./pages/Opportunities";
 import ResumeMaker from "./pages/ResumeMaker";
+import Scholarships from "./pages/Scholarships";
+import MyNorth from "./pages/MyNorth";
 
 import "./App.css";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
+function SignalButton() {
+  const { pathname } = useLocation();
+  if (pathname === "/submit-info" || pathname === "/compass") return null;
+
+  return (
+    <Link to="/submit-info" className="north-signal" aria-label="Send a signal: share feedback">
+      <span className="north-signal-icon" aria-hidden="true">✦</span>
+      <span className="north-signal-text">Send a signal</span>
+    </Link>
+  );
+}
 
 function App() {
   return (
     <BrowserRouter>
-
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/me" element={<MyNorth />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/ap-classes" element={<APClasses />} />
@@ -30,19 +54,9 @@ function App() {
         <Route path="/test-prep" element={<TestPrep />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/resume-maker" element={<ResumeMaker />} />
+        <Route path="/scholarships" element={<Scholarships />} />
       </Routes>
-
-      {/* Floating utility available across North */}
-      <a href="/submit-info" className="north-signal">
-        <span className="north-signal-text">
-          send a signal →
-        </span>
-
-        <span className="north-signal-icon">
-          ✦
-        </span>
-      </a>
-
+      <SignalButton />
       <Analytics />
     </BrowserRouter>
   );

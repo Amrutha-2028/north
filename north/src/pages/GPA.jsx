@@ -1,509 +1,243 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import { KEYS, usePersistentState } from "../lib/storage";
+import {
+  computeGpa,
+  countCourses,
+  createGpaState,
+  defaultScale,
+  formatGpa,
+  gradeOrder,
+  levelLabels,
+  levels,
+  yearLabels,
+  yearOrder,
+} from "../lib/gpa";
 import "./GPA.css";
-import { useState } from "react";
-
-const defaultScale = {
-  A: { standard: 4.0, honors: 4.5, ap: 5.0 },
-  B: { standard: 3.0, honors: 3.5, ap: 4.0 },
-  C: { standard: 2.0, honors: 2.5, ap: 3.0 },
-  D: { standard: 1.0, honors: 1.5, ap: 2.0 },
-  F: { standard: 0.0, honors: 0.0, ap: 0.0 },
-};
-
-const gradeOrder = ["A", "B", "C", "D", "F"];
-const levels = ["standard", "honors", "ap"];
-
-const createYear = () => ({
-  standard: { A: 0, B: 0, C: 0, D: 0, F: 0 },
-  honors: { A: 0, B: 0, C: 0, D: 0, F: 0 },
-  ap: { A: 0, B: 0, C: 0, D: 0, F: 0 },
-});
 
 function GPA() {
-  const [scale, setScale] = useState(defaultScale);
+  const [state, setState] = usePersistentState(KEYS.gpa, createGpaState);
   const [showCustomize, setShowCustomize] = useState(false);
-
-  const [years, setYears] = useState({
-    freshman: createYear(),
-    sophomore: createYear(),
-    junior: createYear(),
-    senior: createYear(),
-  });
+  const scale = state.scale || defaultScale;
 
   const updateCourseCount = (year, level, grade, amount) => {
-    setYears((prev) => ({
+    setState((prev) => ({
       ...prev,
-      [year]: {
-        ...prev[year],
-        [level]: {
-          ...prev[year][level],
-          [grade]: Math.max(
-            0,
-            prev[year][level][grade] + amount
-          ),
+      years: {
+        ...prev.years,
+        [year]: {
+          ...prev.years[year],
+          [level]: {
+            ...prev.years[year][level],
+            [grade]: Math.max(0, prev.years[year][level][grade] + amount),
+          },
         },
       },
     }));
   };
 
   const updateScale = (grade, level, value) => {
-    setScale((prev) => ({
+    setState((prev) => ({
       ...prev,
-      [grade]: {
-        ...prev[grade],
-        [level]: value === "" ? "" : Number(value),
+      scale: {
+        ...prev.scale,
+        [grade]: { ...prev.scale[grade], [level]: value === "" ? "" : Number(value) },
       },
     }));
   };
 
-  const calculateGPA = (weighted) => {
-    let totalPoints = 0;
-    let totalCourses = 0;
-
-    Object.values(years).forEach((year) => {
-      Object.entries(year).forEach(([level, grades]) => {
-        Object.entries(grades).forEach(([grade, count]) => {
-          totalCourses += count;
-
-          if (weighted) {
-            totalPoints +=
-              count * Number(scale[grade][level]);
-          } else {
-            const unweightedPoints = {
-              A: 4,
-              B: 3,
-              C: 2,
-              D: 1,
-              F: 0,
-            };
-
-            totalPoints +=
-              count * unweightedPoints[grade];
-          }
-        });
-      });
-    });
-
-    if (totalCourses === 0) return "0.00";
-
-    return (totalPoints / totalCourses).toFixed(2);
+  const resetAll = () => {
+    if (window.confirm("Clear every grade you've entered? This can't be undone.")) {
+      setState(createGpaState());
+    }
   };
 
-  const totalCourses = Object.values(years).reduce(
-    (total, year) =>
-      total +
-      Object.values(year).reduce(
-        (yearTotal, level) =>
-          yearTotal +
-          Object.values(level).reduce(
-            (sum, count) => sum + count,
-            0
-          ),
-        0
-      ),
-    0
-  );
+  const totalCourses = countCourses(state);
+  const unweighted = computeGpa(state, false);
+  const weighted = computeGpa(state, true);
 
   return (
     <div className="app">
       <Navbar />
 
       <PageHeader
-        number="GPA PLANNING"
+        number="Track / GPA"
         title="GPA Calculator"
-        subtitle="Understand your grades. See your progress. Plan ahead."
+        subtitle="Count your grades by year and course level. Everything saves on this device as you go, and shows up in My North."
       />
 
       <main className="gpa-page">
-
-        {/* QUICK INTRO */}
-
-        <section className="gpa-intro">
-
-          <p className="section-label">WHAT IS GPA?</p>
-
-          <h2>
-            Your grades,
-            <br />
-            <span>in one number.</span>
-          </h2>
-
-          <p>
-            GPA stands for Grade Point Average. It is a numerical
-            summary of your academic performance, making it easier
-            to understand your grades without looking through an
-            entire transcript.
-          </p>
-
+        <section className="gpa-results" aria-live="polite">
+          <div className="result-card">
+            <span>Unweighted</span>
+            <strong>{formatGpa(unweighted)}</strong>
+            <p>4.0 scale</p>
+          </div>
+          <div className="result-card featured">
+            <span>Weighted</span>
+            <strong>{formatGpa(weighted)}</strong>
+            <p>Your scale below</p>
+          </div>
+          <div className="result-card">
+            <span>Courses</span>
+            <strong>{totalCourses}</strong>
+            <p>entered so far</p>
+          </div>
+          <div className="result-actions">
+            <span className="saved-pill">
+              <span aria-hidden="true" /> Saved on this device
+            </span>
+            <button type="button" className="btn btn-sm" onClick={resetAll}>
+              Clear all grades
+            </button>
+          </div>
         </section>
 
-        {/* CALCULATOR */}
+        <div className="years-container">
+          {yearOrder.map((year) => (
+            <GpaYear
+              key={year}
+              title={yearLabels[year]}
+              year={year}
+              data={state.years[year]}
+              unweighted={computeGpa(state, false, [year])}
+              weighted={computeGpa(state, true, [year])}
+              updateCourseCount={updateCourseCount}
+            />
+          ))}
+        </div>
 
-        <section className="calculator-section">
-
-          <div className="calculator-heading">
-
+        <section className="scale-card">
+          <div className="scale-header">
             <div>
-              <p className="section-label">CALCULATE</p>
-
-              <h2>
-                Build your <span>GPA.</span>
-              </h2>
+              <p className="section-label">Grading scale</p>
+              <h2>Weighted scale</h2>
+              <p className="scale-note">Match this to your school's scale. Official GPAs can be calculated differently.</p>
             </div>
-
-            <div className="course-total">
-              <strong>{totalCourses}</strong>
-              <span>courses entered</span>
-            </div>
-
-          </div>
-
-          {/* RESULTS — MOVED TO TOP */}
-
-          <section className="gpa-results">
-
-            <p className="section-label">YOUR RESULTS</p>
-
-            <div className="results-grid">
-
-              <div className="result-card">
-
-                <span>Unweighted GPA</span>
-
-                <strong>
-                  {calculateGPA(false)}
-                </strong>
-
-                <p>4.0 scale</p>
-
-              </div>
-
-              <div className="result-card featured">
-
-                <span>Weighted GPA</span>
-
-                <strong>
-                  {calculateGPA(true)}
-                </strong>
-
-                <p>Using your selected scale</p>
-
-              </div>
-
-            </div>
-
-          </section>
-
-          {/* YEARS */}
-
-          <div className="years-container">
-
-            <GpaYear
-              title="Freshman"
-              year="freshman"
-              data={years.freshman}
-              updateCourseCount={updateCourseCount}
-            />
-
-            <GpaYear
-              title="Sophomore"
-              year="sophomore"
-              data={years.sophomore}
-              updateCourseCount={updateCourseCount}
-            />
-
-            <GpaYear
-              title="Junior"
-              year="junior"
-              data={years.junior}
-              updateCourseCount={updateCourseCount}
-            />
-
-            <GpaYear
-              title="Senior"
-              year="senior"
-              data={years.senior}
-              updateCourseCount={updateCourseCount}
-            />
-
-          </div>
-
-          {/* SCALE — MOVED BELOW */}
-
-          <div className="scale-card">
-
-            <div className="scale-header">
-
-              <div>
-                <p className="section-label">
-                  GPA SCALE
-                </p>
-
-                <h3>NORTH GPA Scale</h3>
-              </div>
-
-              <button
-                className="customize-button"
-                onClick={() =>
-                  setShowCustomize(!showCustomize)
-                }
-              >
-                {showCustomize
-                  ? "Hide Customization"
-                  : "Customize My Scale"}
-              </button>
-
-            </div>
-
-            <div className="scale-table">
-
-              <div className="scale-row scale-title">
-                <span>Grade</span>
-                <span>Standard</span>
-                <span>Honors</span>
-                <span>AP</span>
-              </div>
-
-              {gradeOrder.map((grade) => (
-                <div
-                  className="scale-row"
-                  key={grade}
+            <div className="scale-buttons">
+              {showCustomize && (
+                <button
+                  type="button"
+                  className="btn btn-sm btn-ghost"
+                  onClick={() => setState((prev) => ({ ...prev, scale: defaultScale }))}
                 >
-                  <strong>{grade}</strong>
-
-                  <span>
-                    {scale[grade].standard}
-                  </span>
-
-                  <span>
-                    {scale[grade].honors}
-                  </span>
-
-                  <span>
-                    {scale[grade].ap}
-                  </span>
-                </div>
-              ))}
-
+                  Reset to default
+                </button>
+              )}
+              <button
+                type="button"
+                className="btn btn-sm"
+                onClick={() => setShowCustomize(!showCustomize)}
+              >
+                {showCustomize ? "Done editing" : "Customize scale"}
+              </button>
             </div>
-
-            {showCustomize && (
-              <div className="custom-scale">
-
-                <div className="custom-scale-heading">
-
-                  <h3>Customize Your Scale</h3>
-
-                  <button
-                    onClick={() =>
-                      setScale(defaultScale)
-                    }
-                    className="reset-button"
-                  >
-                    Reset to Default
-                  </button>
-
-                </div>
-
-                <p>
-                  Adjust the values to match your school's
-                  official grading system.
-                </p>
-
-                <div className="custom-table">
-
-                  <div className="custom-row custom-title">
-                    <span>Grade</span>
-                    <span>Standard</span>
-                    <span>Honors</span>
-                    <span>AP</span>
-                  </div>
-
-                  {gradeOrder.map((grade) => (
-                    <div
-                      className="custom-row"
-                      key={grade}
-                    >
-
-                      <strong>{grade}</strong>
-
-                      {levels.map((level) => (
-                        <input
-                          key={level}
-                          type="number"
-                          step="0.1"
-                          min="0"
-                          max="6"
-                          value={scale[grade][level]}
-                          onChange={(e) =>
-                            updateScale(
-                              grade,
-                              level,
-                              e.target.value
-                            )
-                          }
-                        />
-                      ))}
-
-                    </div>
-                  ))}
-
-                </div>
-
-              </div>
-            )}
-
-            <p className="scale-note">
-              Your school's official GPA calculation may
-              be different.
-            </p>
-
           </div>
 
-          {/* INFO */}
-
-          <section className="gpa-info">
-
-            <div className="gpa-info-card">
-
-              <h3>Unweighted GPA</h3>
-
-              <p>
-                Measures your grades on a standard 4.0 scale
-                without giving additional points for course
-                difficulty.
-              </p>
+          <div className="scale-table" role="table" aria-label="Weighted grading scale">
+            <div className="scale-row scale-title" role="row">
+              <span role="columnheader">Grade</span>
+              {levels.map((level) => (
+                <span role="columnheader" key={level}>{levelLabels[level]}</span>
+              ))}
             </div>
 
-            <div className="gpa-info-card">
-
-              <h3>Weighted GPA</h3>
-
-              <p>
-                Gives additional points to courses such as
-                Honors and AP, depending on your school's
-                grading system.
-              </p>
-            </div>
-
-            <div className="gpa-info-card">
-
-              <h3>Why It Matters</h3>
-
-              <p>
-                GPA is one part of your academic profile.
-                Colleges may also consider course rigor,
-                grades, activities, essays, and more.
-              </p>
-            </div>
-
-          </section>
-
+            {gradeOrder.map((grade) => (
+              <div className="scale-row" role="row" key={grade}>
+                <strong role="cell">{grade}</strong>
+                {levels.map((level) =>
+                  showCustomize ? (
+                    <span role="cell" key={level}>
+                    <input
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      max="6"
+                      aria-label={`${grade} in ${levelLabels[level]}`}
+                      value={scale[grade][level]}
+                      onChange={(e) => updateScale(grade, level, e.target.value)}
+                    />
+                    </span>
+                  ) : (
+                    <span role="cell" key={level}>{Number(scale[grade][level]).toFixed(1)}</span>
+                  )
+                )}
+              </div>
+            ))}
+          </div>
         </section>
 
+        <section className="gpa-info">
+          <div className="gpa-info-card">
+            <h3>Unweighted GPA</h3>
+            <p>Your grades on a 4.0 scale, with no extra points for course difficulty.</p>
+          </div>
+          <div className="gpa-info-card">
+            <h3>Weighted GPA</h3>
+            <p>Adds points for Honors and AP courses, depending on your school's grading system.</p>
+          </div>
+          <div className="gpa-info-card">
+            <h3>Why it matters</h3>
+            <p>GPA is one part of your profile. Colleges also look at rigor, trends, activities and essays.</p>
+          </div>
+        </section>
       </main>
 
       <Footer />
-
     </div>
   );
 }
 
-function GpaYear({
-  title,
-  year,
-  data,
-  updateCourseCount,
-}) {
+function GpaYear({ title, year, data, unweighted, weighted, updateCourseCount }) {
   return (
     <section className="gpa-year">
-
       <div className="year-heading">
-
-        <div>
-
-          <h3>{title}</h3>
+        <h3>{title}</h3>
+        <div className="year-gpa">
+          <span>UW {formatGpa(unweighted)}</span>
+          <span>W {formatGpa(weighted)}</span>
         </div>
-
       </div>
 
       <div className="grade-grid">
-
-        <div className="grade-header">
-          <span>Course</span>
-          <span>A</span>
-          <span>B</span>
-          <span>C</span>
-          <span>D</span>
-          <span>F</span>
+        <div className="grade-header" aria-hidden="true">
+          <span />
+          {gradeOrder.map((grade) => (
+            <span key={grade}>{grade}</span>
+          ))}
         </div>
 
         {levels.map((level) => (
-
-          <div
-            className="grade-row"
-            key={level}
-          >
-
-            <strong>
-              {level === "standard"
-                ? "Standard"
-                : level === "honors"
-                ? "Honors"
-                : "AP"}
-            </strong>
-
-            {gradeOrder.map((grade) => (
-
-              <div
-                className="counter"
-                key={grade}
-              >
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    updateCourseCount(
-                      year,
-                      level,
-                      grade,
-                      -1
-                    )
-                  }
-                >
-                  −
-                </button>
-
-                <span>
-                  {data[level][grade]}
-                </span>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    updateCourseCount(
-                      year,
-                      level,
-                      grade,
-                      1
-                    )
-                  }
-                >
-                  +
-                </button>
-
-              </div>
-
-            ))}
-
+          <div className="grade-row" key={level}>
+            <strong>{levelLabels[level]}</strong>
+            {gradeOrder.map((grade) => {
+              const count = data[level][grade];
+              const label = `${title} ${levelLabels[level]} ${grade}`;
+              return (
+                <div className={`counter${count > 0 ? " has-value" : ""}`} key={grade}>
+                  <button
+                    type="button"
+                    aria-label={`Remove one ${label}`}
+                    onClick={() => updateCourseCount(year, level, grade, -1)}
+                  >
+                    −
+                  </button>
+                  <span aria-label={`${label} count`}>{count}</span>
+                  <button
+                    type="button"
+                    aria-label={`Add one ${label}`}
+                    onClick={() => updateCourseCount(year, level, grade, 1)}
+                  >
+                    +
+                  </button>
+                </div>
+              );
+            })}
           </div>
-
         ))}
-
       </div>
-
     </section>
   );
 }

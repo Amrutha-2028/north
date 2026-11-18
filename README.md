@@ -19,11 +19,13 @@ High school planning advice is spread across counselor handouts, college website
 | **Courses** | `/courses` | Typical high school courses by subject, plus how to read a college's Common Data Set to see what it values. |
 | **Schedule** | `/schedule` | How to build a four-year plan around graduation requirements and career interests (CS, healthcare and more). Includes a downloadable **Excel schedule template**. |
 | **AP Classes** | `/ap-classes` | What each AP covers, when students usually take it, and example AP sequences. |
-| **GPA Calculator** | `/gpa` | Enter grades year by year (freshman through senior) to see weighted and unweighted GPA. |
+| **GPA Calculator** | `/gpa` | Enter grades year by year (freshman through senior) to see weighted and unweighted GPA. Saved on your device. |
 | **Goals** | `/goals` | Set and track your own goals. They are saved in your browser. |
 | **Test Prep** | `/test-prep` | ACT and PSAT/SAT strategy by section: English, Math, Reading and Science. |
 | **Opportunities** | `/opportunities` | Extracurriculars, internships, research, cold emailing and summer programs, and how to find opportunities that aren't widely advertised. |
-| **Resume Maker** | `/resume-maker` | Build a student resume from your activities, skills and programs. |
+| **Resume Maker** | `/resume-maker` | Build a student resume from your activities, skills and programs. Saves as you type and can fill itself from your profile. |
+| **My North** | `/me` | Your dashboard: profile, GPA by year, saved scholarships, resume, goals and focus stars. Back up or restore all your data as a file. |
+| **Scholarships** | `/scholarships` | 30 researched scholarships organized by amount, merit vs. need, location, seniors-only and citizenship requirements. Match them to your profile and track each one from saved to won. |
 | **Send a signal** | `/submit-info` | A feedback form. Suggest resources or report problems. |
 
 <p>
@@ -35,9 +37,10 @@ High school planning advice is spread across counselor handouts, college website
 
 - [React 19](https://react.dev/) + [Vite](https://vite.dev/)
 - [React Router](https://reactrouter.com/) for client-side routing
-- Plain CSS, one stylesheet per page
+- Plain CSS, one stylesheet per page, built on shared design tokens in `src/index.css` (Geist + Geist Mono)
 - [Supabase](https://supabase.com/) stores feedback form submissions
-- `localStorage` for goals and constellation progress, so no account is needed
+- Everything a student enters (profile, GPA, resume, goals, test scores, saved scholarships, constellation progress) is saved in `localStorage` through `src/lib/storage.js`, so no account is needed
+- Installable as an app (web manifest + service worker) and usable offline
 - [Playwright](https://playwright.dev/) for end-to-end browser tests
 - Deployed on [Vercel](https://vercel.com/) with Vercel Web Analytics
 
