@@ -1,9 +1,11 @@
 import Sparkles from "./Sparkles";
+import BackgroundPaths from "./BackgroundPaths";
 import "./PageHeader.css";
 
 function PageHeader({ number, title, subtitle, children }) {
   return (
     <section className="page-header">
+      <BackgroundPaths />
       <Sparkles />
       <div className="page-header-glow" aria-hidden="true" />
       <div className="page-header-content">

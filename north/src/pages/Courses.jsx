@@ -9,7 +9,7 @@ function Courses() {
       <Navbar />
       <PageHeader
         number="COURSE PLANNING"
-        title="Choose With Purpose."
+        title={<>Choose With <em>Purpose.</em></>}
         subtitle="Explore your options. Build your foundation. Plan with intention."
       />
 

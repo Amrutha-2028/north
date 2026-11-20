@@ -27,7 +27,7 @@ function Schedule() {
                     <h2>
                         Build your schedule.
                         <br />
-                        <span>Build your direction.</span>
+                        <span>Build your <em>direction.</em></span>
                     </h2>
 
                     <p>

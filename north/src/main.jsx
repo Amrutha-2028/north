@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import "./lib/install";
+import { initSpotlight } from "./lib/spotlight";
+
+initSpotlight();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

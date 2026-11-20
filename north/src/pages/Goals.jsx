@@ -146,7 +146,7 @@ function Goals() {
             </p>
 
             <h1>
-              Your <span>Goals.</span>
+              Your <em>Goals.</em>
             </h1>
 
             <p>

@@ -139,7 +139,7 @@ function APClasses() {
           <h2>
             Challenge yourself.
             <br />
-            <span>Know your options.</span>
+            <span>Know your <em>options.</em></span>
           </h2>
 
           <p>

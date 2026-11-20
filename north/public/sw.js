@@ -1,7 +1,7 @@
 /* North service worker: makes the app installable and usable offline.
    Pages: network first, falling back to the cached app shell.
    Built assets (hashed filenames) and fonts: cache first. */
-const CACHE = "north-v1";
+const CACHE = "north-v2";
 const SHELL = ["/", "/manifest.webmanifest", "/logo.png"];
 
 self.addEventListener("install", (event) => {
@@ -39,7 +39,9 @@ self.addEventListener("fetch", (event) => {
   const cacheable =
     (url.origin === self.location.origin && url.pathname.startsWith("/assets/")) ||
     url.hostname === "fonts.googleapis.com" ||
-    url.hostname === "fonts.gstatic.com";
+    url.hostname === "fonts.gstatic.com" ||
+    url.hostname === "api.fontshare.com" ||
+    url.hostname === "cdn.fontshare.com";
 
   if (!cacheable) return;
 

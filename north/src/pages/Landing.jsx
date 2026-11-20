@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sparkles from "../components/Sparkles";
+import BackgroundPaths from "../components/BackgroundPaths";
+import CountUp from "../components/CountUp";
 import ScheduleTemplateDownload from "../components/ScheduleTemplateDownload";
 import { scholarships } from "../lib/scholarships";
 
@@ -133,7 +135,7 @@ function Landing() {
           <h2>
             High school is a lot.
             <br />
-            <span>Your plan shouldn't be.</span>
+            <span>Your plan <em>shouldn't</em> be.</span>
           </h2>
         </div>
         <p className="intro-text">
@@ -147,11 +149,11 @@ function Landing() {
       {/* STATS */}
       <section className="stats reveal" aria-label="North at a glance">
         <div className="stat">
-          <strong>{scholarships.length}</strong>
+          <strong><CountUp value={scholarships.length} /></strong>
           <span>Scholarships researched</span>
         </div>
         <div className="stat">
-          <strong>{fullRides}</strong>
+          <strong><CountUp value={fullRides} /></strong>
           <span>Full rides or full cost</span>
         </div>
         <div className="stat">
@@ -159,7 +161,7 @@ function Landing() {
           <span>Accounts needed</span>
         </div>
         <div className="stat">
-          <strong>100%</strong>
+          <strong><CountUp value={100} suffix="%" /></strong>
           <span>Saved on your device</span>
         </div>
       </section>
@@ -171,14 +173,14 @@ function Landing() {
           <h2>
             Don't just plan
             <br />
-            <span>where you're going.</span>
+            <span>where you're <em>going.</em></span>
           </h2>
           <p>
             Your high school experience is a journey. NORTH gives you
             a place to explore it. Choose a destination, discover
             opportunities, and keep moving toward the future you want.
           </p>
-          <Link to="/compass" className="btn compass-landing-button">
+          <Link to="/compass" className="btn btn-primary compass-landing-button">
             Explore Compass <span className="arrow">→</span>
           </Link>
         </div>
@@ -213,7 +215,7 @@ function Landing() {
       <section className="features reveal" id="explore">
         <div className="pillars-heading">
           <p className="section-label">FOUR PILLARS</p>
-          <h2>Find your next step.</h2>
+          <h2>Find your <em>next</em> step.</h2>
         </div>
 
         <div className="feature-grid">
@@ -251,7 +253,7 @@ function Landing() {
           <h2>
             Your information.
             <br />
-            <span>Your direction.</span>
+            <span>Your <em>direction.</em></span>
           </h2>
           <p>
             Save your GPA, resume, goals and scholarship list in My North.
@@ -328,7 +330,7 @@ function Landing() {
           <h2>
             Less searching.
             <br />
-            <span>More building.</span>
+            <span>More <em>building.</em></span>
           </h2>
         </div>
 
@@ -358,11 +360,12 @@ function Landing() {
 
       {/* FINAL CTA */}
       <section className="home-cta reveal">
+        <BackgroundPaths />
         <p className="section-label">START HERE</p>
         <h2>
           Ready to find
           <br />
-          <span>your North?</span>
+          <span>your <em>North?</em></span>
         </h2>
         <div className="home-cta-actions">
           <Link to="/me" className="btn btn-primary btn-lg">

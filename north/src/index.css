@@ -50,6 +50,8 @@
   /* Type */
   --font: "Geist", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --display: "Clash Display", "Geist", ui-sans-serif, system-ui, sans-serif;
+  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
 
   /* Radii */
   --r-xs: 6px;
@@ -225,6 +227,107 @@ body::before {
   }
 }
 
+/* Flowing light paths (BackgroundPaths component) */
+.bg-paths {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 85% 80% at 60% 40%, #000 30%, transparent 85%);
+  mask-image: radial-gradient(ellipse 85% 80% at 60% 40%, #000 30%, transparent 85%);
+}
+
+.bg-paths svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-path {
+  stroke: #63aef5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.28 0.72;
+  stroke-dashoffset: 1;
+  opacity: var(--path-opacity, 0.2);
+  animation: pathFlow linear infinite;
+}
+
+.bg-path.gold {
+  stroke: var(--gold);
+}
+
+@keyframes pathFlow {
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+/* Cursor spotlight + tilt on cards (see src/lib/spotlight.js) */
+.feature-card,
+.sch-card,
+.course-card,
+.me-card,
+.mistake-card,
+.ap-info-card,
+.recommendation-card,
+.comparison-card,
+.tp-principle-card,
+.tp-plan-card,
+.tp-advice-card,
+.op-principle-item,
+.op-break-step,
+.gpa-info-card,
+.spot {
+  position: relative;
+  isolation: isolate;
+}
+
+.feature-card::after,
+.sch-card::after,
+.course-card::after,
+.me-card::after,
+.mistake-card::after,
+.ap-info-card::after,
+.recommendation-card::after,
+.comparison-card::after,
+.tp-principle-card::after,
+.tp-plan-card::after,
+.tp-advice-card::after,
+.op-principle-item::after,
+.op-break-step::after,
+.gpa-info-card::after,
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(99, 174, 245, 0.16), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s var(--ease);
+  pointer-events: none;
+}
+
+.feature-card:hover::after,
+.sch-card:hover::after,
+.course-card:hover::after,
+.me-card:hover::after,
+.mistake-card:hover::after,
+.ap-info-card:hover::after,
+.recommendation-card:hover::after,
+.comparison-card:hover::after,
+.tp-principle-card:hover::after,
+.tp-plan-card:hover::after,
+.tp-advice-card:hover::after,
+.op-principle-item:hover::after,
+.op-break-step:hover::after,
+.gpa-info-card:hover::after,
+.spot:hover::after {
+  opacity: 1;
+}
+
 /* Reveal-on-scroll used by the landing page */
 .reveal {
   opacity: 0;
@@ -233,6 +336,21 @@ body::before {
 }
 
 .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Headlines reveal line by line */
+.reveal h2 > span,
+.reveal h2 > em {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  transition: opacity 0.7s 0.25s var(--ease), transform 0.7s 0.25s var(--ease);
+}
+
+.reveal.is-visible h2 > span,
+.reveal.is-visible h2 > em {
   opacity: 1;
   transform: none;
 }
@@ -276,6 +394,32 @@ body::before {
   background: var(--gold);
 }
 
+/* Display font for big headlines (Clash Display from Fontshare) */
+h1,
+h2 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Clash Display is already tight, so page rules can't squeeze it further */
+h1:not(.hero-title):not(.small-hero-title),
+h2 {
+  letter-spacing: -0.005em !important;
+  word-spacing: 0.06em;
+}
+
+/* Italic serif accent word in gold: "Your plan <em>shouldn't</em> be." */
+h1 em,
+h2 em,
+.accent-serif {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--gold);
+}
+
 /* Muted second half of a headline: "Your plan <span>shouldn't be.</span>" */
 h1 span,
 h2 span {
@@ -307,6 +451,30 @@ h2 span {
 .btn:hover {
   background: var(--surface-2);
   border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Glassy light sweep across primary buttons */
+.btn-primary,
+.btn-accent {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-primary::after,
+.btn-accent::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease);
+}
+
+.btn-primary:hover::after,
+.btn-accent:hover::after {
+  transform: translateX(120%);
 }
 
 .btn:active {

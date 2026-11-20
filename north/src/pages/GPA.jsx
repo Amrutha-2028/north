@@ -74,7 +74,7 @@ function GPA() {
           <h2>
             Your grades,
             <br />
-            <span>in one number.</span>
+            <span>in <em>one</em> number.</span>
           </h2>
           <p>
             GPA stands for Grade Point Average. It is a numerical
