@@ -11,6 +11,8 @@ function Schedule() {
             <Navbar />
 
             <PageHeader
+        glyph="▦"
+        marquee={["GRADUATION REQUIREMENTS", "COMPUTER SCIENCE", "HEALTHCARE", "BUSINESS", "ART & DESIGN", "HUMANITIES"]}
                 number="SCHEDULE PLANNING"
                 title="Schedule Guide"
                 subtitle="Build a schedule that works for you."

@@ -346,6 +346,8 @@ function Opportunities() {
     <div className="op-page">
       <Navbar />
       <PageHeader
+        glyph="✦"
+        marquee={["INTERNSHIPS & RESEARCH", "COLD EMAILS", "COMPETITIONS", "CLUBS & VOLUNTEERING", "PERSONAL PROJECTS", "LEADERSHIP", "SUMMER BREAK"]}
         number="PURSUE WHAT INTERESTS YOU"
         title="Extracurriculars Guide"
         subtitle="Explore projects, service, research, competitions, and meaningful ways to contribute."

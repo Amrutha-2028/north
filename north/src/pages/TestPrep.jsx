@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { KEYS, usePersistentState } from "../lib/storage";
 import "./TestPrep.css";
+import Marquee from "../components/Marquee";
+import HeaderEmblem from "../components/HeaderEmblem";
 
 const defaultTestScores = {
   act: { english: 35, math: 30, reading: 27, science: 29 },
@@ -263,6 +265,7 @@ export default function TestPrep() {
 
       <main className="tp-main">
         <section className="tp-hero">
+          <HeaderEmblem glyph="◎" />
           <p className="section-label">ACT AND PSAT TEST PREP</p>
 
           <h1>ACT and PSAT Test Prep</h1>
@@ -298,6 +301,9 @@ export default function TestPrep() {
             </p>
           </div>
         </section>
+        <div className="page-strip">
+          <Marquee items={["ACT", "PSAT/NMSQT", "SAT", "ENGLISH", "MATH", "READING", "SCIENCE", "SELECTION INDEX"]} outline small />
+        </div>
 
         <section className="tp-section tp-start-section" id="tp-start">
           <div className="tp-section-heading">

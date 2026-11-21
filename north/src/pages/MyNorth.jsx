@@ -22,6 +22,7 @@ import {
 import { getConstellationProgress } from "../lib/constellationRewards";
 import { useInstall } from "../lib/install";
 import "./MyNorth.css";
+import Marquee from "../components/Marquee";
 
 const CITIZENSHIP_OPTIONS = [
   { value: "", label: "Prefer not to say" },
@@ -152,6 +153,9 @@ function MyNorth() {
             </button>
           </div>
         </header>
+        <div className="page-strip">
+          <Marquee items={["PROFILE", "GPA", "SCHOLARSHIPS", "RESUME", "GOALS", "FOCUS"]} outline small />
+        </div>
 
         <div className="me-grid">
           {/* PROFILE */}

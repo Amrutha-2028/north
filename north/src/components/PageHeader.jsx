@@ -1,19 +1,27 @@
 import Sparkles from "./Sparkles";
 import BackgroundPaths from "./BackgroundPaths";
+import HeaderEmblem from "./HeaderEmblem";
+import Marquee from "./Marquee";
 import "./PageHeader.css";
 
-function PageHeader({ number, title, subtitle, children }) {
+function PageHeader({ number, title, subtitle, children, glyph, marquee }) {
   return (
     <section className="page-header">
       <BackgroundPaths />
       <Sparkles />
       <div className="page-header-glow" aria-hidden="true" />
       <div className="page-header-content">
+        {glyph && <HeaderEmblem glyph={glyph} />}
         {number && <p className="section-label">{number}</p>}
         <h1>{title}</h1>
         {subtitle && <p className="page-header-subtitle">{subtitle}</p>}
         {children && <div className="page-header-actions">{children}</div>}
       </div>
+      {marquee && (
+        <div className="page-header-marquee">
+          <Marquee items={marquee} outline small />
+        </div>
+      )}
     </section>
   );
 }

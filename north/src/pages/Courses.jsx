@@ -8,6 +8,8 @@ function Courses() {
     <div className="page">
       <Navbar />
       <PageHeader
+        glyph="▤"
+        marquee={["ENGLISH", "MATHEMATICS", "SCIENCE", "SOCIAL STUDIES", "HONORS", "AP", "ELECTIVES"]}
         number="COURSE PLANNING"
         title={<>Choose With <em>Purpose.</em></>}
         subtitle="Explore your options. Build your foundation. Plan with intention."

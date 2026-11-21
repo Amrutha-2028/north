@@ -192,6 +192,8 @@ function Scholarships() {
       <Navbar />
 
       <PageHeader
+        glyph="$"
+        marquee={["FULL RIDES", "MERIT", "NEED-BASED", "STATE AWARDS", "SENIORS", "NO CITIZENSHIP REQUIRED"]}
         number="FUND YOUR FUTURE"
         title={<>Scholarships worth your <em>time</em></>}
         subtitle="Sort them by amount, merit, location, grade and citizenship. Save the ones you want and track them from here to your inbox."

@@ -121,6 +121,8 @@ function APClasses() {
       <Navbar />
 
       <PageHeader
+        glyph="◇"
+        marquee={["ENGLISH", "MATHEMATICS", "SCIENCE", "ARTS", "HISTORY & SOCIAL SCIENCES", "LANGUAGES", "CAREER FOCUSED"]}
         number="AP PREPARATION"
         title="AP Classes Guide"
         subtitle="Explore advanced courses. Prepare with purpose."

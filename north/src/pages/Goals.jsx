@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { KEYS, usePersistentState } from "../lib/storage";
 import "./Goals.css";
+import Marquee from "../components/Marquee";
 
 function Goals() {
   const [storedGoals, setGoals] = usePersistentState(KEYS.goals, []);
@@ -165,6 +166,9 @@ function Goals() {
             Add Goal
           </button>
         </section>
+        <div className="page-strip">
+          <Marquee items={["SHORT TERM", "LONG TERM", "PRIORITIES", "TO-DO", "KEEP MOVING"]} outline small />
+        </div>
 
         {/* ADD GOAL FORM */}
         {showForm && (

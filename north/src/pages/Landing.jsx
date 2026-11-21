@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sparkles from "../components/Sparkles";
 import BackgroundPaths from "../components/BackgroundPaths";
+import Marquee from "../components/Marquee";
 import ScheduleTemplateDownload from "../components/ScheduleTemplateDownload";
 import { scholarships } from "../lib/scholarships";
 
@@ -100,26 +101,6 @@ function useScrollProgress(refs) {
       window.removeEventListener("resize", onScroll);
     };
   }, [refs]);
-}
-
-function Marquee({ items, reverse = false, outline = false }) {
-  const row = [...items, ...items];
-  return (
-    <div className={`marquee${reverse ? " reverse" : ""}${outline ? " outline" : ""}`} aria-hidden="true">
-      <div className="marquee-track">
-        {[0, 1].map((copy) => (
-          <div className="marquee-group" key={copy}>
-            {row.map((item, index) => (
-              <span key={`${copy}-${index}`}>
-                {item}
-                <i>✦</i>
-              </span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 function Landing() {

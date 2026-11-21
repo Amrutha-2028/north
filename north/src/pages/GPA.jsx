@@ -63,6 +63,8 @@ function GPA() {
       <Navbar />
 
       <PageHeader
+        glyph="∿"
+        marquee={["UNWEIGHTED", "WEIGHTED", "STANDARD", "HONORS", "AP", "FRESHMAN", "SOPHOMORE", "JUNIOR", "SENIOR"]}
         number="GPA PLANNING"
         title="GPA Calculator"
         subtitle="Understand your grades. See your progress. Plan ahead."

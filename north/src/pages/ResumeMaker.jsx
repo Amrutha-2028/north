@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import { KEYS, useProfile, usePersistentState } from "../lib/storage";
 import { computeGpa, createGpaState } from "../lib/gpa";
 import "./ResumeMaker.css";
+import Marquee from "../components/Marquee";
 
 const makeEntry = () => ({
   id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -38,23 +39,31 @@ const blankResume = () => ({
   sections: initialSections(),
 });
 
+// A made-up student, so the example never shows anyone's real details.
 const exampleResume = {
-  name: "Amrutha Sree Murahari",
+  name: "Jane Doe",
   graduationYear: "2028",
-  gpa: "Weighted GPA: 4.56",
-  email: "",
+  gpa: "Weighted GPA: 4.10",
+  email: "jane.doe@example.com",
   phone: "",
-  location: "",
+  location: "Springfield, USA",
   sections: [
     {
       id: "example-education",
       title: "EDUCATION & PROGRAMS",
       entries: [
         {
-          id: "example-code2college",
-          title: "Code2College Participant",
-          organization: "",
-          dates: "2026–Present",
+          id: "example-school",
+          title: "Maple Grove High School",
+          organization: "Honors and AP coursework",
+          dates: "2024–Present",
+          details: "",
+        },
+        {
+          id: "example-program",
+          title: "Summer Coding Program Participant",
+          organization: "Community College Youth Program",
+          dates: "2025",
           details: "",
         },
       ],
@@ -68,21 +77,21 @@ const exampleResume = {
           title: "Computer Programs",
           organization: "",
           dates: "",
-          details: "OnShape, Canva, Google Docs, Google Slides, Google Sheets",
+          details: "Canva, Google Docs, Google Slides, Google Sheets, Figma",
         },
         {
           id: "example-languages",
           title: "Programming Languages",
           organization: "",
           dates: "",
-          details: "Java, JavaScript, HTML, CSS, Python",
+          details: "Python, JavaScript, HTML, CSS",
         },
         {
           id: "example-spoken",
           title: "Spoken Languages",
           organization: "",
           dates: "",
-          details: "English (Proficient), Telugu (Proficient), French (Conversational)",
+          details: "English (Fluent), Spanish (Conversational)",
         },
       ],
     },
@@ -91,28 +100,20 @@ const exampleResume = {
       title: "PROFESSIONAL & TECHNICAL EXPERIENCE",
       entries: [
         {
-          id: "example-dance",
-          title: "Dance Teacher and Choreographer",
-          organization: "City of Franklin",
-          dates: "2023–Present",
+          id: "example-tutor",
+          title: "Math Tutor",
+          organization: "Neighborhood Learning Center",
+          dates: "2025–Present",
           details:
-            "Taught dance choreography and techniques to students preparing for performances.\nOrganized rehearsals and assisted with performance coordination.",
+            "Tutor middle school students in algebra and geometry twice a week.\nCreate practice worksheets and track each student's progress.",
         },
         {
-          id: "example-webmaster",
-          title: "Team Captain & Web Developer",
-          organization: "TSA Webmaster & Engineering Projects",
-          dates: "2024–Present",
+          id: "example-web",
+          title: "Website Volunteer",
+          organization: "Local Animal Shelter",
+          dates: "2025–Present",
           details:
-            "Led teams in TSA Webmaster and Software Development at regional and state-level conferences.\nDeveloped competition websites using HTML, CSS, and JavaScript in collaboration with teammates.",
-        },
-        {
-          id: "example-c2c",
-          title: "Software Development Essentials",
-          organization: "Code2College",
-          dates: "2026–Present",
-          details:
-            "Completed a nine-week web programming course covering basic and advanced Python concepts.\nDeveloped technical projects in Python using intermediate concepts.\nAttended professional development workshops focused on time management, professional skills, and technical portfolio development.",
+            "Built and maintain the shelter's adoption page using HTML, CSS, and JavaScript.\nPhotograph new animals and update listings each week.",
         },
       ],
     },
@@ -121,36 +122,28 @@ const exampleResume = {
       title: "LEADERSHIP & COMMUNITY SERVICE",
       entries: [
         {
-          id: "example-tsa",
+          id: "example-robotics",
           title: "Team Captain",
-          organization: "Technology Student Association",
+          organization: "Robotics Club",
           dates: "2024–Present",
           details:
-            "Led teams to regional and state-level placements through project development and collaboration.\nOrganized meetings and schedules to help teams complete tasks on time.",
+            "Lead a 12-person team through design, building, and competition season.\nOrganize meetings and schedules so the team meets every deadline.",
         },
         {
           id: "example-library",
-          title: "Library Volunteer and Workshop Leader",
-          organization: "John P. Holt Brentwood Library",
+          title: "Library Volunteer",
+          organization: "Springfield Public Library",
           dates: "2024–Present",
           details:
-            "Helped organize teen and community events, library events, and book fairs, and assisted with shelving books.\nLed calligraphy, mandala art, and other creative workshops for adults and teens.",
+            "Help run teen events and book fairs, and assist with shelving.\nLead monthly art workshops for younger students.",
         },
         {
-          id: "example-badminton",
-          title: "Vice President and Co-Founder",
-          organization: "Badminton Club",
-          dates: "",
+          id: "example-club",
+          title: "Co-Founder",
+          organization: "Environmental Club",
+          dates: "2025–Present",
           details:
-            "Helped organize tournaments, meetings, and club activities.\nManage communication and scheduling for members and events.",
-        },
-        {
-          id: "example-cr3w",
-          title: "CR3W Volunteer",
-          organization: "Adventure Science Center & iCode at Franklin",
-          dates: "2024–Present",
-          details:
-            "Supported summer camps and educational enrichment programs.\nAssisted younger students with robotics, STEM, and game development activities.",
+            "Started a school recycling program with 30 members.\nPlan monthly park cleanups with local volunteers.",
         },
       ],
     },
@@ -160,44 +153,23 @@ const exampleResume = {
       entries: [
         {
           id: "example-award1",
-          title: "1st Place, State Webmaster",
-          organization: "Tennessee TSA",
+          title: "1st Place, Regional Robotics Competition",
+          organization: "",
           dates: "2025",
           details: "",
         },
         {
           id: "example-award2",
-          title: "2nd Place, State Software Development",
-          organization: "Tennessee TSA",
-          dates: "2026",
+          title: "Honorable Mention, State Science Fair",
+          organization: "",
+          dates: "2025",
           details: "",
         },
         {
           id: "example-award3",
-          title: "1st Place, State Robot Tour",
-          organization: "Science Olympiad",
-          dates: "2026",
-          details: "",
-        },
-        {
-          id: "example-award4",
-          title: "2nd Place, State Engineering CAD",
-          organization: "Science Olympiad",
-          dates: "2026",
-          details: "",
-        },
-        {
-          id: "example-award5",
-          title: "Silver Achievement Award",
-          organization: "TSA",
-          dates: "2026",
-          details: "",
-        },
-        {
-          id: "example-award6",
-          title: "Teacher Choice Award",
-          organization: "AP Computer Science Principles",
-          dates: "2026",
+          title: "Honor Roll",
+          organization: "Maple Grove High School",
+          dates: "2024–2026",
           details: "",
         },
       ],
@@ -385,6 +357,9 @@ export default function ResumeMaker() {
           )}
           {filledNote && !showExample && <p className="rm-example-note">{filledNote}</p>}
         </header>
+        <div className="page-strip">
+          <Marquee items={["EDUCATION", "SKILLS", "EXPERIENCE", "LEADERSHIP", "SERVICE", "AWARDS"]} outline small />
+        </div>
 
         <div className="rm-workspace">
           <div className="rm-editor">
@@ -426,7 +401,7 @@ export default function ResumeMaker() {
                   <input
                     value={resume.gpa}
                     onChange={(e) => updateResume("gpa", e.target.value)}
-                    placeholder="Weighted GPA: 4.56"
+                    placeholder="Weighted GPA: 4.10"
                   />
                 </label>
               </div>
