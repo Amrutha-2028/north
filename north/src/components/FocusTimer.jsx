@@ -30,7 +30,12 @@ export default function FocusTimer({
   planet = "Home Planet",
   initialMinutes = 25,
   planetVideo = "/videos/earth.mp4",
+  planetPoster,
+  planetThumb,
+  planetImage,
+  ringed = false,
   constellationVideo = "/videos/constellation.mp4",
+  constellationPoster,
   accent = "#73b9ff",
   onClose,
 }) {
@@ -214,186 +219,210 @@ export default function FocusTimer({
   const goalReached = elapsed >= goalSeconds || status === "goal-reached";
   const stars = Math.floor(elapsed / STAR_INTERVAL);
 
+  const starSlots = Math.max(1, Math.floor(initialMinutes / 10));
+  const ringRadius = 46;
+
   return (
     <section
-      className="focus-timer"
-      style={{ "--focus-accent": accent }}
+      className={`focus-timer mode-${backgroundMode}${running ? " is-running" : ""}${status === "complete" ? " is-complete" : ""}`}
+      style={{ "--focus-accent": accent, "--progress": progress / 100 }}
     >
-      {/* Background */}
-
-      {/* Full-screen background: show only the selected scene */}
+      {/* Background: the planet's own footage, softened, or the constellation sky */}
       <div className="focus-background" aria-hidden="true">
         <video
-          key={backgroundMode === "planet" ? planetVideo : constellationVideo}
+          ref={backgroundVideoRef}
+          key={backgroundSrc}
           className="focus-background-video"
-          src={
-            backgroundMode === "planet"
-              ? planetVideo
-              : constellationVideo
-          }
+          src={backgroundSrc}
+          poster={backgroundMode === "planet" ? planetPoster : constellationPoster}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
         />
+        <div className="focus-background-tint" />
       </div>
 
-      {/* Exit */}
-      <button
-        className="focus-close"
-        onClick={onClose}
-        aria-label="Close focus timer"
-        type="button"
-      >
-        ×
-      </button>
-
-      {/* Compact scene switcher. Labels appear on hover or keyboard focus. */}
-      <div className="focus-scene-control">
-        <div className="focus-scene-menu">
+      <div className="focus-topbar">
+        {/* Scene switcher */}
+        <div className="focus-scene-menu" role="group" aria-label="Background">
           <button
             type="button"
-            className={`focus-scene-option ${backgroundMode === "planet" ? "active" : ""
-              }`}
+            className={`focus-scene-option ${backgroundMode === "planet" ? "active" : ""}`}
             onClick={() => setBackgroundMode("planet")}
             aria-pressed={backgroundMode === "planet"}
           >
-            <span className="focus-scene-emoji">🪐</span>
+            <span className="focus-scene-emoji" aria-hidden="true">🪐</span>
             <span className="focus-scene-label">Planet</span>
           </button>
-
           <button
             type="button"
-            className={`focus-scene-option ${backgroundMode === "constellation" ? "active" : ""
-              }`}
+            className={`focus-scene-option ${backgroundMode === "constellation" ? "active" : ""}`}
             onClick={() => setBackgroundMode("constellation")}
             aria-pressed={backgroundMode === "constellation"}
           >
-            <span className="focus-scene-emoji">✨</span>
+            <span className="focus-scene-emoji" aria-hidden="true">✨</span>
             <span className="focus-scene-label">Constellation</span>
           </button>
         </div>
+
+        <button className="focus-close" onClick={onClose} aria-label="Close focus timer" type="button">
+          ×
+        </button>
       </div>
 
-      {/* Main focus area */}
       <div className="focus-layout">
-
+        {/* Timer */}
         <div className="focus-main">
           <span className="focus-planet-name">{planet}</span>
 
           <div className="focus-clock-panel">
-            <div className="focus-clock-content">
-              <div className="focus-clock" aria-live="off">
-                {formatTime(remaining)}
-              </div>
+            <div className="focus-clock" aria-live="off">
+              {formatTime(remaining)}
+            </div>
 
-              <p className="focus-progress-caption">
-                {Math.min(Math.floor(elapsed / 60), initialMinutes)} of{" "}
-                {initialMinutes} minutes completed
-              </p>
+            <p className="focus-progress-caption">
+              {Math.min(Math.floor(elapsed / 60), initialMinutes)} of {initialMinutes} minutes completed
+            </p>
 
-              <div
-                className="focus-progress"
-                role="progressbar"
-                aria-label="Focus goal progress"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={Math.round(progress)}
-              >
-                <div
-                  className="focus-progress-fill"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+            <div
+              className="focus-progress"
+              role="progressbar"
+              aria-label="Focus goal progress"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(progress)}
+            >
+              <div className="focus-progress-fill" style={{ width: `${progress}%` }} />
+            </div>
 
-              <div className="focus-timer-footer">
-                <span className="focus-star-count">✦ {stars}</span>
-                <span className="focus-goal-label">
-                  {goalReached ? "Goal reached" : `${initialMinutes} min`}
-                </span>
-              </div>
+            <div className="focus-timer-footer">
+              <span className="focus-star-count">✦ {stars} {stars === 1 ? "star" : "stars"}</span>
+              <span className="focus-goal-label">{goalReached ? "Goal reached" : `${initialMinutes} min goal`}</span>
+            </div>
 
-              {status === "complete" ? (
-                <div className="focus-result">
-                  <h3>Session complete</h3>
-                  <p>
-                    You earned {savedStars} {savedStars === 1 ? "star" : "stars"}.
-                  </p>
-                  {constellationReward?.newlyUnlocked.map((item) => (
-                    <p key={item.id}>✦ {item.name} formed in your night sky.</p>
-                  ))}
-
-                  <button
-                    className="focus-primary"
-                    onClick={resetTimer}
-                    type="button"
-                  >
+            {status === "complete" ? (
+              <div className="focus-result">
+                <h3>Session complete</h3>
+                <p>
+                  You earned {savedStars} {savedStars === 1 ? "star" : "stars"}.
+                </p>
+                {constellationReward?.newlyUnlocked.map((item) => (
+                  <p key={item.id}>✦ {item.name} formed in your night sky.</p>
+                ))}
+                <div className="focus-actions">
+                  <button className="focus-primary" onClick={resetTimer} type="button">
                     Start again
                   </button>
-
-                  <button
-                    className="focus-secondary"
-                    onClick={onClose}
-                    type="button"
-                  >
+                  <button className="focus-secondary" onClick={onClose} type="button">
                     Exit focus
                   </button>
                 </div>
-              ) : (
-                <div className="focus-actions">
-                  {!running ? (
-                    <button
-                      className="focus-primary"
-                      onClick={startTimer}
-                      disabled={status === "saving"}
-                      type="button"
-                    >
-                      {status === "paused"
-                        ? "Resume"
-                        : status === "goal-reached"
-                          ? "Start again"
-                          : "Begin focus"}
-                    </button>
-                  ) : (
-                    <button
-                      className="focus-primary"
-                      onClick={pauseTimer}
-                      type="button"
-                    >
-                      Pause
-                    </button>
-                  )}
+              </div>
+            ) : (
+              <div className="focus-actions">
+                {!running ? (
+                  <button
+                    className="focus-primary"
+                    onClick={startTimer}
+                    disabled={status === "saving"}
+                    type="button"
+                  >
+                    {status === "paused" ? "Resume" : status === "goal-reached" ? "Start again" : "Begin focus"}
+                  </button>
+                ) : (
+                  <button className="focus-primary" onClick={pauseTimer} type="button">
+                    Pause
+                  </button>
+                )}
 
-                  {(elapsed > 0 || status === "paused" || goalReached) && (
-                    <button
-                      className="focus-secondary"
-                      onClick={finishSession}
-                      disabled={status === "saving"}
-                      type="button"
-                    >
-                      {status === "saving" ? "Saving..." : "Finish"}
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
+                {(elapsed > 0 || status === "paused" || goalReached) && (
+                  <button
+                    className="focus-secondary"
+                    onClick={finishSession}
+                    disabled={status === "saving"}
+                    type="button"
+                  >
+                    {status === "saving" ? "Saving..." : "Finish"}
+                  </button>
+                )}
+              </div>
+            )}
+
+            {error && (
+              <p className="focus-error" role="alert">
+                {error}
+              </p>
+            )}
           </div>
 
-          {error && (
-            <p className="focus-error" role="alert">
-              {error}
-            </p>
-          )}
+          <p className="focus-breathe" aria-hidden="true">
+            {running ? "Breathe in as the ring glows. Breathe out as it fades." : "Every 10 minutes lights a star in your sky."}
+          </p>
         </div>
 
+        {/* The planet, wrapped in an orbit that fills as you focus */}
+        <div className="focus-world" aria-hidden="true">
+          <div className="focus-halo" />
+          <div className="focus-orbit-spin" />
+          <div className={`focus-planet${ringed ? " is-ringed" : ""}`}>
+            {planetImage && <img src={planetImage} alt="" />}
+            {planetThumb && (
+              <video src={planetThumb} poster={planetImage} autoPlay muted loop playsInline preload="auto" />
+            )}
+          </div>
+
+          <svg className="focus-ring" viewBox="0 0 100 100">
+            <circle className="focus-ring-track" cx="50" cy="50" r={ringRadius} />
+            <circle
+              className="focus-ring-fill"
+              cx="50"
+              cy="50"
+              r={ringRadius}
+              pathLength="100"
+              strokeDasharray={`${progress} 100`}
+            />
+            {Array.from({ length: starSlots }, (_, index) => {
+              const angle = (((index + 1) * 10) / initialMinutes) * 360 - 90;
+              const rad = (angle * Math.PI) / 180;
+              const lit = stars > index;
+              return (
+                <text
+                  key={index}
+                  x={50 + Math.cos(rad) * ringRadius}
+                  y={50 + Math.sin(rad) * ringRadius}
+                  className={`focus-ring-star${lit ? " lit" : ""}`}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                >
+                  ✦
+                </text>
+              );
+            })}
+          </svg>
+
+          <div className="focus-satellite" style={{ transform: `rotate(${progress * 3.6}deg)` }}>
+            <span />
+          </div>
+
+          {status === "complete" && (
+            <div className="focus-burst">
+              {Array.from({ length: 14 }, (_, index) => (
+                <span key={index} style={{ "--b": index }} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Compact music bar. Hover or focus to reveal the full controls. */}
+      {/* Music */}
       <section className="focus-music" aria-label="Focus music player">
         <div className="focus-music-bar">
-          <span className="focus-music-icon" aria-hidden="true">
-            ♫
+          <span className={`focus-music-icon${musicPlaying ? " playing" : ""}`} aria-hidden="true">
+            <i />
+            <i />
+            <i />
           </span>
 
           <div className="focus-music-now">
@@ -414,19 +443,14 @@ export default function FocusTimer({
 
         <div className="focus-music-expanded">
           <span className="focus-music-kicker">CHOOSE YOUR SOUNDTRACK</span>
-
           {musicTracks.map((track) => (
             <button
               key={track.id}
               type="button"
-              className={`focus-track-option ${selectedMusic === track.id ? "active" : ""
-                }`}
+              className={`focus-track-option ${selectedMusic === track.id ? "active" : ""}`}
               onClick={() => setSelectedMusic(track.id)}
             >
-              <span className="focus-track-symbol">
-                {selectedMusic === track.id ? "◉" : "○"}
-              </span>
-
+              <span className="focus-track-symbol">{selectedMusic === track.id ? "◉" : "○"}</span>
               <span className="focus-track-copy">
                 <strong>{track.name}</strong>
                 <small>{track.description}</small>
@@ -443,9 +467,7 @@ export default function FocusTimer({
           onError={() => {
             if (musicPlaying) {
               setMusicPlaying(false);
-              setMusicError(
-                "Music file not found. Add the matching MP3 to public/music."
-              );
+              setMusicError("Music file not found. Add the matching MP3 to public/music.");
             }
           }}
         />
