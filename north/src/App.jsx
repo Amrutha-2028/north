@@ -14,6 +14,8 @@ import Opportunities from "./pages/Opportunities";
 import ResumeMaker from "./pages/ResumeMaker";
 import Scholarships from "./pages/Scholarships";
 import MyNorth from "./pages/MyNorth";
+import CursorField from "./components/CursorField";
+import MotionLayer from "./components/MotionLayer";
 
 import "./App.css";
 
@@ -37,10 +39,23 @@ function SignalButton() {
   );
 }
 
+/** Each page fades and rises in when you navigate to it. */
+function PageTransition({ children }) {
+  const { pathname } = useLocation();
+  return (
+    <div className="page-transition" key={pathname}>
+      {children}
+    </div>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <MotionLayer />
+      <CursorField />
+      <PageTransition>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/me" element={<MyNorth />} />
@@ -56,6 +71,7 @@ function App() {
         <Route path="/resume-maker" element={<ResumeMaker />} />
         <Route path="/scholarships" element={<Scholarships />} />
       </Routes>
+      </PageTransition>
       <SignalButton />
       <Analytics />
     </BrowserRouter>

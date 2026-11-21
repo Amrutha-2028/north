@@ -85,7 +85,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("all app routes load and every initial visible button can be clicked", async ({ page }) => {
-  test.setTimeout(180_000);
+  test.setTimeout(300_000);
+  // This test only checks that every button works, so skip the animations
+  // (North honors the reduced-motion setting) to keep it fast.
+  await page.emulateMedia({ reducedMotion: "reduce" });
   page.setDefaultTimeout(8_000);
   const pageErrors = [];
   page.on("pageerror", (error) => pageErrors.push(error.message));

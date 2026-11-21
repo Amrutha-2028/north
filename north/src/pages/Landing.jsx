@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sparkles from "../components/Sparkles";
 import BackgroundPaths from "../components/BackgroundPaths";
-import CountUp from "../components/CountUp";
 import ScheduleTemplateDownload from "../components/ScheduleTemplateDownload";
 import { scholarships } from "../lib/scholarships";
 
@@ -31,7 +30,14 @@ const steps = [
   },
 ];
 
-const fullRides = scholarships.filter((s) => s.fullRide).length;
+const marqueeTop = ["PLAN", "PURSUE", "PRESENT", "PREPARE"];
+const marqueeBottom = ["COURSES", "SCHEDULE", "AP CLASSES", "GPA", "SCHOLARSHIPS", "RESUME MAKER", "TEST PREP", "COMPASS"];
+
+// The 10 biggest awards spin in the 3D ring.
+const ringScholarships = [...scholarships].sort((a, b) => b.value - a.value).slice(0, 10);
+
+const reduceMotion = () =>
+  typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 /** Fade sections in as they scroll into view. */
 function useReveal() {
@@ -57,24 +63,102 @@ function useReveal() {
   }, []);
 }
 
+/**
+ * Writes a 0→1 scroll progress for each tracked element into its --p
+ * variable (0 = just entering the bottom of the screen, 1 = centered).
+ */
+function useScrollProgress(refs) {
+  useEffect(() => {
+    const nodes = refs.map((ref) => ref.current).filter(Boolean);
+    if (reduceMotion()) {
+      nodes.forEach((node) => node.style.setProperty("--p", "1"));
+      return undefined;
+    }
+
+    let frame = 0;
+    const update = () => {
+      const vh = window.innerHeight;
+      nodes.forEach((node) => {
+        const rect = node.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const progress = Math.min(1, Math.max(0, (vh - rect.top) / (vh * 0.75)));
+        node.style.setProperty("--p", progress.toFixed(3));
+        node.style.setProperty("--c", ((center - vh / 2) / vh).toFixed(3));
+      });
+      frame = 0;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [refs]);
+}
+
+function Marquee({ items, reverse = false, outline = false }) {
+  const row = [...items, ...items];
+  return (
+    <div className={`marquee${reverse ? " reverse" : ""}${outline ? " outline" : ""}`} aria-hidden="true">
+      <div className="marquee-track">
+        {[0, 1].map((copy) => (
+          <div className="marquee-group" key={copy}>
+            {row.map((item, index) => (
+              <span key={`${copy}-${index}`}>
+                {item}
+                <i>✦</i>
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Landing() {
   const [activeStep, setActiveStep] = useState(0);
+  const heroRef = useRef(null);
+  const pillarsRef = useRef(null);
+  const compassRef = useRef(null);
+  const ringRef = useRef(null);
+  const [trackedRefs] = useState(() => [pillarsRef, compassRef, ringRef]);
+
   useReveal();
+  useScrollProgress(trackedRefs);
+
+  // Hero leans with the mouse: compass, glow and title move at different depths.
+  const onHeroMove = (event) => {
+    if (reduceMotion() || !heroRef.current) return;
+    const rect = heroRef.current.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    heroRef.current.style.setProperty("--hx", x.toFixed(3));
+    heroRef.current.style.setProperty("--hy", y.toFixed(3));
+  };
 
   return (
     <div className="app">
       <Navbar />
 
       {/* HERO */}
-      <section className="hero">
+      <section className="hero" ref={heroRef} onPointerMove={onHeroMove}>
         <div className="hero-grid" aria-hidden="true" />
         <Sparkles />
         <div className="hero-glow" aria-hidden="true" />
+        <div className="hero-beam" aria-hidden="true" />
 
         {/* Animated compass */}
         <div className="hero-compass" aria-hidden="true">
           <div className="compass-orbit orbit-one" />
           <div className="compass-orbit orbit-two" />
+          <div className="compass-orbit orbit-three" />
 
           <div className="hero-compass-ring">
             <div className="hero-compass-cross horizontal" />
@@ -93,8 +177,14 @@ function Landing() {
           <p className="hero-eyebrow">YOUR HIGH SCHOOL COMPASS</p>
 
           <h1 className="small-hero-title">FIND YOUR</h1>
-          <h1 className="hero-title">
-            <span>NORTH</span>
+          <h1 className="hero-title" aria-label="NORTH">
+            <span className="hero-letters" aria-hidden="true">
+              {"NORTH".split("").map((letter, index) => (
+                <span key={letter} style={{ "--i": index }}>
+                  {letter}
+                </span>
+              ))}
+            </span>
           </h1>
 
           <p className="hero-subtitle">Your path. Your plans. Your direction.</p>
@@ -128,6 +218,12 @@ function Landing() {
         </div>
       </section>
 
+      {/* KINETIC MARQUEE */}
+      <section className="marquee-band" aria-label="What North covers">
+        <Marquee items={marqueeTop} />
+        <Marquee items={marqueeBottom} reverse outline />
+      </section>
+
       {/* INTRO */}
       <section className="intro reveal" id="mission">
         <div className="intro-content">
@@ -146,28 +242,74 @@ function Landing() {
         </p>
       </section>
 
-      {/* STATS */}
-      <section className="stats reveal" aria-label="North at a glance">
-        <div className="stat">
-          <strong><CountUp value={scholarships.length} /></strong>
-          <span>Scholarships researched</span>
+      {/* FOUR PILLARS: cards fan out into place as you scroll */}
+      <section className="features reveal" id="explore" ref={pillarsRef}>
+        <div className="pillars-heading">
+          <p className="section-label">FOUR PILLARS</p>
+          <h2>Find your <em>next</em> step.</h2>
         </div>
-        <div className="stat">
-          <strong><CountUp value={fullRides} /></strong>
-          <span>Full rides or full cost</span>
+
+        <div className="feature-grid">
+          {[
+            { to: "/schedule", n: "01 / PLAN", title: "Plan", text: "Explore courses and shape a balanced high school schedule around your goals.", icon: "◈" },
+            { to: "/opportunities", n: "02 / PURSUE", title: "Pursue", text: "Find ideas for projects, service, competitions, research, and summer plans.", icon: "✦" },
+            { to: "/resume-maker", n: "03 / PRESENT", title: "Present", text: "Describe your work clearly with a resume that reflects what you actually did.", icon: "✎" },
+            { to: "/test-prep", n: "04 / PREPARE", title: "Prepare", text: "Build study habits and get ready for the tests and classes ahead.", icon: "◎" },
+          ].map((pillar, index) => (
+            <div className="fan-slot" style={{ "--k": index - 1.5 }} key={pillar.to}>
+              <Link to={pillar.to} className="feature-card">
+                <span className="pillar-number">{pillar.n}</span>
+                <span className="pillar-icon" aria-hidden="true">{pillar.icon}</span>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.text}</p>
+                <span className="feature-arrow" aria-hidden="true">&#8599;</span>
+              </Link>
+            </div>
+          ))}
         </div>
-        <div className="stat">
-          <strong>0</strong>
-          <span>Accounts needed</span>
+      </section>
+
+      {/* SCHOLARSHIP RING */}
+      <section className="ring-section reveal" ref={ringRef}>
+        <div className="ring-copy">
+          <p className="section-label">FUND YOUR FUTURE</p>
+          <h2>
+            Money for college,
+            <br />
+            <span>sorted <em>six</em> ways.</span>
+          </h2>
+          <p>
+            Full rides, state awards, merit and need-based, seniors only, and
+            awards that don't require citizenship. Save the ones that fit and
+            track each one from saved to won.
+          </p>
+          <Link to="/scholarships" className="btn btn-primary">
+            Browse {scholarships.length} scholarships <span className="arrow">→</span>
+          </Link>
         </div>
-        <div className="stat">
-          <strong><CountUp value={100} suffix="%" /></strong>
-          <span>Saved on your device</span>
+
+        <div className="ring-stage" aria-label="Featured scholarships">
+          <div className="ring" style={{ "--n": ringScholarships.length }}>
+            {ringScholarships.map((s, index) => (
+              <Link
+                to="/scholarships"
+                className="ring-card"
+                style={{ "--a": index }}
+                key={s.id}
+                tabIndex={-1}
+              >
+                <small>{s.fullRide ? "Full ride" : s.renewable ? "Renewable" : "One-time"}</small>
+                <strong>{s.name}</strong>
+                <em>{s.amount}</em>
+              </Link>
+            ))}
+          </div>
+          <div className="ring-floor" aria-hidden="true" />
         </div>
       </section>
 
       {/* COMPASS */}
-      <section className="landing-compass reveal">
+      <section className="landing-compass reveal" ref={compassRef}>
         <div className="landing-compass-copy">
           <p className="section-label">YOUR JOURNEY</p>
           <h2>
@@ -211,41 +353,6 @@ function Landing() {
         </div>
       </section>
 
-      {/* FOUR PILLARS */}
-      <section className="features reveal" id="explore">
-        <div className="pillars-heading">
-          <p className="section-label">FOUR PILLARS</p>
-          <h2>Find your <em>next</em> step.</h2>
-        </div>
-
-        <div className="feature-grid">
-          <Link to="/schedule" className="feature-card">
-            <span className="pillar-number">01 / PLAN</span>
-            <h3>Plan</h3>
-            <p>Explore courses and shape a balanced high school schedule around your goals.</p>
-            <span className="feature-arrow" aria-hidden="true">&#8599;</span>
-          </Link>
-          <Link to="/opportunities" className="feature-card">
-            <span className="pillar-number">02 / PURSUE</span>
-            <h3>Pursue</h3>
-            <p>Find ideas for projects, service, competitions, research, and summer plans.</p>
-            <span className="feature-arrow" aria-hidden="true">&#8599;</span>
-          </Link>
-          <Link to="/resume-maker" className="feature-card">
-            <span className="pillar-number">03 / PRESENT</span>
-            <h3>Present</h3>
-            <p>Describe your work clearly with a resume that reflects what you actually did.</p>
-            <span className="feature-arrow" aria-hidden="true">&#8599;</span>
-          </Link>
-          <Link to="/test-prep" className="feature-card">
-            <span className="pillar-number">04 / PREPARE</span>
-            <h3>Prepare</h3>
-            <p>Build study habits and get ready for the tests and classes ahead.</p>
-            <span className="feature-arrow" aria-hidden="true">&#8599;</span>
-          </Link>
-        </div>
-      </section>
-
       {/* MAKE IT YOURS */}
       <section className="why-section reveal">
         <div className="why-content">
@@ -264,62 +371,66 @@ function Landing() {
           </Link>
         </div>
 
-        {/* Product preview */}
-        <div className="preview" aria-hidden="true">
-          <div className="preview-bar">
-            <span />
-            <span />
-            <span />
-            <p>north / my-north</p>
-          </div>
-          <div className="preview-body">
-            <aside className="preview-side">
-              <b>NORTH ✦</b>
-              <i className="on">My North</i>
-              <i>GPA</i>
-              <i>Resume Maker</i>
-              <i>Goals</i>
-              <i>Scholarships</i>
-              <i>Test Prep</i>
-            </aside>
-            <div className="preview-main">
-              <p className="preview-hi">Hi, Maya.</p>
-              <div className="preview-grid">
-                <div className="preview-card">
-                  <small>Weighted GPA</small>
-                  <strong className="accent">4.21</strong>
-                  <div className="preview-bars">
-                    <span style={{ height: "62%" }} />
-                    <span style={{ height: "74%" }} />
-                    <span style={{ height: "86%" }} />
-                    <span style={{ height: "20%" }} className="dim" />
+        {/* Product preview: tilts toward the cursor */}
+        <div className="preview-tilt tilt">
+          <div className="preview" aria-hidden="true">
+            <div className="preview-bar">
+              <span />
+              <span />
+              <span />
+              <p>north / my-north</p>
+            </div>
+            <div className="preview-body">
+              <aside className="preview-side">
+                <b>NORTH ✦</b>
+                <i className="on">My North</i>
+                <i>GPA</i>
+                <i>Resume Maker</i>
+                <i>Goals</i>
+                <i>Scholarships</i>
+                <i>Test Prep</i>
+              </aside>
+              <div className="preview-main">
+                <p className="preview-hi">Hi, Maya.</p>
+                <div className="preview-grid">
+                  <div className="preview-card">
+                    <small>Weighted GPA</small>
+                    <strong className="accent">4.21</strong>
+                    <div className="preview-bars">
+                      <span style={{ "--h": "62%" }} />
+                      <span style={{ "--h": "74%" }} />
+                      <span style={{ "--h": "86%" }} />
+                      <span style={{ "--h": "20%" }} className="dim" />
+                    </div>
                   </div>
-                </div>
-                <div className="preview-card">
-                  <small>Scholarships</small>
-                  <div className="preview-pipe">
-                    <span><b>6</b>Saved</span>
-                    <span><b>3</b>Applying</span>
-                    <span><b>2</b>Sent</span>
+                  <div className="preview-card">
+                    <small>Scholarships</small>
+                    <div className="preview-pipe">
+                      <span><b>6</b>Saved</span>
+                      <span><b>3</b>Applying</span>
+                      <span><b>2</b>Sent</span>
+                    </div>
+                    <div className="preview-row">
+                      <em>Coolidge Scholarship</em>
+                      <u>Full ride</u>
+                    </div>
+                    <div className="preview-row">
+                      <em>Davidson Fellows</em>
+                      <u>$25K+</u>
+                    </div>
                   </div>
-                  <div className="preview-row">
-                    <em>Coolidge Scholarship</em>
-                    <u>Full ride</u>
+                  <div className="preview-card wide">
+                    <small>Goals</small>
+                    <div className="preview-goal"><i />Finish robotics season portfolio</div>
+                    <div className="preview-goal"><i className="b" />Raise ACT math to a 30</div>
+                    <div className="preview-goal done"><i className="g" />Ask for a recommendation letter</div>
                   </div>
-                  <div className="preview-row">
-                    <em>Davidson Fellows</em>
-                    <u>$25K+</u>
-                  </div>
-                </div>
-                <div className="preview-card wide">
-                  <small>Goals</small>
-                  <div className="preview-goal"><i />Finish robotics season portfolio</div>
-                  <div className="preview-goal"><i className="b" />Raise ACT math to a 30</div>
-                  <div className="preview-goal done"><i className="g" />Ask for a recommendation letter</div>
                 </div>
               </div>
             </div>
           </div>
+          <span className="preview-chip chip-a" aria-hidden="true">✦ Saved on this device</span>
+          <span className="preview-chip chip-b" aria-hidden="true">GPA 4.21 ↑</span>
         </div>
       </section>
 
@@ -361,6 +472,11 @@ function Landing() {
       {/* FINAL CTA */}
       <section className="home-cta reveal">
         <BackgroundPaths />
+        <div className="cta-orbs" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
         <p className="section-label">START HERE</p>
         <h2>
           Ready to find

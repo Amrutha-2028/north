@@ -19,6 +19,7 @@ const SELECTOR = [
   ".op-break-step",
   ".gpa-info-card",
   ".spot",
+  ".tilt",
 ].join(",");
 
 let tilted = null;

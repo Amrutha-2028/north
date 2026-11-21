@@ -740,3 +740,142 @@ h2 span {
     background: #fff;
   }
 }
+
+/* ==========================================================================
+   Site-wide motion
+   ========================================================================== */
+
+/* Cursor glow + gathering spheres (CursorField) */
+.cursor-field {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Gold scroll-progress bar under the navbar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  height: 2px;
+  pointer-events: none;
+}
+
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  box-shadow: 0 0 12px rgba(243, 216, 155, 0.7);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Page enter */
+.page-transition {
+  animation: pageEnter 0.6s var(--ease) backwards;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+/* Cards rise in, staggered, as they scroll into view (MotionLayer) */
+[data-reveal] {
+  opacity: 0;
+  translate: 0 28px;
+  scale: 0.97;
+  transition:
+    opacity 0.7s var(--ease) calc(var(--i, 0) * 70ms),
+    translate 0.8s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 70ms),
+    scale 0.8s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 70ms);
+}
+
+[data-reveal].in {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+
+/* Magnetic buttons lean toward the pointer (MotionLayer sets --tx/--ty) */
+.btn-primary,
+.btn-lg,
+.magnetic,
+.nav-me,
+.rm-primary-button,
+.tp-button--primary {
+  translate: var(--tx, 0) var(--ty, 0);
+  transition-property: background, border-color, color, box-shadow, translate;
+  transition-duration: 0.2s;
+}
+
+/* Page titles: a light block wipes across, then the title is revealed */
+.page-header h1 {
+  position: relative;
+}
+
+.page-header h1::after {
+  content: "";
+  position: absolute;
+  inset: 0.04em -0.08em;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: blockWipe 1s cubic-bezier(0.7, 0, 0.2, 1) 0.1s both;
+  pointer-events: none;
+}
+
+@keyframes blockWipe {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  45% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+
+/* Gold accent words shimmer */
+h1 em,
+h2 em {
+  background: linear-gradient(100deg, var(--gold) 0%, #fff4d6 45%, var(--gold-strong) 60%, var(--gold) 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 5s ease-in-out infinite;
+  padding-right: 0.06em;
+}
+
+@keyframes goldShimmer {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+}
+
+@media print {
+  .cursor-field,
+  .scroll-progress {
+    display: none !important;
+  }
+}
